@@ -15,13 +15,24 @@ if(process.env.NODE_ENV === 'production') {
     })
 }
 
+app.get('/', (req, res) => {
+    res.send('Hello World')
+})
+
 //connecting to MongoDB
-const dbURI = config.get('dbURI');
+// const dbURI = config.get('dbURI');
+const dbURI = process.env.MONGO_URI;
 const port = process.env.PORT || 4000;
 mongoose.connect (dbURI, {
     useNewUrlParser: true, 
     useUnifiedTopology: true,
     // useCreateIndex : true
 })
-    .then ((result) => app.listen(port))
+    .then ((result) => {
+        app.listen(port)
+        console.log(`Connected to Database`)
+    })
     .catch ((err) => console.log(err))
+
+
+   
