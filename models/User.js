@@ -23,11 +23,7 @@ const UserSchema = new Schema ({
         default: Date.now
     },
     // if student, teacher, or outside researcher
-    status: { 
-        type: String,
-        required: [true, "Please enter your status."]
-    },
-    id: {
+    identification_num: {
         type: String,
         required: [true, "Please enter your ID number"]
     }

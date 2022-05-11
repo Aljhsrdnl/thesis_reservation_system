@@ -1,0 +1,50 @@
+const User = require('../models/User')
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+const dotenv = require('dotenv')
+dotenv.config()
+
+module.exports.register = (req, res) => {
+    const { name, email, password, identification_num } = req.body;
+
+    if (!name || !email || !password || !identification_num) {
+        res.status(400).json({ msg: "Please enter all fields."})
+    }
+
+    User.findOne({email})
+        .then(user => {
+            if(user) {
+                return res.status(400).json({ msg: "Email has already been used."})
+            }
+        })
+
+    const newUser = new User ({ name, email, password, id })
+
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(password, salt, (err, hash) => {
+            if (err) throw err;
+            newUser.password = hash;
+            newUser.save()
+                .then(user => {
+                    jwt.sign(
+                        { id: user._id },
+                        process.env.SECRET_KEY,
+                        { expiresIn: 3600},
+                        ( err, token ) => {
+                            if(err) throw err;
+                            res.json({
+                                token,
+                                user: {
+                                    id: user._id,
+                                    name: user.name,
+                                    email:user.email,
+                                    identification_num: user.identification_num,
+                                }
+                            })
+                        }
+                    )
+                })
+        })
+    })
+
+}

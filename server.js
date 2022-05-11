@@ -1,7 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const path = require('path')
-const config = require('config')
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -15,24 +14,24 @@ if(process.env.NODE_ENV === 'production') {
     })
 }
 
+//connecting to MongoDB
+const dbURI = process.env.MONGO_URI;
+mongoose.connect(dbURI, {
+    useNewUrlParser: true,
+	useUnifiedTopology: true,
+})
+    .then(console.log('successfully connected to database'))
+
+
+
+
+
 app.get('/', (req, res) => {
     res.send('Hello World')
 })
 
-//connecting to MongoDB
-// const dbURI = config.get('dbURI');
-const dbURI = process.env.MONGO_URI;
 const port = process.env.PORT || 4000;
-mongoose.connect (dbURI, {
-    useNewUrlParser: true, 
-    useUnifiedTopology: true,
-    // useCreateIndex : true
+app.listen(port, (err) =>{
+    if(err) console.log(err);
+    console.log(`Server is listening on port ${port}`)
 })
-    .then ((result) => {
-        app.listen(port)
-        console.log(`Connected to Database`)
-    })
-    .catch ((err) => console.log(err))
-
-
-   
