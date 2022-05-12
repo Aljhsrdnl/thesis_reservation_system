@@ -5,7 +5,7 @@ const dotenv = require('dotenv')
 dotenv.config()
 
 module.exports.register = (req, res) => {
-    const { name, email, password, identification_num } = req.body;
+    const { name, email, password, user_type, identification_num } = req.body;
 
     if (!name || !email || !password || !identification_num) {
         res.status(400).json({ msg: "Please enter all fields."})
@@ -18,7 +18,7 @@ module.exports.register = (req, res) => {
             }
         })
 
-    const newUser = new User ({ name, email, password, id })
+    const newUser = new User ({ name, email, password, user_type, identification_num })
 
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(password, salt, (err, hash) => {

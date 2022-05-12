@@ -22,7 +22,11 @@ const UserSchema = new Schema ({
         type: Date,
         default: Date.now
     },
-    // if student, teacher, or outside researcher
+    // if user / admin for user role management
+    user_type: {
+        type: String,
+        default: "user"
+    },
     identification_num: {
         type: String,
         required: [true, "Please enter your ID number"]
