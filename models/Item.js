@@ -14,6 +14,10 @@ const ItemSchema = new Schema ({
     avail_quantity: {
         type: Number,
         required: true,
+    },
+    imageURL: {
+        type: String,
+        required: true,
     }
 })
 
