@@ -18,6 +18,10 @@ const ItemSchema = new Schema ({
     imageURL: {
         type: String,
         required: true,
+    },
+    variant: { //for different sizes of item
+        type: [],
+        required: true,
     }
 })
 
