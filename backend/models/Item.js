@@ -20,7 +20,7 @@ const ItemSchema = new Schema ({
         required: true,
     },
     variant: { //for different sizes of item
-        type: [],
+        type: String,
         required: true,
     }
 })

@@ -4,8 +4,14 @@ const path = require('path')
 const dotenv = require('dotenv')
 dotenv.config()
 
+//routes
+const itemsRoutes = require('./routes/itemRoutes')
+
 const app = express();
 app.use(express.json());
+
+const connectDB = require('./config/db');
+const res = require('express/lib/response')
 
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
@@ -15,20 +21,14 @@ if(process.env.NODE_ENV === 'production') {
 }
 
 //connecting to MongoDB
-const dbURI = process.env.MONGO_URI;
-mongoose.connect(dbURI, {
-    useNewUrlParser: true,
-	useUnifiedTopology: true,
-})
-    .then(console.log('successfully connected to database'))
-
-
-
-
+connectDB();
 
 app.get('/', (req, res) => {
     res.send('Hello World')
 })
+
+app.use(itemsRoutes);
+
 
 const port = process.env.PORT || 4000;
 app.listen(port, (err) =>{
