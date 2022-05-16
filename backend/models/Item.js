@@ -15,14 +15,15 @@ const ItemSchema = new Schema ({
         type: Number,
         required: true,
     },
+    unit: { //for different sizes of item
+        type: String,
+        required: true,
+    },
     imageURL: {
         type: String,
         required: true,
     },
-    variant: { //for different sizes of item
-        type: String,
-        required: true,
-    }
+
 })
 
 module.exports = Item = mongoose.model('item', ItemSchema);
