@@ -6,6 +6,8 @@ dotenv.config()
 
 //routes
 const itemsRoutes = require('./routes/itemRoutes')
+const userRoutes = require('./routes/userRoutes')
+const bagRoutes = require('./routes/bagRoutes')
 
 const app = express();
 app.use(express.json());
@@ -28,7 +30,8 @@ app.get('/', (req, res) => {
 })
 
 app.use(itemsRoutes);
-
+app.use(userRoutes);
+app.use(bagRoutes);
 
 const port = process.env.PORT || 4000;
 app.listen(port, (err) =>{

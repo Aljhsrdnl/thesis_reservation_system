@@ -23,9 +23,11 @@ const UserSchema = new Schema ({
         default: Date.now
     },
     // if user / admin for user role management
+    //dropdown selection sa frontend
     user_type: {
         type: String,
-        default: "user"
+        default: "WVSU Student", //Outside Researcher, Teacher, Admin
+        required: true
     },
     identification_num: {
         type: String,

@@ -3,10 +3,8 @@ const itemsData = require('./data/itemsData');
 const connectDB = require('./config/db');
 const Item = require('./models/Item');
 
-connectDB();
 //delete all items in DB and insert new documents
 
-console.log(itemsData)
 const importData = async() => {
     try {
         await Item.deleteMany({});
@@ -20,4 +18,6 @@ const importData = async() => {
     }
 }
 
-importData();
+
+connectDB()
+    .then(importData())
