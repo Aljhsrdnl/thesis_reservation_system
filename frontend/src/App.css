@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F6F9EF;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+
+
+@media (min-width:1024px) {
+    body {
+        margin-left: 7rem;
+        margin-right: 7rem;
+    }
+}
