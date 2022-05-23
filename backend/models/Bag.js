@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const BagSchema = new Schema ({
     user_ID: { //needed to identify which users owns the bag
-        type: stringify
+        type: String
     },
     items_in_bag: {
         item_ID: { 
