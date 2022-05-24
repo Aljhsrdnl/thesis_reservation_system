@@ -4,9 +4,7 @@ const bcrypt = require('bcrypt')
 const dotenv = require('dotenv')
 dotenv.config()
 
-module.exports.register_page = (req, res) => {
-    res.send('Sign up page')
-}
+
 
 module.exports.register = (req, res) => {
     const { name, email, password, user_type, identification_num } = req.body;
