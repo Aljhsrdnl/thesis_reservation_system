@@ -1,13 +1,31 @@
 import React from "react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import background_img from "../icons/bg-01.png";
 import google_icon from "../icons/google_icon.png";
 import { Link } from "react-router-dom";
 import { input_style, primaryBtn, secondaryBtnIcon } from "./styles";
 
+//action
+import { login } from "../actions/authActions";
+
 const Login = () => {
+  const dispatch = useDispatch();
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleLoginData = (e) => {
+    setLoginData({
+      ...loginData,
+      [e.target.name]: e.target.value,
+    });
+  };
   const handleSubmission = (e) => {
     e.preventDefault();
+    console.log(loginData);
+    dispatch(login(loginData));
   };
 
   return (
@@ -31,6 +49,7 @@ const Login = () => {
               autoComplete="off"
               placeholder="al"
               name="email"
+              onChange={handleLoginData}
             />
             <label
               htmlFor="email"
@@ -47,6 +66,7 @@ const Login = () => {
               autoComplete="off"
               placeholder="al"
               name="password"
+              onChange={handleLoginData}
             />
             <label
               htmlFor="password"

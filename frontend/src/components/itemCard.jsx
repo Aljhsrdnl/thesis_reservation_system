@@ -1,6 +1,6 @@
 import React from "react";
 
-const itemCard = ({ name, category }) => {
+const itemCard = ({ name, category, itemID }) => {
   return (
     <div className=" bg-white rounded-lg shadow-lg transition-shadow  hover:scale-105 transition-scale">
       {/* <div

@@ -27,7 +27,9 @@ const HomeScreen = () => {
         {isLoading ? (
           <h2>Loading...</h2>
         ) : (
-          equipment.map((e) => <ItemCard name={e.name} category={e.category} />)
+          equipment.map((e) => (
+            <ItemCard name={e.name} category={e.category} itemID={e._id} />
+          ))
         )}
       </div>
       <h1 className="text-3xl text-green-800 font-bold mb-4">Apparatus</h1>
