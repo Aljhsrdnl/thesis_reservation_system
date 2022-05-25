@@ -2,52 +2,41 @@ import React from "react";
 
 //components
 import ItemCard from "../components/itemCard";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+//actions
+import { getItems } from "../actions/itemActions";
 
 const HomeScreen = () => {
+  const dispatch = useDispatch();
+  const getItemsData = useSelector((data) => data.itemReducer);
+  const { items, isLoading } = getItemsData;
+
+  const apparatus = items.filter((item) => item.category == "Apparatus");
+
+  const equipment = items.filter((item) => item.category == "Equipment");
+
+  useEffect(() => {
+    dispatch(getItems());
+  }, [dispatch]);
   return (
     <div className="">
-      <div className="itemDiv grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-row-fr ">
-        <ItemCard imgURL="https://tinyurl.com/ymxp5f6r" name="Test Tube" />
-        <ItemCard
-          imgURL="https://cdn11.bigcommerce.com/s-zgzol/images/stencil/1280x1280/products/9203/19709/41wN0licTyL__00855.1400768261.1280.1280__74881.1462463959.jpg?c=2&imbypass=on"
-          name="Beaker"
-        />
-        <ItemCard
-          imgURL="https://www.corning.com/catalog/cls/products/p/pyrexCylinderSingleMetricScaleGraduatedToContain/images/pyrexCylinderSingleMetricScaleGraduatedToContain_A.jpg/_jcr_content/renditions/product.zoom.1200.jpg"
-          name="Graduated Cylinder"
-        />
-        <ItemCard
-          imgURL="https://www.corning.com/catalog/cls/products/p/pyrexCylinderSingleMetricScaleGraduatedToContain/images/pyrexCylinderSingleMetricScaleGraduatedToContain_A.jpg/_jcr_content/renditions/product.zoom.1200.jpg"
-          name="Graduated Cylinder"
-        />
-        <ItemCard
-          imgURL="https://www.corning.com/catalog/cls/products/p/pyrexCylinderSingleMetricScaleGraduatedToContain/images/pyrexCylinderSingleMetricScaleGraduatedToContain_A.jpg/_jcr_content/renditions/product.zoom.1200.jpg"
-          name="Graduated Cylinder"
-        />
-        <ItemCard
-          imgURL="https://www.corning.com/catalog/cls/products/p/pyrexCylinderSingleMetricScaleGraduatedToContain/images/pyrexCylinderSingleMetricScaleGraduatedToContain_A.jpg/_jcr_content/renditions/product.zoom.1200.jpg"
-          name="Graduated Cylinder"
-        />
-        <ItemCard
-          imgURL="https://www.corning.com/catalog/cls/products/p/pyrexCylinderSingleMetricScaleGraduatedToContain/images/pyrexCylinderSingleMetricScaleGraduatedToContain_A.jpg/_jcr_content/renditions/product.zoom.1200.jpg"
-          name="Graduated Cylinder"
-        />
-        <ItemCard
-          imgURL="https://www.corning.com/catalog/cls/products/p/pyrexCylinderSingleMetricScaleGraduatedToContain/images/pyrexCylinderSingleMetricScaleGraduatedToContain_A.jpg/_jcr_content/renditions/product.zoom.1200.jpg"
-          name="Graduated Cylinder"
-        />
-        <ItemCard
-          imgURL="https://www.corning.com/catalog/cls/products/p/pyrexCylinderSingleMetricScaleGraduatedToContain/images/pyrexCylinderSingleMetricScaleGraduatedToContain_A.jpg/_jcr_content/renditions/product.zoom.1200.jpg"
-          name="Graduated Cylinder"
-        />
-        <ItemCard
-          imgURL="https://www.corning.com/catalog/cls/products/p/pyrexCylinderSingleMetricScaleGraduatedToContain/images/pyrexCylinderSingleMetricScaleGraduatedToContain_A.jpg/_jcr_content/renditions/product.zoom.1200.jpg"
-          name="Graduated Cylinder"
-        />
-        <ItemCard
-          imgURL="https://www.corning.com/catalog/cls/products/p/pyrexCylinderSingleMetricScaleGraduatedToContain/images/pyrexCylinderSingleMetricScaleGraduatedToContain_A.jpg/_jcr_content/renditions/product.zoom.1200.jpg"
-          name="Graduated Cylinder"
-        />
+      <h1 className="text-3xl text-green-800 font-bold mb-4">Equipment</h1>
+      <div className="itemDiv grid grid-cols-1 lg:grid-cols-2 gap-6 auto-row-fr mb-8 border-b-2 border-green-400 pb-8">
+        {isLoading ? (
+          <h2>Loading...</h2>
+        ) : (
+          equipment.map((e) => <ItemCard name={e.name} category={e.category} />)
+        )}
+      </div>
+      <h1 className="text-3xl text-green-800 font-bold mb-4">Apparatus</h1>
+      <div className="itemDiv grid grid-cols-1 lg:grid-cols-2 gap-6 auto-row-fr ">
+        {isLoading ? (
+          <h2>Loading...</h2>
+        ) : (
+          apparatus.map((e) => <ItemCard name={e.name} category={e.category} />)
+        )}
       </div>
     </div>
   );
