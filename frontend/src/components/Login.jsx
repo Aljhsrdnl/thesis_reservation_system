@@ -6,17 +6,6 @@ import { Link } from "react-router-dom";
 import { input_style, primaryBtn, secondaryBtnIcon } from "./styles";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const emailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const passwordChange = (e) => {
-    setPassword(e.target.value);
-  };
-
   const handleSubmission = (e) => {
     e.preventDefault();
   };
@@ -26,7 +15,7 @@ const Login = () => {
       <div className="imageHolder hidden lg:block lg:w-1/2">
         <img src={background_img} alt="scientist_pic" />
       </div>
-      <div className="div_form w-96">
+      <div className="div_form w-7/12">
         <form action="" className="bg-white p-8 rounded-2xl shadow-lg">
           <h1 className="text-green-800 text-4xl font-bold mb-12">Login</h1>
           <button className={secondaryBtnIcon}>
@@ -34,20 +23,38 @@ const Login = () => {
             Login with Google
           </button>
           <p className="text-gray-800 text-center m-12">-OR-</p>
-          <input
-            type="text"
-            name="email"
-            className={input_style}
-            placeholder="Email"
-            onChange={emailChange}
-          />
-          <input
-            type="password"
-            name="password"
-            className={input_style}
-            placeholder="Password"
-            onChange={passwordChange}
-          />
+          <div className="relative mb-6">
+            <input
+              type="text"
+              id="email"
+              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-green-600 focus:outline-none placeholder-transparent w-full text-gray-800"
+              autoComplete="off"
+              placeholder="al"
+              name="email"
+            />
+            <label
+              htmlFor="email"
+              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-green-600 peer-placeholder-shown:text-gray-400 text-green-600"
+            >
+              Email
+            </label>
+          </div>
+          <div className="relative mb-6">
+            <input
+              type="password"
+              id="password"
+              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-green-600 focus:outline-none placeholder-transparent w-full text-gray-800"
+              autoComplete="off"
+              placeholder="al"
+              name="password"
+            />
+            <label
+              htmlFor="password"
+              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-green-600 peer-placeholder-shown:text-gray-400 text-green-600"
+            >
+              Password
+            </label>
+          </div>
           <button className={primaryBtn} onClick={handleSubmission}>
             LOG IN
           </button>

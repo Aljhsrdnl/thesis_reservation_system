@@ -22,6 +22,12 @@ if(process.env.NODE_ENV === 'production') {
     })
 }
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+})
+
 //connecting to MongoDB
 connectDB();
 
@@ -33,7 +39,7 @@ app.use(itemsRoutes);
 app.use(userRoutes);
 app.use(bagRoutes);
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 app.listen(port, (err) =>{
     if(err) console.log(err);
     console.log(`Server is listening on port ${port}`)

@@ -3,6 +3,7 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     colors: {
+      'transparent': 'transparent',
       'green': {
         400: "#D8E9A8",
         600: "#4E9F3D",
@@ -23,7 +24,11 @@ module.exports = {
       'body-background': '#F6F9EF',
       'white': '#ffffff'
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif']
+      }
+    },
   },
   plugins: [],
 }
