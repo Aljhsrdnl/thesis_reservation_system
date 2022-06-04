@@ -1,40 +1,73 @@
 import React from "react";
 import { useState } from "react";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import background_img from "../icons/bg-01.png";
 import google_icon from "../icons/google_icon.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+// import { createBrowserHistory } from "history";
 import { input_style, primaryBtn, secondaryBtnIcon } from "./styles";
 
 //action
-import { login } from "../actions/authActions";
+// import { login } from "../actions/authActions";
+import { dispatchLogin } from "../redux/actions/authAction";
 
-const Login = () => {
+const initialState = {
+  email: "",
+  password: "",
+  err: "",
+  success: "",
+};
+
+// const handleLoginData = (e) => {
+//   setLoginData({
+//     ...loginData,
+//     [e.target.name]: e.target.value,
+//   });
+// };
+// const handleSubmission = (e) => {
+//   e.preventDefault();
+//   console.log(loginData);
+//   dispatch(login(loginData));
+// };
+function Login() {
   const dispatch = useDispatch();
-  const [loginData, setLoginData] = useState({
-    email: "",
-    password: "",
-  });
+  const [user, setUser] = useState(initialState);
+  const navigate = useNavigate();
 
-  const handleLoginData = (e) => {
-    setLoginData({
-      ...loginData,
-      [e.target.name]: e.target.value,
-    });
+  const { email, password, err, success } = user;
+
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value, err: "", success: "" });
   };
-  const handleSubmission = (e) => {
+
+  const handleSubmit = async (e) => {
+    console.log(user);
     e.preventDefault();
-    console.log(loginData);
-    dispatch(login(loginData));
-  };
+    try {
+      const res = await axios.post("/user/login", { email, password });
+      setUser({ ...user, err: "", success: res.data.msg });
 
+      localStorage.setItem("firstLogin", true);
+
+      dispatch(dispatchLogin());
+      navigate("/");
+    } catch (err) {
+      err.response.data.msg &&
+        setUser({ ...user, err: err.response.data.msg, success: "" });
+    }
+  };
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="flex h-max items-center justify-center">
       <div className="imageHolder hidden lg:block lg:w-1/2">
         <img src={background_img} alt="scientist_pic" />
       </div>
       <div className="div_form w-7/12">
-        <form action="" className="bg-white p-8 rounded-2xl shadow-lg">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white p-8 rounded-2xl shadow-lg"
+        >
           <h1 className="text-green-800 text-4xl font-bold mb-12">Login</h1>
           <button className={secondaryBtnIcon}>
             <img src={google_icon} alt="google_icon" className="w-6 mr-4" />
@@ -46,10 +79,11 @@ const Login = () => {
               type="text"
               id="email"
               className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-green-600 focus:outline-none placeholder-transparent w-full text-gray-800"
-              autoComplete="off"
+              // autoComplete="off"
               placeholder="al"
               name="email"
-              onChange={handleLoginData}
+              // =value={email}
+              onChange={handleChangeInput}
             />
             <label
               htmlFor="email"
@@ -66,7 +100,8 @@ const Login = () => {
               autoComplete="off"
               placeholder="al"
               name="password"
-              onChange={handleLoginData}
+              // value={password}
+              onChange={handleChangeInput}
             />
             <label
               htmlFor="password"
@@ -75,10 +110,10 @@ const Login = () => {
               Password
             </label>
           </div>
-          <button className={primaryBtn} onClick={handleSubmission}>
+          <button className={primaryBtn} type="submit">
             LOG IN
           </button>
-          <Link to="/signup">
+          <Link to="/register">
             <small className="block w-full text-center mt-2 text-gray-800">
               Don't have an account?{" "}
               <span className="text-green-600 font-semibold">
@@ -90,6 +125,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Login;

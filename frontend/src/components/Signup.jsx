@@ -31,7 +31,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="flex h-max   items-center justify-center">
       <div className="imageHolder hidden lg:block lg:w-1/2">
         <img src={background_img} alt="scientist_pic" />
       </div>

@@ -1,38 +1,32 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const { isEmail } = require('validator');
+const mongoose = require('mongoose')
 
-const UserSchema = new Schema ({
+
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
+        required: [true, "Please enter your name!"],
+        trim: true
     },
     email: {
         type: String,
-        required: [true, "Please enter an email"],
-        unique: true,
-        validate: [isEmail, "Please enter a valid email"]
+        required: [true, "Please enter your email!"],
+        trim: true,
+        unique: true
     },
     password: {
         type: String,
-        required: [true, "Please enter a password"],
-        minlength: [6, "Minimum password length must be 6 characters"]
+        required: [true, "Please enter your password!"]
     },
-    register_date: {
-        type: Date,
-        default: Date.now
-    },
-    // if user / admin for user role management
-    //dropdown selection sa frontend
     user_type: {
         type: String,
         default: "WVSU Student", //Outside Researcher, Teacher, Admin
-        required: true
     },
     identification_num: {
         type: String,
         required: [true, "Please enter your ID number"]
     }
+}, {
+    timestamps: true
 })
 
-module.exports = User = mongoose.model('user', UserSchema);
+module.exports = mongoose.model("User", userSchema)

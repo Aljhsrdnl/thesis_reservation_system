@@ -1,6 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const path = require('path')
+const cookieParser = require('cookie-parser')   
+const cors = require('cors')
 const dotenv = require('dotenv')
 dotenv.config()
 
@@ -11,6 +13,8 @@ const bagRoutes = require('./routes/bagRoutes')
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
+app.use(cors());
 
 const connectDB = require('./config/db');
 const res = require('express/lib/response')
@@ -36,7 +40,7 @@ app.get('/', (req, res) => {
 })
 
 app.use(itemsRoutes);
-app.use(userRoutes);
+app.use('/user', userRoutes);
 app.use(bagRoutes);
 
 const port = process.env.PORT || 5000;
