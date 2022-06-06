@@ -5,7 +5,7 @@ const ReservationSchema = new Schema ({
     user_ID: {
         type: String
     },
-    items_in_reservation: [
+    items_in_reservation: 
         {
             item_ID: { type: String },
             name: String,
@@ -14,11 +14,14 @@ const ReservationSchema = new Schema ({
                 required: true,
                 min: [1, 'Quantity cannot be less than 1.']
             }
-        }
-    ],
+        },
     date_made: {
         type: Date,
         default: Date.now
+    },
+    //Values for status: Pending, Rejected, Approved, Active (on-use), Returned
+    status:{
+        type: String
     }
 
 })

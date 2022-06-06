@@ -1,7 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
-const ItemSchema = new Schema ({
+const mongoose = require('mongoose')
+const itemSchema = new mongoose.Schema({
     //we do not need to put an ID because MongoDB will automatically put an ID  
     name: {
         type: String,
@@ -13,11 +11,7 @@ const ItemSchema = new Schema ({
     },
     avail_quantity: {
         type: Number,
-        required: true,
-    },
-    unit: { //for different sizes of item
-        type: String,
-        required: true,
+        default: 0
     },
     imageURL: {
         type: String,
@@ -25,4 +19,6 @@ const ItemSchema = new Schema ({
 
 })
 
-module.exports = Item = mongoose.model('item', ItemSchema);
+const Item = mongoose.model('Item', itemSchema);
+
+module.exports = Item;

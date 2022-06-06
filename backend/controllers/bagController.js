@@ -11,7 +11,7 @@ module.exports.get_bag_items = async (req, res) => {
 }
 
 module.exports.create_bag = async (req, res) => {
-    const userID = req.params.id;
+    const userID = req.params.id; 
     const newBag = Bag.create({
         user_UD: userID,
         items_in_bag: [],

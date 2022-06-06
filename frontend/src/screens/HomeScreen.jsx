@@ -48,6 +48,7 @@ const HomeScreen = () => {
               category={e.category}
               key={e._id}
               itemID={e._id}
+              a_quantity={e.avail_quantity}
             />
           ))
         )}
@@ -63,6 +64,7 @@ const HomeScreen = () => {
               category={e.category}
               key={e._id}
               itemID={e._id}
+              a_quantity={e.avail_quantity}
             />
           ))
         )}

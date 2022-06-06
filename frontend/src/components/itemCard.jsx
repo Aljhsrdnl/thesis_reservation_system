@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const ItemCard = ({ name, category, itemID }) => {
+const ItemCard = ({ name, category, itemID, a_quantity }) => {
   const dispatch = useDispatch();
   const auth = useSelector((data) => data.auth);
   const { user } = auth;
@@ -34,15 +34,26 @@ const ItemCard = ({ name, category, itemID }) => {
       ></div> */}
       <div className="flex item-center justify-center details p-3">
         <div className="flex-1">
-          <p className="text-gray-500">{category}</p>
+          {/* <p className="text-gray-400">{category}</p> */}
           <h1 className="text-green-600 font-bold text-xl">{name}</h1>
+          <p className="text-gray-600 text-sm">
+            Available quantity: {a_quantity}
+          </p>
         </div>
-        <button
-          className=" rounded bg-green-600 text-white p-2 hover:bg-green-800 my-2"
+        {/* <button
+          className=" rounded bg-green-600 text-white p-2 px-4 hover:bg-green-800 my-2"
           onClick={handleAddToCart}
         >
-          ADD ITEM
-        </button>
+          RESERVE
+        </button> */}
+        <Link to="/">
+          <button
+            className=" rounded bg-green-600 text-white p-2 px-4 hover:bg-green-800 my-2"
+            onClick={handleAddToCart}
+          >
+            ADD ITEM
+          </button>
+        </Link>
       </div>
     </div>
   );

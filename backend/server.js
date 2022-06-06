@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
     res.send('Hello World')
 })
 
-app.use(itemsRoutes);
+app.use('/api', itemsRoutes);
 app.use('/user', userRoutes);
 app.use(bagRoutes);
 
