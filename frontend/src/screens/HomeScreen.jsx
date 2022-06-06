@@ -31,6 +31,7 @@ const HomeScreen = () => {
   useEffect(() => {
     dispatch(getItems());
   }, [dispatch]);
+
   return (
     <div className="">
       <h1 className="text-3xl text-green-800 font-bold mb-4">Equipment</h1>

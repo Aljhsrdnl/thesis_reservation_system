@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Lottie from "react-lottie";
 import { primaryBtn } from "../components/styles";
 import EmptyCart from "../icons/empty-bag.json";
@@ -22,46 +22,58 @@ const BagScreen = () => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-  const getBagData = useSelector((data) => data.bag);
-  const { bag, isLoading } = getBagData;
 
+  const { id } = useParams();
   //data--bag
+
+  // dispatch()
   const dispatch = useDispatch();
 
-  // //data--user
-  const getUserData = useSelector((data) => data.auth);
-  const { user } = getUserData;
-
+  const getBagItems = useSelector((state) => state.bag);
+  const { isLoading, bag } = getBagItems;
   useEffect(() => {
-    if (user._id !== undefined) {
-      dispatch(getCart(user._id));
-    }
-  }, [user]);
+    dispatch(getCart(id));
+  }, [dispatch]);
+
+  console.log(bag);
 
   return (
     <div className="absolute right-0 w-full lg:w-2/4 bg-white rounded-xl shadow-lg p-6">
       <h1 className="text-3xl text-green-800 font-bold mb-6">Bag</h1>
 
       <div className="grid-cols-1 gap-6 grid auto-row-fr ">
-        {isLoading ? <p>Loading</p> : <ItemInBag />}
-        {/* {isLoading ? (
-          <p>Loading...</p>
+        {/* {isLoading ? <p>Loading</p> : <p>false</p>} */}
+        {bag.length == 0 ? (
+          <p className="text-gray-400 text-center">
+            Your bag is currently empty.
+            <Link to="/" className="underline pl-2">
+              Start adding some items.
+            </Link>
+          </p>
         ) : (
-          bag.items_in_bag.map((i) => <ItemInBag key={i._id} />)
-        )} */}
+          bag.items_in_bag.map((item) => (
+            <ItemInBag
+              key={item.item_ID}
+              name={item.name}
+              quantity={item.quantity}
+            />
+          ))
+        )}
+        {bag.length != 0 && (
+          <button className="block w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-800 mt-6">
+            RESERVE
+          </button>
+        )}
 
         {/* <Lottie options={defaultOptions} width={300} height={300} /> */}
-        <p className="text-gray-400 text-center">
+        {/* <p className="text-gray-400 text-center">
           Your bag is currently empty.
           <Link to="/" className="underline pl-2">
             Start adding some items.
           </Link>
-        </p>
+        </p> */}
       </div>
       {/* the button reserve will only show up if the cart is not empty */}
-      {/* <button className="block w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-800 mt-6">
-        RESERVE
-      </button> */}
     </div>
   );
 };

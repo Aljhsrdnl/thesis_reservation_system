@@ -10,6 +10,14 @@ module.exports.get_bag_items = async (req, res) => {
         .catch(err => console.error("NO BAG FOUND"))
 }
 
+module.exports.create_bag = async (req, res) => {
+    const userID = req.params.id;
+    const newBag = Bag.create({
+        user_UD: userID,
+        items_in_bag: [],
+    })
+}
+
 module.exports.add_bag_item = async (req, res) => {
     const userID = req.params.id;
     const {productId, quantity, name} = req.body
@@ -23,7 +31,7 @@ module.exports.add_bag_item = async (req, res) => {
         }
 
         if (bag) {
-            let itemIndex = bag.items_in_bag.findIndex(i => i.itemID === productId)
+            let itemIndex = bag.items_in_bag.findIndex(i => i.item_ID === productId)
 
             if(itemIndex > -1) { 
                 let item_in_bag = bag.items_in_bag[itemIndex];
@@ -32,7 +40,12 @@ module.exports.add_bag_item = async (req, res) => {
                 
             }
             else {
-                bag.items_in_bag.push({ productId, name, quantity})
+                const item_add = {
+                    item_ID: productId,
+                    name: name,
+                    quantity: quantity
+                }
+                bag.items_in_bag.push(item_add)
                 
             }
             bag = await bag.save();
@@ -48,7 +61,6 @@ module.exports.add_bag_item = async (req, res) => {
             }
             const newBag = Bag.create({
                 user_ID: userID,
-                
                 items_in_bag: [item_add]
             })
            

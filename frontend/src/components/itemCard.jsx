@@ -3,6 +3,9 @@ import { addToCart } from "../redux/actions/bagAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const ItemCard = ({ name, category, itemID }) => {
   const dispatch = useDispatch();
   const auth = useSelector((data) => data.auth);
@@ -10,7 +13,18 @@ const ItemCard = ({ name, category, itemID }) => {
 
   const handleAddToCart = () => {
     dispatch(addToCart(user._id, itemID, 1, name));
+    activateToaster();
     // console.log(user._id);
+  };
+
+  //Toastify
+  const activateToaster = () => {
+    toast("Item added to bag.", {
+      position: "top-right",
+      autoClose: 3500,
+      icon: "👍",
+      hideProgressBar: true,
+    });
   };
   return (
     <div className=" bg-white rounded-lg shadow-lg transition-shadow  hover:scale-105 transition-scale">

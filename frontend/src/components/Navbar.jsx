@@ -44,7 +44,7 @@ function NavBar() {
   const userLink = () => {
     return (
       <li className="flex items-center">
-        <Link to="/bag">
+        <Link to={{ pathname: `/bag/${user._id}` }}>
           <FaShoppingBag className="text-2xl text-green-600 hover:text-green-800 mr-2 transition-colors" />
         </Link>
         <FaBell className="text-2xl text-green-600 hover:text -green-800 mr-2 transition-colors" />

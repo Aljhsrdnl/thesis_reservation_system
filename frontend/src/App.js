@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+
+import { ToastContainer, toast } from "react-toastify";
 import {
   dispatchLogin,
   fetchUser,
@@ -54,6 +56,7 @@ function App() {
     <Router>
       <div className="App relative">
         {/* <Header/> */}
+        <ToastContainer />
         <NavBar />
         {/* <Navbar click ={() => setSideToggle(true)}/>
         <Backdrop show ={sideToggle} click={()=> setSideToggle(false)}/> */}

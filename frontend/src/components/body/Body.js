@@ -3,9 +3,8 @@ import {Routes, Route} from 'react-router-dom'
 // import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Login from '../../components/Login'
 // import Login_2 from './auth/Login_2'
-import Register from './auth/Register'
+import Register from './auth/Register.jsx'
 import ActivationEmail from './auth/ActivationEmail'
-import NotFound from '../utils/NotFound/NotFound'
 
 import ForgotPass from '../body/auth/ForgotPassword'
 import ResetPass from '../body/auth/ResetPassword'
@@ -17,16 +16,18 @@ import EditUser from '../body/profile/EditUser'
 import HomeScreen from '../../screens/HomeScreen'
 import BagScreen from '../../screens/BagScreen'
 
+import NotFound from '../utils/NotFound/NotFound'
+
 import {useSelector} from 'react-redux'
 
 function Body() {
     const auth = useSelector(state => state.auth)
-    const {isLogged, isAdmin} = auth
+    const {user, isLogged, isAdmin} = auth
     return (
         <section>
             <Routes>
                 <Route path="/" element={isLogged ? <HomeScreen/> : <Login/>} />
-                <Route path="/bag" element={<BagScreen/>} />
+                <Route path="/bag/:id" element={<BagScreen/>} />
 
                 <Route path="/login" element={isLogged ? <HomeScreen/> : <Login/>} />
                 <Route path="/register" element={ <Register/>}  />
