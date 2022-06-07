@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
@@ -10,15 +10,15 @@ import ListItem from "../components/ListItem";
 import ReserveModal from "../components/ReserveModal";
 
 const ReserveScreen = () => {
-  const [modalOn, setModalOn] = useState(false);
+  const modalRef = useRef();
 
-  const handleClick = () => {
-    setModalOn(true);
+  const openModal = () => {
+    modalRef.current.openModal();
   };
   return (
     <div className="container block lg:flex">
       <form
-        action=""
+        onSubmit={(e) => e.preventDefault()}
         className="form bg-white rounded-lg w-full lg:w-1/2 p-8 h-fit  shadow-lg"
       >
         <div className="reservation-container flex">
@@ -83,7 +83,7 @@ const ReserveScreen = () => {
         </div>
         <button
           className="block w-full  py-2 rounded-lg  mt-6 border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white transition"
-          onClick={handleClick}
+          onClick={openModal}
         >
           Request for Reservation
         </button>
@@ -98,7 +98,9 @@ const ReserveScreen = () => {
         <ListItem />
         <ListItem />
       </div>
-      {modalOn && <ReserveModal />}
+      <ReserveModal ref={modalRef}>
+        <h1>Hello</h1>
+      </ReserveModal>
     </div>
   );
 };
