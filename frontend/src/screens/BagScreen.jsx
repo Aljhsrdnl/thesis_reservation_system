@@ -45,12 +45,15 @@ const BagScreen = () => {
         <div className="grid-cols-1 gap-6 grid auto-row-fr ">
           {/* {isLoading ? <p>Loading</p> : <p>false</p>} */}
           {bag.length == 0 ? (
-            <p className="text-gray-400 text-center">
-              Your bag is currently empty.
-              <Link to="/" className="underline pl-2">
-                Start adding some items.
-              </Link>
-            </p>
+            <div>
+              <Lottie options={defaultOptions} width={300} height={300} />
+              <p className="text-gray-400 text-center">
+                Your bag is currently empty.
+                <Link to="/" className="underline pl-2">
+                  Start adding some items.
+                </Link>
+              </p>
+            </div>
           ) : (
             bag.items_in_bag.map((item) => (
               <ItemInBag
@@ -66,7 +69,6 @@ const BagScreen = () => {
             </button>
           )}
 
-          {/* <Lottie options={defaultOptions} width={300} height={300} /> */}
           {/* <p className="text-gray-400 text-center">
           Your bag is currently empty.
           <Link to="/" className="underline pl-2">

@@ -1,12 +1,20 @@
 import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
 //data
 
 //component
 import ListItem from "../components/ListItem";
+import ReserveModal from "../components/ReserveModal";
+
 const ReserveScreen = () => {
+  const [modalOn, setModalOn] = useState(false);
+
+  const handleClick = () => {
+    setModalOn(true);
+  };
   return (
     <div className="container block lg:flex">
       <form
@@ -25,7 +33,7 @@ const ReserveScreen = () => {
               type="date"
               name=""
               id="reservation-date"
-              className="text-gray-600 w-full cursor-pointer outline-none border-b-2 pb-1 border-gray-100 focus:border-green-600 transition"
+              className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-green-600 transition"
             />
           </div>
           <div className="start-date-container mb-4 w-1/2">
@@ -39,7 +47,7 @@ const ReserveScreen = () => {
               type="time"
               name=""
               id="reservation-time"
-              className="text-gray-600 w-full cursor-pointer outline-none border-b-2 pb-1 border-gray-100 focus:border-green-600 transition"
+              className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-green-600 transition"
             />
           </div>
         </div>
@@ -55,7 +63,7 @@ const ReserveScreen = () => {
               type="date"
               name=""
               id="reservation-date"
-              className="text-gray-600 w-full cursor-pointer outline-none border-b-2 pb-1 border-gray-100 focus:border-green-600 transition"
+              className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-green-600 transition"
             />
           </div>
           <div className="return-time-container mb-4 w-1/2">
@@ -69,11 +77,14 @@ const ReserveScreen = () => {
               type="time"
               name=""
               id="return-time"
-              className="text-gray-600 w-full cursor-pointer outline-none border-b-2 pb-1 border-gray-100 focus:border-green-600 transition"
+              className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-green-600 transition"
             />
           </div>
         </div>
-        <button className="block w-full  py-2 rounded-lg  mt-6 border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white transition">
+        <button
+          className="block w-full  py-2 rounded-lg  mt-6 border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white transition"
+          onClick={handleClick}
+        >
           Request for Reservation
         </button>
       </form>
@@ -87,6 +98,7 @@ const ReserveScreen = () => {
         <ListItem />
         <ListItem />
       </div>
+      {modalOn && <ReserveModal />}
     </div>
   );
 };
