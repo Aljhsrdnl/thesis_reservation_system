@@ -7,8 +7,8 @@ const Item = require('./models/Item');
 
 const importData = async() => {
     try {
-        await Item.deleteMany({});
-        await Item.insertMany(itemsData);
+            await Item.deleteMany({});
+            await Item.insertMany(itemsData);
         console.log('Data import success');
         process.exit();
     }

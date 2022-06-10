@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ITEMS,  ITEMS_LOADING } from './type';
+import { GET_ITEMS,  ITEMS_LOADING, GET_ONE_ITEM } from './type';
 // ADD_ITEM, DELETE_ITEM, UPDATE_ITEM,
 import { returnErrors } from '../actions/errorAction';
 
@@ -13,6 +13,18 @@ export const getItems = () => dispatch => {
         }))
         .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 }
+
+export const getOneItem = (id) => dispatch => {
+    axios.get(`/api/item/${id}`)
+        .then(res => dispatch({
+            type: GET_ONE_ITEM,
+            payload: res.data
+        }))
+        .catch(err => console.log(err))
+}
+
+
+        
 
 // export const addItem = (item) => (dispatch) => {
 //     axios.post('/api/items', item)

@@ -24,6 +24,10 @@ const userSchema = new mongoose.Schema({
     identification_num: {
         type: String,
         required: [true, "Please enter your ID number"]
+    },
+    bag:{
+        type: Array,
+        default:[]
     }
 }, {
     timestamps: true

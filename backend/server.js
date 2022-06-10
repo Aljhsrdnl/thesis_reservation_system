@@ -10,6 +10,7 @@ dotenv.config()
 const itemsRoutes = require('./routes/itemRoutes')
 const userRoutes = require('./routes/userRoutes')
 const bagRoutes = require('./routes/bagRoutes')
+const reservationRoutes = require('./routes/reservationRoutes')
 
 const app = express();
 app.use(express.json());
@@ -42,6 +43,7 @@ app.get('/', (req, res) => {
 app.use('/api', itemsRoutes);
 app.use('/user', userRoutes);
 app.use(bagRoutes);
+app.use(reservationRoutes);
 
 const port = process.env.PORT || 5000;
 app.listen(port, (err) =>{

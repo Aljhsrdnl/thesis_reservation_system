@@ -46,14 +46,19 @@ const ItemCard = ({ name, category, itemID, a_quantity }) => {
         >
           RESERVE
         </button> */}
-        <Link to="/">
+        <Link to={{ pathname: `reserveItem/${itemID}/${name}` }}>
+          <button className=" rounded bg-green-600 text-white p-2 px-4 hover:bg-green-800 my-2">
+            RESERVE
+          </button>
+        </Link>
+        {/* <Link to="/">
           <button
             className=" rounded bg-green-600 text-white p-2 px-4 hover:bg-green-800 my-2"
             onClick={handleAddToCart}
           >
             ADD ITEM
           </button>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

@@ -7,6 +7,12 @@ const itemController = {
             .then(items => res.json(items))
             .catch(err => console.error(err))
     },
+    get_one_item: async(req, res) => {
+        const id = req.params.id;
+        Item.findById(id)
+            .then(item => res.json(item))
+            .catch(err => console.error(err))
+    },
     createItem: async(req, res) => {
         try{
             res.json('test')

@@ -14,6 +14,7 @@ const HomeScreen = () => {
   const getItemsData = useSelector((data) => data.item);
 
   const { items, isLoading } = getItemsData;
+  console.log(isLoading);
 
   const apparatus = items.filter((item) => item.category == "Apparatus");
   const equipment = items.filter((item) => item.category == "Equipment");

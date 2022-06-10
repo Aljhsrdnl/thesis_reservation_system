@@ -1,27 +1,38 @@
-const mongoose = required('mongoose');
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ReservationSchema = new Schema ({
-    user_ID: {
-        type: String
+    user: {
+        type:mongoose.Types.ObjectId,
+        ref: 'users'
     },
-    items_in_reservation: 
-        {
-            item_ID: { type: String },
-            name: String,
-            quantity: {
-                type: Number,
-                required: true,
-                min: [1, 'Quantity cannot be less than 1.']
-            }
-        },
-    date_made: {
+    borrowDate: {
         type: Date,
-        default: Date.now
+        required: true
+    },
+    returnDate: {
+        type: Date,
+        required: true
     },
     //Values for status: Pending, Rejected, Approved, Active (on-use), Returned
     status:{
-        type: String
+        type: String,
+        default: "Pending"
+    },
+    remarks: {
+        type: String,
+        default: " "
+    },
+    itemID: {
+        type: String,
+        required: true
+    },
+    quantity_to_borrow: {
+        type: Number,
+        required: true
     }
 
 })
+
+const Reservation = mongoose.model('Reservation', ReservationSchema);
+module.exports = Reservation;

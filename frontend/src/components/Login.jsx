@@ -43,7 +43,6 @@ function Login() {
   };
 
   const handleSubmit = async (e) => {
-    console.log(user);
     e.preventDefault();
     try {
       const res = await axios.post("/user/login", { email, password });

@@ -1,6 +1,8 @@
 export const GET_ITEMS = 'GET_ITEMS';
 export const ITEMS_LOADING = 'ITEMS_LOADING';
 
+export const GET_ONE_ITEM = "GET_ONE_ITEM";
+
 export const BAG_LOADING = 'BAG_LOADING';
 export const GET_BAG = 'GET_BAG';
 export const ADD_TO_BAG = 'ADD_TO_BAG';

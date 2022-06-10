@@ -15,6 +15,7 @@ import EditUser from '../body/profile/EditUser'
 
 import HomeScreen from '../../screens/HomeScreen'
 import BagScreen from '../../screens/BagScreen'
+import ReserveItemScreen from '../../screens/ReserveItemScreen'
 
 import NotFound from '../utils/NotFound/NotFound'
 
@@ -28,6 +29,7 @@ function Body() {
         <section>
             <Routes>
                 <Route path="/" element={isLogged ? <HomeScreen/> : <Login/>} />
+                <Route path="/reserveItem/:itemID/:itemName" element={<ReserveItemScreen/>} />
                 <Route path="/bag/:id" element={<BagScreen/>} />
                 <Route path="/reserve" element={<ReserveScreen />} />
 

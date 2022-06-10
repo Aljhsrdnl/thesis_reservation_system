@@ -15,6 +15,7 @@ const ReserveScreen = () => {
   const openModal = () => {
     modalRef.current.openModal();
   };
+
   return (
     <div className="container block lg:flex">
       <form

@@ -57,6 +57,7 @@ const userController = {
             })
 
             await newUser.save()
+                // .then(console.log(newUser))
 
             res.json({msg: "Account has been activated!"})
 

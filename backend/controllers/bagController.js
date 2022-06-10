@@ -2,7 +2,6 @@ const Bag = require('../models/Bag');
 const Item = require('../models/Item')
 
 module.exports.get_bag_items = async (req, res) => {
-    console.log(`Paramaters: ${req.params.id}`)
     await Bag.findOne({
         user_ID: req.params.id
     })
@@ -13,7 +12,7 @@ module.exports.get_bag_items = async (req, res) => {
 module.exports.create_bag = async (req, res) => {
     const userID = req.params.id; 
     const newBag = Bag.create({
-        user_UD: userID,
+        user_ID: userID,
         items_in_bag: [],
     })
 }
