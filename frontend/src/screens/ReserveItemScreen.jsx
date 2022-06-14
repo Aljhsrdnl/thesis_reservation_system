@@ -1,8 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 //component
 import ReserveModal from "../components/ReserveModal";
+import axios from "axios";
 
 //--------------------->> actions
 import { getOneItem } from "../redux/actions/itemAction";
@@ -14,6 +16,9 @@ const ReserveItemScreen = () => {
   useEffect(() => {
     dispatch(getOneItem(itemID));
   }, [dispatch]);
+
+  const auth = useSelector((state) => state.auth);
+  const { user, isLogged } = auth;
 
   const getItemData = useSelector((data) => data.item);
   const { items, isLoading } = getItemData;
@@ -32,18 +37,32 @@ const ReserveItemScreen = () => {
 
   const handleSubmission = (e) => {
     e.preventDefault();
-    openModal();
-    console.log(`request has been made`);
-    console.log(reserveDetails);
+    // openModal();
+    const BorrowDate = moment(
+      `${reserveDetails.reserveDate} ${reserveDetails.reserveTime}`,
+      "YYYY-MM-DD HH:mm:ss"
+    ).format();
+    const ReturnDate = moment(
+      `${reserveDetails.return_Date} ${reserveDetails.returnTime}`,
+      "YYYY-MM-DD HH:mm:ss"
+    ).format();
+    const newReservation = {
+      user: user,
+      itemID: itemID,
+      quantity_to_borrow: reserveDetails.quantity_to_borrow,
+      borrowDate: BorrowDate,
+      returnDate: ReturnDate,
+    };
+    console.log(newReservation);
+    axios.post("/request_reservation", newReservation);
   };
 
   //------------------>> Form data
   const [reserveDetails, setReserveDetails] = useState({
-    itemName: itemName,
-    quantity: 1,
-    reservationDate: "",
-    reservationTime: "",
-    returnDate: "",
+    quantity_to_borrow: 1,
+    reserveDate: "",
+    reserveTime: "",
+    return_Date: "",
     returnTime: "",
   });
 
@@ -78,10 +97,10 @@ const ReserveItemScreen = () => {
             Quantity
           </label>
           <select
-            name="quantity"
+            name="quantity_to_borrow"
             id=""
             className="w-full text-gray-600 cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-green-600 transition"
-            value={reserveDetails.quantity}
+            value={reserveDetails.quantity_to_borrow}
             onChange={handleChangeInput}
           >
             {avail_q_arr.map((q) => (
@@ -100,8 +119,8 @@ const ReserveItemScreen = () => {
           </label>
           <input
             type="date"
-            name="reservationDate"
-            id="reservation-date"
+            name="reserveDate"
+            id="borrow-date"
             className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-green-600 transition"
             onChange={handleChangeInput}
           />
@@ -130,7 +149,7 @@ const ReserveItemScreen = () => {
           </label>
           <input
             type="date"
-            name="returnDate"
+            name="return_Date"
             id="reservation-date"
             className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-green-600 transition"
             onChange={handleChangeInput}
@@ -158,9 +177,9 @@ const ReserveItemScreen = () => {
           REQUEST FOR RESERVATION
         </button>
       </form>
-      <ReserveModal ref={modalRef}>
+      {/* <ReserveModal ref={modalRef}>
         <h1>Hello</h1>
-      </ReserveModal>
+      </ReserveModal> */}
     </div>
   );
 };

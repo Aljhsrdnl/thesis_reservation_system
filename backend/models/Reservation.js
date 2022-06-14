@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ReservationSchema = new Schema ({
     user: {
         type:mongoose.Types.ObjectId,
-        ref: 'users'
+        ref: 'User'
     },
     borrowDate: {
         type: Date,
@@ -24,8 +24,8 @@ const ReservationSchema = new Schema ({
         default: " "
     },
     itemID: {
-        type: String,
-        required: true
+        type:mongoose.Types.ObjectId,
+        ref: 'Item'
     },
     quantity_to_borrow: {
         type: Number,
