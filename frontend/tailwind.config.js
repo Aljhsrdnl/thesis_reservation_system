@@ -24,6 +24,7 @@ module.exports = {
         800: "#676767",
         900: "#4E4E4E"
       },
+      'warning': '#BC123C',
       'body-background': '#F6F9EF',
       'white': '#ffffff'
     },

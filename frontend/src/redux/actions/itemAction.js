@@ -14,14 +14,14 @@ export const getItems = () => dispatch => {
         .catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 }
 
-export const getOneItem = (id) => dispatch => {
-    axios.get(`/api/item/${id}`)
-        .then(res => dispatch({
-            type: GET_ONE_ITEM,
-            payload: res.data
-        }))
-        .catch(err => console.log(err))
-}
+// export const getOneItem = (id) => dispatch => {
+//     axios.get(`/api/item/${id}`)
+//         .then(res => dispatch({
+//             type: GET_ONE_ITEM,
+//             payload: res.data
+//         }))
+//         .catch(err => console.log(err))
+// }
 
 
         

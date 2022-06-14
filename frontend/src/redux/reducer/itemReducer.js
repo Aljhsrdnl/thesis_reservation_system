@@ -13,12 +13,12 @@ export default function(state=initialState, action){
                 items: action.payload,
                 isLoading: false
             }
-        case GET_ONE_ITEM:
-                return {
-                    ...state,
-                    items: action.payload,
-                    isLoading: false
-                }
+        // case GET_ONE_ITEM:
+        //         return {
+        //             ...state,
+        //             items: action.payload,
+        //             isLoading: false
+        //         }
 
         // case ADD_ITEM:
         //     return{

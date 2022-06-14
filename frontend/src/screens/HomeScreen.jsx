@@ -7,27 +7,26 @@ import { useSelector, useDispatch } from "react-redux";
 
 //actions
 import { getItems } from "../redux/actions/itemAction";
-import Lottie from "react-lottie";
-import loading from "../icons/loading.json";
+// import Lottie from "react-lottie";
+// import loading from "../icons/loading.json";
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const getItemsData = useSelector((data) => data.item);
 
   const { items, isLoading } = getItemsData;
-  console.log(isLoading);
 
   const apparatus = items.filter((item) => item.category == "Apparatus");
   const equipment = items.filter((item) => item.category == "Equipment");
 
   //Lottie
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: loading,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
+  // const defaultOptions = {
+  //   loop: true,
+  //   autoplay: true,
+  //   animationData: loading,
+  //   rendererSettings: {
+  //     preserveAspectRatio: "xMidYMid slice",
+  //   },
+  // };
 
   useEffect(() => {
     dispatch(getItems());

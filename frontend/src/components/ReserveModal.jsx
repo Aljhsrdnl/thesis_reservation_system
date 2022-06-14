@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { createPortal } from "react-dom";
 
 //-------------------------->> Lottie
-import Lottie from "react-lottie";
+
+import Lottie from "react-lottie-player";
+// import Lottie from "react-lottie";
 import PendingRequest from "../icons/Pending Request.json";
 import { FaExclamationCircle } from "react-icons/fa";
 
@@ -33,7 +35,16 @@ const ReserveModal = forwardRef(({ defaultOpened = false }, ref) => {
       <div className="bg-green-400 opacity-90 fixed inset-0 z-50">
         <div className="flex h-screen justify-center items-center">
           <div className="flex-col justify-center bg-white shadow-lg rounded-lg w-4/6 md:3/6 lg:w-2/6 h-fit px-4 py-6">
-            <Lottie options={defaultOptions} width={200} height={200} />
+            {/* <Lottie options={defaultOptions} width={200} height={200} /> */}
+
+            <div className="block mx-auto">
+              <Lottie
+                loop
+                animationData={PendingRequest}
+                play
+                style={{ width: 300, height: 300 }}
+              />
+            </div>
             <div className="flex justify-center items-center mt-10">
               <FaExclamationCircle className="text-2xl text-green-600 mr-2" />
               <p className="text-center  text-gray-800">

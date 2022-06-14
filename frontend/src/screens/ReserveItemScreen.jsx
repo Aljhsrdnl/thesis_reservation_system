@@ -7,7 +7,7 @@ import ReserveModal from "../components/ReserveModal";
 import axios from "axios";
 
 //--------------------->> actions
-import { getOneItem } from "../redux/actions/itemAction";
+import { getOneItem } from "../redux/actions/oneItemAction";
 
 const ReserveItemScreen = () => {
   const { itemID, itemName } = useParams();
@@ -20,9 +20,9 @@ const ReserveItemScreen = () => {
   const auth = useSelector((state) => state.auth);
   const { user, isLogged } = auth;
 
-  const getItemData = useSelector((data) => data.item);
-  const { items, isLoading } = getItemData;
-  const avail_q = items.avail_quantity;
+  const getItemData = useSelector((data) => data.oneItem);
+  const { item, isLoading } = getItemData;
+  const avail_q = item.avail_quantity;
   const avail_q_arr = [];
   for (let i = 1; i <= avail_q; i++) {
     avail_q_arr.push([i]);
@@ -35,26 +35,40 @@ const ReserveItemScreen = () => {
     modalRef.current.openModal();
   };
 
+  // -------------------->> Validation
+  const [error, setError] = useState(false);
+
   const handleSubmission = (e) => {
     e.preventDefault();
-    // openModal();
-    const BorrowDate = moment(
-      `${reserveDetails.reserveDate} ${reserveDetails.reserveTime}`,
-      "YYYY-MM-DD HH:mm:ss"
-    ).format();
-    const ReturnDate = moment(
-      `${reserveDetails.return_Date} ${reserveDetails.returnTime}`,
-      "YYYY-MM-DD HH:mm:ss"
-    ).format();
-    const newReservation = {
-      user: user,
-      itemID: itemID,
-      quantity_to_borrow: reserveDetails.quantity_to_borrow,
-      borrowDate: BorrowDate,
-      returnDate: ReturnDate,
-    };
-    console.log(newReservation);
-    axios.post("/request_reservation", newReservation);
+    if (
+      reserveDetails.quantity_to_borrow === 0 ||
+      reserveDetails.reserveDate === "" ||
+      reserveDetails.reserveTime === "" ||
+      reserveDetails.return_Date === "" ||
+      reserveDetails.returnTime === ""
+    ) {
+      setError(true);
+      return;
+    } else {
+      openModal();
+      const BorrowDate = moment(
+        `${reserveDetails.reserveDate} ${reserveDetails.reserveTime}`,
+        "YYYY-MM-DD HH:mm:ss"
+      ).format();
+      const ReturnDate = moment(
+        `${reserveDetails.return_Date} ${reserveDetails.returnTime}`,
+        "YYYY-MM-DD HH:mm:ss"
+      ).format();
+      const newReservation = {
+        user: user,
+        itemID: itemID,
+        quantity_to_borrow: reserveDetails.quantity_to_borrow,
+        borrowDate: BorrowDate,
+        returnDate: ReturnDate,
+      };
+      console.log(newReservation);
+      axios.post("/request_reservation", newReservation);
+    }
   };
 
   //------------------>> Form data
@@ -109,6 +123,11 @@ const ReserveItemScreen = () => {
               </option>
             ))}
           </select>
+          {error && reserveDetails.quantity_to_borrow <= 0 ? (
+            <small>Quantity must be atleast 1.</small>
+          ) : (
+            ""
+          )}
         </div>
         <div className="start-date-container mb-4 w-full">
           <label
@@ -124,6 +143,13 @@ const ReserveItemScreen = () => {
             className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-green-600 transition"
             onChange={handleChangeInput}
           />
+          {error && reserveDetails.reserveDate === "" ? (
+            <small className="text-warning">
+              Please input a valid reservation date.
+            </small>
+          ) : (
+            ""
+          )}
         </div>
         <div className="start-date-container mb-4 w-full">
           <label
@@ -134,11 +160,18 @@ const ReserveItemScreen = () => {
           </label>
           <input
             type="time"
-            name="reservationTime"
+            name="reserveTime"
             id="reservation-time"
             className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-green-600 transition"
             onChange={handleChangeInput}
           />
+          {error && reserveDetails.reserveTime === "" ? (
+            <small className="text-warning">
+              Please input a valid reservation time.
+            </small>
+          ) : (
+            ""
+          )}
         </div>
         <div className="start-date-container mb-4 w-full mr-8">
           <label
@@ -154,6 +187,13 @@ const ReserveItemScreen = () => {
             className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-green-600 transition"
             onChange={handleChangeInput}
           />
+          {error && reserveDetails.return_Date === "" ? (
+            <small className="text-warning">
+              Please enter a valid return date.
+            </small>
+          ) : (
+            ""
+          )}
         </div>
         <div className="start-date-container mb-4 w-full">
           <label
@@ -169,6 +209,13 @@ const ReserveItemScreen = () => {
             className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-green-600 transition"
             onChange={handleChangeInput}
           />
+          {error && reserveDetails.returnTime === "" ? (
+            <small className="text-warning">
+              Please enter a valid return time.
+            </small>
+          ) : (
+            ""
+          )}
         </div>
         <button
           className="block w-full  py-2 rounded-lg  mt-6 bg-green-600 text-white hover:text-white    hover:bg-green-800  transition"
@@ -177,9 +224,9 @@ const ReserveItemScreen = () => {
           REQUEST FOR RESERVATION
         </button>
       </form>
-      {/* <ReserveModal ref={modalRef}>
+      <ReserveModal ref={modalRef}>
         <h1>Hello</h1>
-      </ReserveModal> */}
+      </ReserveModal>
     </div>
   );
 };

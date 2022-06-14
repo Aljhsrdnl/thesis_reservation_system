@@ -4,11 +4,13 @@ import auth from './authReducer'
 import token from './tokenReducer'
 import users from './userReducer'
 import bag from './bagReducer'
+import oneItem from './oneItemReducer'
 
 export default combineReducers({
     auth,
     token,
     users, 
     item,
-    bag
+    bag,
+    oneItem
 })
