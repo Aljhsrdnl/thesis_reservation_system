@@ -21,6 +21,12 @@ const reservationController = {
             quantity_to_borrow: quantity_to_borrow});
 
         return res.status(201).send(newReservationRequest)
+    },
+    get_user_reservation : async (req, res) => {
+        const { userid } = req.params;
+        Reservation.find({ user: userid})
+            .then(reservations => res.json(reservations))
+            .catch(err => console.error(err))
     }
 }
 

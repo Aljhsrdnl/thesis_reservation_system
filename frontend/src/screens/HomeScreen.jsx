@@ -1,5 +1,4 @@
 import React from "react";
-
 //components
 import ItemCard from "../components/ItemCard";
 import { useEffect } from "react";

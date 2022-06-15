@@ -6,7 +6,22 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
+import usePortal from "react-cool-portal";
+
 function NavBar() {
+  //----------->> Reservation Tooltip
+  const { Portal, isShow, show, hide, toggle } = usePortal({
+    defaultShow: false,
+    internalShowHide: false,
+    onShow: (e) => {
+      console.log(isShow);
+    },
+    onHide: (e) => {
+      console.log(hide);
+    },
+  });
+
+  //------------->> Auth
   const auth = useSelector((state) => state.auth);
 
   const { user, isLogged } = auth;
@@ -21,7 +36,7 @@ function NavBar() {
     }
   };
 
-  const [toggle, setToggle] = useState(false);
+  const [toggleAcc, setToggle] = useState(false);
   const [divClass, setDivClass] = useState({
     primaryClass:
       "w-72 absolute right-0 bg-white p-3 rounded shadow-lg z-10 mt-3 ",
@@ -29,24 +44,33 @@ function NavBar() {
   });
   const [rotate, setRotate] = useState("");
   const displayProfile = () => {
-    toggle
+    toggleAcc
       ? setDivClass({ ...divClass, display: "block" })
       : setDivClass({ ...divClass, display: "hidden" });
   };
   const handleRotate = () => {
-    toggle ? setRotate("rotate-180") : setRotate("rotate-0");
+    toggleAcc ? setRotate("rotate-180") : setRotate("rotate-0");
   };
   const handleToggle = () => {
-    setToggle(!toggle);
+    setToggle(!toggleAcc);
     handleRotate();
     displayProfile();
   };
   const userLink = () => {
     return (
       <li className="flex items-center">
-        <Link to={{ pathname: `/bag/${user._id}` }}>
+        {/* <Link to={{ pathname: `/bag/${user._id}` }}>
           <FaShoppingBag className="text-2xl text-green-600 hover:text-green-800 mr-2 transition-colors" />
-        </Link>
+        </Link> */}
+        <h1
+          className="mr-6 text-green-600 border-b-2 border-transparent hover:border-green-600 cursor-pointer"
+          onClick={toggle}
+        >
+          Reservations
+        </h1>
+        <Portal>
+          <div>Hello</div>
+        </Portal>
         <FaBell className="text-2xl text-green-600 hover:text -green-800 mr-2 transition-colors" />
         <p className="text-2xl text-gray-300 pr-2">|</p>
 
@@ -93,6 +117,7 @@ function NavBar() {
       </li>
     );
   };
+
   return (
     <div className="flex justify-start items-center py-4 mb-6 border-b border-green-400">
       <Link to="/">
