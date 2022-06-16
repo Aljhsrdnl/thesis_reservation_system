@@ -31,10 +31,11 @@ body {
 
 
 
+
 @media (min-width:1024px) {
   body {
-      margin-left: 7rem;
-      margin-right: 7rem;
+      margin-left: 3rem;
+      margin-right: 3rem;
   }
 }
 /* .App{

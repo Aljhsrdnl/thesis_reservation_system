@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 //components
 import ItemCard from "../components/ItemCard";
 import { useEffect } from "react";
@@ -11,30 +12,36 @@ import { getItems } from "../redux/actions/itemAction";
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const getItemsData = useSelector((data) => data.item);
+  const auth = useSelector((state) => state.auth);
+  const { user, loading } = auth;
+  let userId;
 
   const { items, isLoading } = getItemsData;
 
   const apparatus = items.filter((item) => item.category == "Apparatus");
   const equipment = items.filter((item) => item.category == "Equipment");
 
-  //Lottie
-  // const defaultOptions = {
-  //   loop: true,
-  //   autoplay: true,
-  //   animationData: loading,
-  //   rendererSettings: {
-  //     preserveAspectRatio: "xMidYMid slice",
-  //   },
-  // };
-
   useEffect(() => {
     dispatch(getItems());
   }, [dispatch]);
 
+  let reservation = [];
+
+  if (loading === undefined) {
+    return;
+  } else {
+    userId = user._id;
+    axios.get(`/get_reservation/${userId}`).then((data) => {
+      reservation = data.data;
+      console.log(reservation);
+    });
+  }
+
+  axios.get(`/get_reservation/${userId}`);
   return (
     <div className="">
       <h1 className="text-3xl text-green-800 font-bold mb-4">Equipment</h1>
-      <div className="itemDiv grid grid-cols-1 lg:grid-cols-2 gap-6 auto-row-fr mb-8 border-b-2 border-green-400 pb-8">
+      <div className="itemDiv grid grid-cols-1 md:grid-cols-2 gap-6 auto-row-fr mb-8 border-b-2 border-green-400 pb-8">
         {isLoading ? (
           <h2>Loading...</h2>
         ) : (
@@ -53,7 +60,7 @@ const HomeScreen = () => {
         )}
       </div>
       <h1 className="text-3xl text-green-800 font-bold mb-4">Apparatus</h1>
-      <div className="itemDiv grid grid-cols-1 lg:grid-cols-2 gap-6 auto-row-fr ">
+      <div className="itemDiv grid grid-cols-1 md:grid-cols-2 gap-6 auto-row-fr ">
         {isLoading ? (
           <h2>Loading...</h2>
         ) : (

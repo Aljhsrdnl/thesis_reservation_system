@@ -18,7 +18,7 @@ import BagScreen from '../../screens/BagScreen'
 import ReserveItemScreen from '../../screens/ReserveItemScreen'
 
 import NotFound from '../utils/NotFound/NotFound'
-
+ 
 import {useSelector} from 'react-redux'
 import ReserveScreen from '../../screens/ReserveScreen'
 
@@ -28,12 +28,12 @@ function Body() {
     return (
         <section>
             <Routes>
-                <Route path="/" element={isLogged ? <HomeScreen/> : <Login/>} />
+                <Route path="/" element={isLogged ? <HomeScreen /> : <Login/>} />
                 <Route path="/reserveItem/:itemID/:itemName" element={<ReserveItemScreen/>} />
                 {/* <Route path="/bag/:id" element={<BagScreen/>} /> */}
                 <Route path="/reserve" element={<ReserveScreen />} />
 
-                <Route path="/login" element={isLogged ? <HomeScreen/> : <Login/>} />
+                <Route path="/login" element={isLogged ? <HomeScreen /> : <Login/>} />
                 <Route path="/register" element={ <Register/>}  />
 
                 <Route path="/forgot_password" element={isLogged ? <NotFound/> : <ForgotPass/>}  />

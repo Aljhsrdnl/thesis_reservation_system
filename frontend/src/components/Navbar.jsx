@@ -5,6 +5,7 @@ import school_logo from "../icons/school_logo.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { MdMenu } from "react-icons/md";
 
 import usePortal from "react-cool-portal";
 
@@ -62,7 +63,8 @@ function NavBar() {
         {/* <Link to={{ pathname: `/bag/${user._id}` }}>
           <FaShoppingBag className="text-2xl text-green-600 hover:text-green-800 mr-2 transition-colors" />
         </Link> */}
-        <h1
+        {/* -----------------reservation portal */}
+        {/* <h1
           className="mr-6 text-green-600 border-b-2 border-transparent hover:border-green-600 cursor-pointer"
           onClick={toggle}
         >
@@ -70,12 +72,13 @@ function NavBar() {
         </h1>
         <Portal>
           <div>Hello</div>
-        </Portal>
-        <FaBell className="text-2xl text-green-600 hover:text -green-800 mr-2 transition-colors" />
-        <p className="text-2xl text-gray-300 pr-2">|</p>
+        </Portal> */}
+        {/* <FaBell className="text-2xl text-green-600 hover:text -green-800 mr-2 transition-colors" /> */}
+        <p className=" text-gray-300 pr-2 hidden lg:block">Searchbar</p>
+        <p className="text-2xl text-gray-300 pr-2 hidden lg:block">|</p>
 
         {/* Account */}
-        <div className="relative transition-al">
+        <div className="relative transition-all hidden lg:block">
           <button
             className="relative flex items-center cursor-pointer "
             onClick={handleToggle}
@@ -100,20 +103,9 @@ function NavBar() {
             </div>
           </div>
         </div>
-        {/* <Link to="#" className="avatar text-green-800">
-          {user.name} <i className="fas fa-angle-down"></i>
-        </Link>
-
-        <ul className="dropdown">
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-          <li>
-            <Link to="/" onClick={handleLogout}>
-              Logout
-            </Link>
-          </li>
-        </ul> */}
+        <div className="sidebar lg:hidden">
+          <MdMenu className="text-3xl text-green-600 hover:text-green-800 mr-2 transition-colors cursor-pointer" />
+        </div>
       </li>
     );
   };
