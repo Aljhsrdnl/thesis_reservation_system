@@ -28,6 +28,7 @@ function App() {
   const token = useSelector((state) => state.token);
   const auth = useSelector((state) => state.auth);
   
+  const {user, loading, isLogged} = auth;
   useEffect(() => {
     const firstLogin = localStorage.getItem("firstLogin");
     if (firstLogin) {
@@ -52,15 +53,19 @@ function App() {
     }
   }, [token, dispatch]);
 
+  
+
+  
+  
   return (
     <Router>
       <div className="App relative">
         {/* <Header/> */}
         <ToastContainer />
-        <NavBar />
+        <NavBar/>
         {/* <Navbar click ={() => setSideToggle(true)}/>
         <Backdrop show ={sideToggle} click={()=> setSideToggle(false)}/> */}
-        <Body />
+        <Body/>
         {/* <main>
           <Routes>
             <Route exact path="/" component={HomeScreen}/>

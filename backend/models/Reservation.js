@@ -27,6 +27,9 @@ const ReservationSchema = new Schema ({
         type:mongoose.Types.ObjectId,
         ref: 'Item'
     },
+    itemName: {
+        type: String
+    },
     quantity_to_borrow: {
         type: Number,
         required: true

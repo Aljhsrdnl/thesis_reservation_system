@@ -4,6 +4,9 @@ module.exports = {
   theme: {
     colors: {
       'transparent': 'transparent',
+      'darkGreen': {
+        200: "#c7eace"
+      },
       'green': {
         100: "#DCECD8",
         200: "#C4DFBE",

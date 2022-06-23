@@ -60,6 +60,7 @@ const ReserveItemScreen = () => {
         "YYYY-MM-DD HH:mm:ss"
       ).format();
       const newReservation = {
+        name: itemName,
         user: user,
         itemID: itemID,
         quantity_to_borrow: reserveDetails.quantity_to_borrow,
@@ -73,6 +74,7 @@ const ReserveItemScreen = () => {
 
   //------------------>> Form data
   const [reserveDetails, setReserveDetails] = useState({
+    itemName: { itemName },
     quantity_to_borrow: 1,
     reserveDate: "",
     reserveTime: "",

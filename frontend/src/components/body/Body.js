@@ -25,6 +25,7 @@ import ReserveScreen from '../../screens/ReserveScreen'
 function Body() {
     const auth = useSelector(state => state.auth)
     const {user, isLogged, isAdmin} = auth
+    
     return (
         <section>
             <Routes>

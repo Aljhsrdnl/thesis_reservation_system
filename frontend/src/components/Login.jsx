@@ -30,6 +30,7 @@ const initialState = {
 //   console.log(loginData);
 //   dispatch(login(loginData));
 // };
+console.log("Login");
 function Login() {
   const dispatch = useDispatch();
   const [user, setUser] = useState(initialState);

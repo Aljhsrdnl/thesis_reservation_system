@@ -2,7 +2,7 @@ const Reservation = require("../models/Reservation")
 
 const reservationController = {
     add_request : async(req, res) => {
-        const {user, borrowDate, returnDate, itemID, quantity_to_borrow} = req.body;
+        const {user, borrowDate, returnDate, itemID, quantity_to_borrow, name} = req.body;
         
         // const reservation_details =  {
         //     user: user,
@@ -18,7 +18,9 @@ const reservationController = {
             borrowDate: borrowDate,
             returnDate: returnDate,
             itemID: itemID,
+            itemName: name,
             quantity_to_borrow: quantity_to_borrow});
+            
 
         return res.status(201).send(newReservationRequest)
     },
