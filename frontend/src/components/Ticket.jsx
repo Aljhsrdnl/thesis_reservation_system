@@ -12,9 +12,9 @@ const Ticket = ({
   circle_style_up,
   circle_style_down,
 }) => {
-  const bDate = moment(`${borrowDate}`).format("MMM d[,] YYYY");
+  const bDate = moment(`${borrowDate}`).format("MMM D[,] YYYY");
   const bTime = moment(`${borrowDate}`).format("hh[:]mm A");
-  const rDate = moment(`${returnDate}`).format("MMM d[,] YYYY");
+  const rDate = moment(`${returnDate}`).format("MMM D[,] YYYY");
   const rTime = moment(`${returnDate}`).format("hh[:]mm A");
   return (
     <div className="relative mb-4">
