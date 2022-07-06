@@ -17,13 +17,7 @@ function NavBar() {
   //----------->> Reservation Tooltip
   const { Portal, isShow, show, hide, toggle } = usePortal({
     defaultShow: false,
-    internalShowHide: false,
-    onShow: (e) => {
-      console.log(isShow);
-    },
-    onHide: (e) => {
-      console.log(hide);
-    },
+    internalShowHide: true,
   });
 
   //------------->> Auth
@@ -121,7 +115,10 @@ function NavBar() {
           </div>
           {/* ----------------------->> Sidebar */}
           <div className="sidebar lg:hidden">
-            <MdMenu className="text-3xl text-green-600 hover:text-green-800 mr-2 transition-colors cursor-pointer" />
+            <button onClick={show}>
+              {/* MENU */}
+              <MdMenu className="text-3xl text-green-600 hover:text-green-800 mr-2 transition-colors cursor-pointer" />
+            </button>
           </div>
         </div>
       </div>
@@ -139,43 +136,50 @@ function NavBar() {
         </Link>
         {isLogged ? userLink() : null}
       </div>
-      <div className="bar lg:hidden w-full md:w-3/4 absolute -right-8 top-0 bg-green-800 h-fit z-10 shadow p-6 md:px-16">
-        <div className="flex mb-4 ">
-          <div className="flex-grow"></div>
-          <BiX className="text-white text-3xl rounded hover:bg-green-400 hover:text-green-800" />
+      {/* ------------------------start of reservation tab--------------------------- */}
+      <Portal>
+        <div className="bar lg:hidden w-full md:w-3/4 absolute -right-0 top-0 bg-green-800 h-fit z-10 shadow p-6 md:px-16 transition-all ease-in-out">
+          <div className="flex mb-4 ">
+            <div className="flex-grow"></div>
+            <button onClick={hide}>
+              {/* HIDE */}
+              <BiX className="text-white text-3xl rounded hover:bg-green-400 hover:text-green-800" />
+            </button>
+          </div>
+          <p className="text-2xl font-bold text-green-400">{user.name}</p>
+          <p className=" text-gray-100 border-b border-green-400 pb-2">
+            {user.email}
+          </p>
+          <Link
+            to="/"
+            onClick={handleLogout}
+            className="text-gray-200 w-full block hover:bg-daekGreen-200 hover:text-green-600 px-2 py-2 rounded mt-2 mb-6"
+          >
+            Logout
+          </Link>
+          <div className="tickets">
+            {reservation.length > 0 ? (
+              reservation.map((r) => (
+                <Ticket
+                  key={r._id}
+                  ticketID={r._id}
+                  qty={r.quantity_to_borrow}
+                  name={r.itemName}
+                  borrowDate={r.borrowDate}
+                  returnDate={r.returnDate}
+                  status={r.status}
+                  remarks={r.remarks}
+                  circle_style_up="w-6 h-6 rounded-full bottom-11 -right-3 absolute bg-green-800"
+                  circle_style_down="circle w-6 h-6 rounded-full bottom-11 -left-3 absolute bg-green-800"
+                />
+              ))
+            ) : (
+              <p>No Reservation yet.</p>
+            )}
+          </div>
         </div>
-        <p className="text-2xl font-bold text-green-400">{user.name}</p>
-        <p className=" text-gray-100 border-b border-green-400 pb-2">
-          {user.email}
-        </p>
-        <Link
-          to="/"
-          onClick={handleLogout}
-          className="text-gray-200 w-full block hover:bg-daekGreen-200 hover:text-green-600 px-2 py-2 rounded mt-2 mb-6"
-        >
-          Logout
-        </Link>
-        <div className="tickets">
-          {reservation.length > 0 ? (
-            reservation.map((r) => (
-              <Ticket
-                key={r._id}
-                ticketID={r._id}
-                qty={r.quantity_to_borrow}
-                name={r.itemName}
-                borrowDate={r.borrowDate}
-                returnDate={r.returnDate}
-                status={r.status}
-                remarks={r.remarks}
-                circle_style_up="w-6 h-6 rounded-full bottom-11 -right-3 absolute bg-green-800"
-                circle_style_down="circle w-6 h-6 rounded-full bottom-11 -left-3 absolute bg-green-800"
-              />
-            ))
-          ) : (
-            <p>No Reservation yet.</p>
-          )}
-        </div>
-      </div>
+      </Portal>
+      {/* --------------------------------end of reservation_tab------------------ */}
     </div>
   );
 }

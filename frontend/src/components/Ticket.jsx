@@ -50,11 +50,11 @@ const Ticket = ({
         </div>
         <div className="col-span-2 mb-3">
           <p className="text-sm text-gray-400">Status</p>
-          <p className="text-gray-800">PENDING</p>
+          <p className="text-gray-800 capitalize">{status}</p>
         </div>
         <div className="col-span-2 mb-3">
           <p className="text-sm text-gray-400">Remarks</p>
-          <p className="text-gray-800">NONE</p>
+          <p className="text-gray-800">{remarks}</p>
         </div>
         <div className="break border-b-2 border-dashed border-gray-300 col-span-2"></div>
         <div className="col-span-2">

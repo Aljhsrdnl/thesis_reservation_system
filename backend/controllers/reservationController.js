@@ -74,6 +74,7 @@ const reservationController = {
                             }
                         }
         
+                        console.log(requested_items_data)
                         // --------------------------------------------->> sort time
                         
                         for(let key in pending_obj) {
@@ -83,21 +84,59 @@ const reservationController = {
                             })
                         }
 
-                        //---------------------------------->> create an object for resources
-                        let resources_obj = {};
-                        for(i = 0; i < requested_items_data.length; i++) {
-                            let name = requested_items_data[i].name;
-                            resources_obj[name] = [];
-                            for (j = 0; j < requested_items_data[i].avail_quantity; j++) {
-                                let r_obj = {
-                                    end_time: -1,
-                                    reserve: []
-                                }
-                                resources_obj[name].push(r_obj)
-                            }
+                               
+                        
+                        // ------------------------------------>> Algorithm
+                        for (i = 0; i < requested_items_data.length; i++) {
+                            let resources = requested_items_data[i].resources;
+                            let item_name = requested_items_data[i].name;
+                            let current_pending_requests = pending_obj[item_name];
+                            let new_res = [];
+                            
+                            console.log(resources)
+                            resources.forEach(resource => {
+                                // console.log(resource)
+                                current_pending_requests.forEach(job => {
+                                    if(resource.end_time <= job.borrowDate) {
+                                        resource.end_time = job.returnDate;
+                                        job.status = "Approved"
+                                        resource.reserve.push(job);
+                                        delete current_pending_requests[current_pending_requests.indexOf(job)];
+                                        
+                                        // update DB
+                                        Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
+                                            .then(console.log('success'))
+                                    }
+                                    
+                                    
+                                    try {
+
+                                        Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
+                                            .then(console.log('success'))
+                                    }
+                                    catch (e) {
+                                        console.log(e)
+                                    }
+                                  
+                                })
+                                console.log(`------------------------------RESOURCE-----------------------------------`)
+                                console.log(resource)
+                                new_res.push(resource)
+                            })
+
+                            console.log(`----------------------------------NEW RESOURCE------------------------`)
+                            console.log(new_res)
+                            //find Item by item_name and update the resources array with new_res
+                            Item.updateOne(
+                                { name: item_name },
+                                { $set: {resources: new_res}}
+                            )
+                            .then(console.log(`Item Updated!!`))
+                            
                         }
 
-                        console.log(resources_obj)
+                        
+                        
                     })
 
                 

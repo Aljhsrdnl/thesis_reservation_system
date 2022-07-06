@@ -16,6 +16,9 @@ const itemSchema = new mongoose.Schema({
     imageURL: {
         type: String,
     },
+    resources: {
+        type: Object
+    }
 
 })
 
