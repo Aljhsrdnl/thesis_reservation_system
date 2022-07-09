@@ -31,8 +31,8 @@ const initialState = {
   success: "",
 };
 const Register = () => {
-  const notify = () => {
-    toast(`👍Good`);
+  const notify = (msg) => {
+    toast(msg);
   };
   const [user, setUser] = useState(initialState);
 
@@ -53,7 +53,7 @@ const Register = () => {
   };
 
   const handleSubmit = async (e) => {
-    notify();
+    // notify();
     e.preventDefault();
     if (
       isEmpty(name) ||
@@ -97,8 +97,6 @@ const Register = () => {
   };
   return (
     <div className="flex h-max   items-center justify-center">
-      {/* {err && showErrMsg(err)}
-      {success && showSuccessMsg(success)} */}
       <div className="imageHolder hidden lg:block lg:w-1/2">
         <img src={background_img} alt="scientist_pic" />
       </div>
@@ -108,11 +106,9 @@ const Register = () => {
           className="bg-white p-8 rounded-2xl shadow-lg "
         >
           <h1 className="text-green-800 text-4xl font-bold mb-12">Sign Up</h1>
-          <button className={secondaryBtnIcon}>
-            <img src={google_icon} alt="google_icon" className="w-6 mr-4" />
-            Sign Up with Google
-          </button>
-          <p className="text-gray-800 text-center m-8">-OR-</p>
+
+          {success && notify(success)}
+
           <div className="relative mb-6">
             <input
               type="text"
@@ -146,6 +142,7 @@ const Register = () => {
             >
               Email
             </label>
+            {err ? <small className="text-warning">{err}</small> : " "}
           </div>
           <div className="relative mb-6">
             <input
@@ -203,7 +200,7 @@ const Register = () => {
           </div>
           <div className="relative mb-6">
             <input
-              type="cf_password"
+              type="password"
               id="cf_password"
               className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-green-600 focus:outline-none placeholder-transparent w-full text-gray-800"
               autoComplete="off"

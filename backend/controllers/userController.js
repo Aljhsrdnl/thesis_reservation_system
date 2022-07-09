@@ -24,7 +24,7 @@ const userController = {
 
             const user = await Users.findOne({email})
             if(user) return res.status(400).json({msg: "This email already exists."})
-
+        
             if(password.length < 6)
                 return res.status(400).json({msg: "Password must be at least 6 characters."})
 
@@ -51,7 +51,8 @@ const userController = {
             const {name, email, password, user_type, identification_num } = user
 
             const check = await Users.findOne({email})
-            if(check) return res.status(400).json({msg:"This email already exists."})
+            if(check) return res.json({msg:"This email already exists."})
+            
             const newUser = new Users({
                 name, email, password, user_type, identification_num
             })
@@ -62,7 +63,7 @@ const userController = {
             res.json({msg: "Account has been activated!"})
 
         } catch (err) {
-            return res.status(500).json({msg: "potangina"})
+            return res.json({msg: "Account has failed to activate."})
         }
     },
     login: async (req, res) => {

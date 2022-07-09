@@ -20,7 +20,6 @@ import ReserveItemScreen from '../../screens/ReserveItemScreen'
 import NotFound from '../utils/NotFound/NotFound'
  
 import {useSelector} from 'react-redux'
-import ReserveScreen from '../../screens/ReserveScreen'
 
 function Body() {
     const auth = useSelector(state => state.auth)
@@ -31,8 +30,7 @@ function Body() {
             <Routes>
                 <Route path="/" element={isLogged ? <HomeScreen /> : <Login/>} />
                 <Route path="/reserveItem/:itemID/:itemName" element={<ReserveItemScreen/>} />
-                {/* <Route path="/bag/:id" element={<BagScreen/>} /> */}
-                <Route path="/reserve" element={<ReserveScreen />} />
+                
 
                 <Route path="/login" element={isLogged ? <HomeScreen /> : <Login/>} />
                 <Route path="/register" element={ <Register/>}  />
