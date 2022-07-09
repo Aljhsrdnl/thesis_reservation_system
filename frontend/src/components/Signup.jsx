@@ -37,12 +37,12 @@ const Signup = () => {
       </div>
       <div className="div_form w-full lg:w-7/12">
         <form action="" className="bg-white p-8 rounded-2xl shadow-lg ">
-          <h1 className="text-green-800 text-4xl font-bold mb-12">Sign Up</h1>
-          <button className={secondaryBtnIcon}>
+          <h1 className="text-green-800 text-4xl font-bold mb-12">Register</h1>
+          {/* <button className={secondaryBtnIcon}>
             <img src={google_icon} alt="google_icon" className="w-6 mr-4" />
             Sign Up with Google
           </button>
-          <p className="text-gray-800 text-center m-8">-OR-</p>
+          <p className="text-gray-800 text-center m-8">-OR-</p> */}
           <div className="relative mb-6">
             <input
               type="text"

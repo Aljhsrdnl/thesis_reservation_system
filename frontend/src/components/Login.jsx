@@ -69,11 +69,11 @@ function Login() {
           className="bg-white p-8 rounded-2xl shadow-lg"
         >
           <h1 className="text-green-800 text-4xl font-bold mb-12">Login</h1>
-          <button className={secondaryBtnIcon}>
+          {/* <button className={secondaryBtnIcon}>
             <img src={google_icon} alt="google_icon" className="w-6 mr-4" />
             Login with Google
-          </button>
-          <p className="text-gray-800 text-center m-12">-OR-</p>
+          </button> */}
+          {/* <p className="text-gray-800 text-center m-12">-OR-</p> */}
           <div className="relative mb-6">
             <input
               type="text"

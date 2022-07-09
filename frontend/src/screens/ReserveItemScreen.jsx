@@ -53,11 +53,11 @@ const ReserveItemScreen = () => {
       openModal();
       const BorrowDate = moment(
         `${reserveDetails.reserveDate} ${reserveDetails.reserveTime}`,
-        "YYYY-MM-DD HH:mm:ss"
+        "YYYY-MM-DD hh:mm:ss"
       ).format();
       const ReturnDate = moment(
         `${reserveDetails.return_Date} ${reserveDetails.returnTime}`,
-        "YYYY-MM-DD HH:mm:ss"
+        "YYYY-MM-DD hh:mm:ss"
       ).format();
       const newReservation = {
         name: itemName,
