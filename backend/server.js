@@ -8,6 +8,7 @@ dotenv.config()
 
 //routes
 const itemsRoutes = require('./routes/itemRoutes')
+const categoryRoutes = require('./routes/categoryRoutes')
 const userRoutes = require('./routes/userRoutes')
 const bagRoutes = require('./routes/bagRoutes')
 const reservationRoutes = require('./routes/reservationRoutes')
@@ -41,6 +42,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api', itemsRoutes);
+app.use('/api', categoryRoutes);
 app.use('/user', userRoutes);
 app.use(bagRoutes);
 app.use(reservationRoutes);

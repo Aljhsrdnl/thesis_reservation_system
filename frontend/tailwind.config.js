@@ -29,7 +29,9 @@ module.exports = {
       },
       'warning': '#BC123C',
       'body-background': '#F6F9EF',
-      'white': '#ffffff'
+      'white': '#ffffff',
+      'warning-background': "#f8d7da",
+      'warning-border': "#f5c6cb"
     },
     extend: {
       fontFamily: {

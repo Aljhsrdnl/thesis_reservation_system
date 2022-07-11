@@ -67,9 +67,11 @@ const ReserveItemScreen = () => {
         borrowDate: BorrowDate,
         returnDate: ReturnDate,
       };
-      console.log(newReservation);
+
       axios.post("/request_reservation", newReservation);
+      console.log(newReservation);
     }
+    axios.get("/get_pending");
   };
 
   //------------------>> Form data

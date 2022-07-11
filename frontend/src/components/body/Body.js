@@ -1,5 +1,5 @@
 import React from 'react'
-import {Routes, Route} from 'react-router-dom'
+import {Routes, Route } from 'react-router-dom'
 // import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Login from '../../components/Login'
 // import Login_2 from './auth/Login_2'
@@ -13,9 +13,10 @@ import ResetPass from '../body/auth/ResetPassword'
 import EditUser from '../body/profile/EditUser'
 
 
-import HomeScreen from '../../screens/HomeScreen'
+import HomeScreen from '../../screens/HomeScreen.jsx'
 import BagScreen from '../../screens/BagScreen'
 import ReserveItemScreen from '../../screens/ReserveItemScreen'
+import PageNotFound from '../PageNotFound'
 
 import NotFound from '../utils/NotFound/NotFound'
  
@@ -42,7 +43,8 @@ function Body() {
 
                 <Route path="/profile" element={isLogged ? <HomeScreen/> : <NotFound/>} />
                 <Route path="/edit_user/:id" element={isAdmin ? <EditUser/> : <NotFound/>}  />
-
+                <Route path = "*" element={<PageNotFound/>} />
+                
             </Routes>
         </section>
         

@@ -32,16 +32,16 @@ function ActivationEmail() {
                 setSuccess(res.data.msg)
                 console.log(res)
             } catch (err) {
-                // err.response.data.msg && setErr(err.response.data.msg)
-                // setErr(error.message)
-                // console.log(error)
+               setErr(err.response.data.msg)
+                
+                console.log(err)
             }
         }
         activationEmail()
     
     return (
         <div className="active_page">
-            <p>Account has been activated.</p>
+            {success ? <p>{success}</p> : err ? <p>{err}</p>: ""}
            
         </div>
     )

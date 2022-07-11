@@ -1,4 +1,4 @@
-// import './App.css';
+    // import './App.css';
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -60,26 +60,12 @@ function App() {
   return (
     <Router>
       <div className="App relative">
-        {/* <Header/> */}
+        
         <ToastContainer />
         <NavBar/>
-        {/* <Navbar click ={() => setSideToggle(true)}/>
-        <Backdrop show ={sideToggle} click={()=> setSideToggle(false)}/> */}
+        
         <Body/>
-        {/* <main>
-          <Routes>
-            <Route exact path="/" component={HomeScreen}/>
-            <Route path="/login" component={isLogged ? NotFound : Login} exact />
-          </Routes>
-        </main> */}
-        {/* <Router>
-          <Switch>
-          <NavBar />
-          <Route path="/" component={Login} exact />
-                <Route path="/homescreen" component={HomeScreen} />
-                <Route path="/bag" component={BagScreen} />
-          </Switch>
-        </Router> */}
+       
         </div>
     </Router> 
   );
@@ -87,37 +73,3 @@ function App() {
 
 export default App;
 
-
-// import "./App.css";
-// import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-
-// //Components
-
-// import Navbar from "./components/Navbar";
-// import Login from "./components/Login";
-// import Signup from "./components/Signup";
-
-// //Screens
-// import HomeScreen from "./screens/HomeScreen";
-
-// function App() {
-//   return (
-//     <div className="max-w-7xl block mx-auto">
-//      {/* <Login /> */}
-//       <BrowserRouter>
-//       <Navbar/>
-//           <Routes>
-//             <Route path="/signup" element={ <Signup /> }/>
-//             <Route path="/login" element={ <Login /> }/>
-//             <Route path="/homescreen" element={ <HomeScreen /> }/>
-//           </Routes>
-//       
-
-      
-         
-//     </div>
-//   );
-// }
-
-// export default App;

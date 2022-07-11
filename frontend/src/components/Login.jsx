@@ -19,17 +19,6 @@ const initialState = {
   success: "",
 };
 
-// const handleLoginData = (e) => {
-//   setLoginData({
-//     ...loginData,
-//     [e.target.name]: e.target.value,
-//   });
-// };
-// const handleSubmission = (e) => {
-//   e.preventDefault();
-//   console.log(loginData);
-//   dispatch(login(loginData));
-// };
 console.log("Login");
 function Login() {
   const dispatch = useDispatch();
@@ -43,19 +32,28 @@ function Login() {
     setUser({ ...user, [name]: value, err: "", success: "" });
   };
 
+  // ----------------------------->> Validation
+  const [error, setError] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post("/user/login", { email, password });
-      setUser({ ...user, err: "", success: res.data.msg });
+    if (email == "" || password == "") {
+      setError(true);
+      return;
+    } else {
+      try {
+        const res = await axios.post("/user/login", { email, password });
 
-      localStorage.setItem("firstLogin", true);
+        setUser({ ...user, err: "", success: res.data.msg });
+        localStorage.setItem("firstLogin", true);
 
-      dispatch(dispatchLogin());
-      navigate("/");
-    } catch (err) {
-      err.response.data.msg &&
-        setUser({ ...user, err: err.response.data.msg, success: "" });
+        dispatch(dispatchLogin());
+        navigate("/");
+        // console.log(user.success);
+      } catch (err) {
+        err.response.data.msg &&
+          setUser({ ...user, err: err.response.data.msg, success: "" });
+      }
     }
   };
   return (
@@ -69,11 +67,12 @@ function Login() {
           className="bg-white p-8 rounded-2xl shadow-lg"
         >
           <h1 className="text-green-800 text-4xl font-bold mb-12">Login</h1>
-          {/* <button className={secondaryBtnIcon}>
-            <img src={google_icon} alt="google_icon" className="w-6 mr-4" />
-            Login with Google
-          </button> */}
-          {/* <p className="text-gray-800 text-center m-12">-OR-</p> */}
+
+          {user.err && (
+            <div className="text-warning bg-warning-background border border-warning-border w-full px-4 py-2 rounded-sm mb-8">
+              {user.err}
+            </div>
+          )}
           <div className="relative mb-6">
             <input
               type="text"
@@ -82,7 +81,6 @@ function Login() {
               // autoComplete="off"
               placeholder="al"
               name="email"
-              // =value={email}
               onChange={handleChangeInput}
             />
             <label
@@ -91,6 +89,13 @@ function Login() {
             >
               Email
             </label>
+            {error && user.email === "" ? (
+              <small className="text-warning">
+                Please enter a valid email address.
+              </small>
+            ) : (
+              ""
+            )}
           </div>
           <div className="relative mb-6">
             <input
@@ -109,6 +114,13 @@ function Login() {
             >
               Password
             </label>
+            {error && user.password === "" ? (
+              <small className="text-warning">
+                Please input your password.
+              </small>
+            ) : (
+              ""
+            )}
           </div>
           <button className={primaryBtn} type="submit">
             LOG IN

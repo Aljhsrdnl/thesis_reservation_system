@@ -28,6 +28,8 @@ const reservationController = {
             .then(pending => {
                 res.json(pending)
                 pending_req = pending
+
+               
                 //---------------------------------->> ALGORITHM
                 //find all unique itemName in the pending_req arr
                 let unique_values = [];
@@ -47,7 +49,8 @@ const reservationController = {
                     start = false;
                     count = 0;
                 }
-               
+                
+                
                 // ----------------------->>  Assigning items     
                 let pending_obj = {};
                 
@@ -65,32 +68,15 @@ const reservationController = {
                         let requested_items_data = data;
 
                         // ------------------------------------------->> Inserting items to pending_obj
-                        //-------------WORK HERE          
-                        // for (let key in pending_obj) {
-                        //     for (i=0; i<pending_req.length; i++) {
-                        //     if (key == pending_req[i].itemName) {
-                        //         pending_obj[key].push(pending_req[i])
-                        //     }
-                        //     }
-                        // }
-
                         for (let key in pending_obj) {
-                            for (i = 0; i < pending_req.length; i++) {
-                                if(key == pending_req[i].itemName) {
-
-                                    if (pending_req[i].quantity_to_borrow > 1) {
-                                        for(f = 0; f < pending_req[i].quantity_to_borrow; f++) {
-                                            pending_obj[key].push(pending_req[i])
-                                        }
-                                    }
-                                    else {
-                                        pending_obj[key].push(pending_req[i])
-                                    }
-                                }
+                            for (i=0; i<pending_req.length; i++) {
+                            if (key == pending_req[i].itemName) {
+                                pending_obj[key].push(pending_req[i])
+                            }
                             }
                         }
         
-                        console.log(pending_obj)
+                        console.log(requested_items_data)
                         // --------------------------------------------->> sort time
                         
                         for(let key in pending_obj) {
@@ -101,80 +87,72 @@ const reservationController = {
                         }
 
                                
+                        //---------------------------------------->> check threshold
+                        console.log(`----------------pending obj--------------------`)
+                        console.log(pending_obj);
+                        for (let key in pending_obj) {
+                            let key_content = pending_obj[key];
+                            console.log(`${key}: ${key_content.length}`)
+                            if(key_content.length>=10){
+                                algo(key, requested_items_data, pending_obj);
+                            }
+                            else{
+                                setTimeout(function () {
+                                    algo(key, requested_items_data, pending_obj);
+                                }, 1800000);
+                            }
+                        }
+
+                            
                         
                         // ------------------------------------>> Algorithm
-                        for (i = 0; i < requested_items_data.length; i++) {
-                            let resources = requested_items_data[i].resources;
-                            let item_name = requested_items_data[i].name;
-                            let current_pending_requests = pending_obj[item_name];
+                        // for (i = 0; i < requested_items_data.length; i++) {
+                        //     let resources = requested_items_data[i].resources;
+                        //     let item_name = requested_items_data[i].name;
+                        //     let current_pending_requests = pending_obj[item_name];
+                        //     let new_res = [];
                             
-                            let new_res = [];
                             
-                            console.log(resources)
-                            resources.forEach(resource => {
-                                // console.log(resource)
-                                current_pending_requests.forEach(job => {
-                                    console.log(job)
-                                    if(resource.end_time <= job.borrowDate) {
-                                            resource.end_time = job.returnDate;
-                                            job.status = "Approved"
-                                            resource.reserve.push(job);
-                                            delete current_pending_requests[current_pending_requests.indexOf(job)];
+                        //     resources.forEach(resource => {
+                        //         // console.log(resource)
+                        //         current_pending_requests.forEach(job => {
+                        //             if(resource.end_time <= job.borrowDate) {
+                        //                 resource.end_time = job.returnDate;
+                        //                 job.status = "Approved"
+                        //                 resource.reserve.push(job);
+                        //                 delete current_pending_requests[current_pending_requests.indexOf(job)];
                                         
-                                        // update DB
-                                        Reservation.updateOne({_id: job._id}, {$set:  {status:job.status}})
-                                            .then(console.log('success'))
-                                    }
+                        //                 // update DB
+                        //                 // Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
+                        //                 //     .then(console.log('success'))
+                        //             }
                                     
                                     
-                                    try {
+                        //             try {
 
-                                        Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
-                                            .then(console.log('success'))
-                                    }
-                                    catch (e) {
-                                        console.log(e)
-                                    }
+                        //                 // Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
+                        //                 //     .then(console.log('success'))
+                        //             }
+                        //             catch (e) {
+                        //                 console.log(e)
+                        //             }
                                   
-                                })
-                                
-                                
-                                // console.log(`------------------------------RESOURCE-----------------------------------`)
-                                // console.log(resource)
-                                new_res.push(resource)
-                            })
+                        //         })
+                        //         console.log(`------------------------------RESOURCE-----------------------------------`)
+                        //         console.log(resource)
+                        //         new_res.push(resource)
+                        //     })
+
+                        //     console.log(`----------------------------------NEW RESOURCE------------------------`)
+                        //     console.log(new_res)
+                        //     //find Item by item_name and update the resources array with new_res
+                        //     // Item.updateOne(
+                        //     //     { name: item_name },
+                        //     //     { $set: {resources: new_res}}
+                        //     // )
+                        //     // .then(console.log(`Item Updated!!`))
                             
-                            // console.log(`-------------------------------REJECTED--------------------------------`)
-                            // console.log(current_pending_requests)
-
-                                let rejected_id = [];
-                                for(p = 0; p < current_pending_requests.length; p++) {
-                                    if (current_pending_requests[p] == undefined) {
-
-                                    }else {
-                                    rejected_id.push(current_pending_requests[p]._id)
-                                    }
-                                }
-                                
-                                Reservation.updateMany(
-                                    { _id: { $in: rejected_id}},
-                                    { $set: {
-                                        status: "Rejected",
-                                        remarks: "Insufficient available resource."
-                                    }}
-                                )
-                                .then(console.log('Rejected'))
-
-                            console.log(`----------------------------------NEW RESOURCE------------------------`)
-                            console.log(new_res)
-                            // find Item by item_name and update the resources array with new_res
-                            Item.updateOne(
-                                { name: item_name },
-                                { $set: {resources: new_res}}
-                            )
-                            .then(console.log(`Item Updated!!`))
-                            
-                        }
+                        // }
 
                         
                         
@@ -185,6 +163,59 @@ const reservationController = {
                 
             })
             .catch(err => console.error(err))
+    },
+    update_pending  : async () => {
+        await Reservation.updateMany({}, {status: "Pending"});
+        console.log("Updated to Pending")
+    }
+}
+
+const algo = (key, requested_items_data, pending_obj) => {
+    for (let i =0; i <requested_items_data.length; i++) {
+        
+        if ( requested_items_data[i].name == key) {
+            let resources = requested_items_data[i].resources;
+            let curr_pending_req = pending_obj[key];
+            let new_res = [];
+
+            resources.forEach(resource => {
+                // console.log(resource)
+                curr_pending_req.forEach(job => {
+                    if(resource.end_time <= job.borrowDate) {
+                        resource.end_time = job.returnDate;
+                        job.status = "Approved"
+                        resource.reserve.push(job);
+                        delete curr_pending_req[curr_pending_req.indexOf(job)];
+                        
+                        // update DB
+                        Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
+                            .then(console.log('success'))
+                    }
+                    
+                    
+                    try {
+
+                        Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
+                            .then(console.log('success'))
+                    }
+                    catch (e) {
+                        console.log(e)
+                    }
+                  
+                })
+                console.log(`------------------------------RESOURCE-----------------------------------`)
+                console.log(resource)
+                new_res.push(resource)
+            })
+            console.log(`----------------------------------NEW RESOURCE------------------------`)
+            console.log(new_res)
+            //find Item by item_name and update the resources array with new_res
+            Item.updateOne(
+                { name: key },
+                { $set: {resources: new_res}}
+            )
+            .then(console.log(`Item Updated!!`))
+        }
     }
 }
 

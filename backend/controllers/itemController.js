@@ -1,6 +1,66 @@
 const Item = require('../models/Item');
+// class APIfeatures{
+//     constructor(query, queryString){
+//         this.query = query;
+//         this.queryString = queryString;
+//     }
 
-const itemController = {
+//     filtering(){
+
+//         const queryObj = {...this.queryString }
+
+//         console.log({before: queryObj})
+
+//         const excludedFields = ['page','sort','limit']
+//         excludedFields.forEach(el => delete(queryObj[el]))
+
+//         console.log({after: queryObj})
+
+//         let queryStr = JSON.stringify(queryObj)
+//         queryStr = queryStr.replace(/\b(gte|gt|lt|lte|regex)\b/g, match => '$' +  match ) 
+
+//         console.log({queryStr})
+
+//         this.query.find(JSON.parse(queryStr))
+//         return this;
+//     }
+//     sorting(){
+//         if(this.queryString.sort){
+//             const sortBy = this.queryString.sort.split(',').join(' ')
+//             this.query = this.query.sort(sortBy)
+
+//         }else{
+//             this.query = this.query.sort('-createdAt')
+//         }
+//         return this;
+//     }
+//     paginating(){
+//         const page = this.queryString.page * 1 || 1
+//         const limit = this.queryString.limit * 1 || 9
+//         const skip = (page - 1) * limit
+//         this.query = this.query.skip(skip).limit(limit)
+//         return this;
+//     }
+
+// }
+// const itemController = {
+//     getItem: async(req, res) => {
+       
+//        try{
+//             const features = new APIfeatures(Item.find(), req.query).filtering().sorting().paginating()
+//             const items = await features.query
+//             res.json({
+//                 status: 'success',
+//                 result: item.length,
+//                 items: items
+//         })
+
+//        }catch(err){
+//         return res.status(500).json({msg: err.message})
+//        }
+       
+//     },
+    const itemController = {
     getItem: async(req, res) => {
        
         Item.find()

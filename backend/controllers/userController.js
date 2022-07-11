@@ -1,4 +1,4 @@
-const Users = require('../models/User')
+    const Users = require('../models/User')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const sendMail = require('./sendMail')
@@ -17,16 +17,16 @@ const userController = {
             const { name, email, password, user_type, identification_num } = req.body;
             
             if (!name || !email || !password || !identification_num) 
-                return res.status(400).json({msg: "Please fill in all fields."})
+                return res.status(400).send({msg: "Please fill in all fields."})
 
             if(!validateEmail(email))
-                return res.status(400).json({msg: "Invalid emails."})
+                return res.status(400).send({msg: "Invalid emai."})
 
             const user = await Users.findOne({email})
-            if(user) return res.status(400).json({msg: "This email already exists."})
+            if(user) return res.status(400).send({msg: "This email is already used by another user."})
         
             if(password.length < 6)
-                return res.status(400).json({msg: "Password must be at least 6 characters."})
+                return res.status(400).send({msg: "Password must be at least 6 characters."})
 
             const passwordHash = await bcrypt.hash(password, 12)
             const newUser = {
@@ -41,7 +41,7 @@ const userController = {
 
             res.json({msg: "Register Success! Please activate your email to start."})
         } catch (err) {
-            return res.status(500).json({msg: err.message})
+            return res.status(500).send({msg: err.message})
         }
     },
     activateEmail: async (req, res) => {
@@ -51,29 +51,31 @@ const userController = {
             const {name, email, password, user_type, identification_num } = user
 
             const check = await Users.findOne({email})
-            if(check) return res.json({msg:"This email already exists."})
-            
-            const newUser = new Users({
-                name, email, password, user_type, identification_num
-            })
+            if(check) return res.send({msg:"This email already exists."})
+            else {
 
-            await newUser.save()
-                // .then(console.log(newUser))
-
-            res.json({msg: "Account has been activated!"})
+                const newUser = new Users({
+                    name, email, password, user_type, identification_num
+                })
+    
+                await newUser.save()
+                    // .then(console.log(newUser))
+    
+                res.send({msg: "Account has been activated!"})
+            }
 
         } catch (err) {
-            return res.json({msg: "Account has failed to activate."})
+            return res.send({msg: "Account has failed to activate."})
         }
     },
     login: async (req, res) => {
         try {
             const {email, password} = req.body
             const user = await Users.findOne({email})
-            if(!user) return res.status(400).json({msg: "This email does not exist."})
+            if(!user) return res.status(400).send({msg: "This email does not exist."})
 
             const isMatch = await bcrypt.compare(password, user.password)
-            if(!isMatch) return res.status(400).json({msg: "Password is incorrect."})
+            if(!isMatch) return res.status(400).send({msg: "Password is incorrect."})
 
             const refresh_token = createRefreshToken({id: user._id})
             res.cookie('refreshtoken', refresh_token, {

@@ -51,6 +51,8 @@ const Register = () => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value, err: "", success: "" });
   };
+  // ------------------------->> Validation
+  const [error, set_error] = useState(false);
 
   const handleSubmit = async (e) => {
     // notify();
@@ -60,12 +62,14 @@ const Register = () => {
       isEmpty(user_type) ||
       isEmpty(identification_num) ||
       isEmpty(password)
-    )
-      return setUser({
-        ...user,
-        err: "Please fill in all fields.",
-        success: "",
-      });
+    ) {
+      set_error(true);
+    }
+    // return setUser({
+    //   ...user,
+    //   err: "Please fill in all fields.",
+    //   success: "",
+    // });
 
     if (!isEmail(email))
       return setUser({ ...user, err: "Invalid emails.", success: "" });
@@ -108,7 +112,11 @@ const Register = () => {
           <h1 className="text-green-800 text-4xl font-bold mb-12">Sign Up</h1>
 
           {success && notify(success)}
-
+          {user.err && (
+            <div className="text-warning bg-warning-background border border-warning-border w-full px-4 py-2 rounded-sm mb-12">
+              {user.err}
+            </div>
+          )}
           <div className="relative mb-6">
             <input
               type="text"
@@ -125,6 +133,11 @@ const Register = () => {
             >
               Name
             </label>
+            {error && user.name == "" ? (
+              <small className="text-warning">Please input your name.</small>
+            ) : (
+              " "
+            )}
           </div>
           <div className="relative mb-6">
             <input
@@ -142,7 +155,13 @@ const Register = () => {
             >
               Email
             </label>
-            {err ? <small className="text-warning">{err}</small> : " "}
+            {error && user.email == "" ? (
+              <small className="text-warning">
+                Please input a valid email address.
+              </small>
+            ) : (
+              " "
+            )}
           </div>
           <div className="relative mb-6">
             <input
@@ -160,6 +179,11 @@ const Register = () => {
             >
               ID Number
             </label>
+            {error && user.identification_num === "" && (
+              <small className="text-warning">
+                Please input your ID number.
+              </small>
+            )}
           </div>
 
           <div className="relative mb-6">
@@ -197,6 +221,15 @@ const Register = () => {
             >
               Password
             </label>
+            {error && user.password === "" ? (
+              <small className="text-warning">Please input a password.</small>
+            ) : isLength(password) ? (
+              <small className="text-warning">
+                Password must be atleast 6 characters.
+              </small>
+            ) : (
+              ""
+            )}
           </div>
           <div className="relative mb-6">
             <input
@@ -214,14 +247,16 @@ const Register = () => {
             >
               Confirm Password
             </label>
+            {error && user.cf_password === "" ? (
+              <small className="text-warning">
+                Please confirm your password.
+              </small>
+            ) : user.cf_password != user.password ? (
+              <small className="text-warning">Passwords do not match.</small>
+            ) : (
+              " "
+            )}
           </div>
-          {/* <input
-          type="text"
-          name="name"
-          className={input_style}
-          placeholder="Name"
-          onChange={handleChangeInput}
-        /> */}
 
           <button className={primaryBtn} type="submit">
             SIGN UP

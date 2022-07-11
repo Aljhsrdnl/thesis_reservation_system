@@ -5,7 +5,6 @@ import { createPortal } from "react-dom";
 //-------------------------->> Lottie
 
 import Lottie from "react-lottie-player";
-// import Lottie from "react-lottie";
 import PendingRequest from "../icons/Pending Request.json";
 import { FaExclamationCircle } from "react-icons/fa";
 

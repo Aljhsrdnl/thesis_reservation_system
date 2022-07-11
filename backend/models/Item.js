@@ -20,8 +20,11 @@ const itemSchema = new mongoose.Schema({
         type: Object
     }
 
+},{
+    timestamps: true
 })
 
+itemSchema.index({ name: 'text' })
 const Item = mongoose.model('Item', itemSchema);
 
 module.exports = Item;
