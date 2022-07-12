@@ -35,6 +35,8 @@ const ReservationSchema = new Schema ({
         required: true
     }
 
+}, {
+    timestamps: true
 })
 
 const Reservation = mongoose.model('Reservation', ReservationSchema);

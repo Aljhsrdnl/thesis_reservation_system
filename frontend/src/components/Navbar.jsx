@@ -84,7 +84,7 @@ function NavBar() {
           <div>Hello</div>
         </Portal> */}
           {/* <FaBell className="text-2xl text-green-600 hover:text -green-800 mr-2 transition-colors" /> */}
-          <p className=" text-gray-300 pr-2 hidden lg:block">Searchbar</p>
+          {/* <p className=" text-gray-300 pr-2 hidden lg:block">Searchbar</p> */}
           <p className="text-2xl text-gray-300 pr-2 hidden lg:block">|</p>
 
           {/* -------------------------->> Account */}

@@ -40,14 +40,14 @@ import {
     <div className="content content-margined">
 
       <div className="reservation-header">
-        <h3>Reservations</h3>
+        <h3 className='text-2xl font-bold text-green-800 mb-2'>Reservations</h3>
       </div>
       <div className="reservation-list">
 
         <table className="table-auto border-x border-b w-full">
           <thead  >
             <tr className='bg-green-600 text-white'>
-              <th className="py-2 text-left font-semibold">Reservation ID</th>
+              <th className="py-2 text-left font-semibold">Ticket ID</th>
               <th className="py-2 text-left font-semibold">Reserver's Name</th>
               <th className="py-2 text-left font-semibold">Reserver's ID</th>
               <th className="py-2 text-left font-semibold">Item Name</th>

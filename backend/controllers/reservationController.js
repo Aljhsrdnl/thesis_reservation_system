@@ -90,7 +90,7 @@ const reservationController = {
                             }
                         }
         
-                        console.log(requested_items_data)
+                        // console.log(requested_items_data)
                         // --------------------------------------------->> sort time
                         
                         for(let key in pending_obj) {
@@ -102,24 +102,33 @@ const reservationController = {
 
                                
                         //---------------------------------------->> check threshold
-                        console.log(`----------------pending obj--------------------`)
-                        console.log(pending_obj);
+                        // console.log(`----------------pending obj--------------------`)
+                        // console.log(pending_obj);
+                        
                         for (let key in pending_obj) {
                             let key_content = pending_obj[key];
                             console.log(`${key}: ${key_content.length}`)
                             if(key_content.length>=10){
-                                algo(key, requested_items_data, pending_obj);
+                                 algo(key, requested_items_data, pending_obj);
                             }
-                            else{
+                            else {
                                 setTimeout(function () {
-                                    algo(key, requested_items_data, pending_obj);
-                                }, 1800000);
+                                            algo(key, requested_items_data, pending_obj);
+                                        }, 60000); //1800000
                             }
+                            // else if(Date.now() - key_content[0].timestamps >= 60000){
+                            //     console.log(`I am working`)
+                            //     //dapat the algo will run only once, ang time nga basehan is iya sang first reservation made
+                            //     // setTimeout(function () {
+                            //     //     algo(key, requested_items_data, pending_obj);
+                            //     // }, 60000); //1800000
+                            //         algo(key, requested_items_data, pending_obj);
+                            // }
                         }
 
                             
                         
-                        // ------------------------------------>> Algorithm
+                        // // ------------------------------------>> Algorithm
                         // for (i = 0; i < requested_items_data.length; i++) {
                         //     let resources = requested_items_data[i].resources;
                         //     let item_name = requested_items_data[i].name;
@@ -137,28 +146,34 @@ const reservationController = {
                         //                 delete current_pending_requests[current_pending_requests.indexOf(job)];
                                         
                         //                 // update DB
-                        //                 // Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
-                        //                 //     .then(console.log('success'))
+                        //                 Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
+                        //                     .then(console.log('success'))
                         //             }
                                     
                                     
                         //             try {
 
-                        //                 // Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
-                        //                 //     .then(console.log('success'))
+                        //                 Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
+                        //                     .then(console.log('success'))
                         //             }
                         //             catch (e) {
                         //                 console.log(e)
                         //             }
                                   
+                                    
+                        //             console.log(`------------------------------Rejected-----------------------------------`)
+                        //             console.log(current_pending_requests);
+                        //             Reservation.updateOne(
+                        //                 { _id: {$in: current_pending_requests} },
+                        //                 { $set: {status: 'Rejected', remarks: "Insufficient available resources" }}
+                        //             )
+                        //             .then(console.log('REJECTED'))
                         //         })
-                        //         console.log(`------------------------------RESOURCE-----------------------------------`)
-                        //         console.log(resource)
+
                         //         new_res.push(resource)
                         //     })
 
-                        //     console.log(`----------------------------------NEW RESOURCE------------------------`)
-                        //     console.log(new_res)
+                            
                         //     //find Item by item_name and update the resources array with new_res
                         //     // Item.updateOne(
                         //     //     { name: item_name },
@@ -185,6 +200,7 @@ const reservationController = {
 }
 
 const algo = (key, requested_items_data, pending_obj) => {
+    console.log(`---------------------------RUNNING-------------------------------`)
     for (let i =0; i <requested_items_data.length; i++) {
         
         if ( requested_items_data[i].name == key) {
@@ -198,31 +214,41 @@ const algo = (key, requested_items_data, pending_obj) => {
                     if(resource.end_time <= job.borrowDate) {
                         resource.end_time = job.returnDate;
                         job.status = "Approved"
+                        job.remarks = " "
                         resource.reserve.push(job);
                         delete curr_pending_req[curr_pending_req.indexOf(job)];
                         
                         // update DB
-                        Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
+                        Reservation.updateOne({_id: job._id}, {$set: {status:job.status, remarks: job.remarks}})
                             .then(console.log('success'))
                     }
                     
                     
                     try {
 
-                        Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
+                        Reservation.updateOne({_id: job._id}, {$set: {status:job.status, remarks: job.remarks}})
                             .then(console.log('success'))
                     }
                     catch (e) {
                         console.log(e)
                     }
+
+                    console.log(`REJECCTED REQUESTS`)
+                    console.log(curr_pending_req)
+                    Reservation.updateOne(
+                        { _id: {$in: curr_pending_req} },
+                        { $set: {status: 'Rejected', remarks: "Insufficient available resources" }}
+                    )
+                    .then(console.log('REJECTED'))
                   
                 })
-                console.log(`------------------------------RESOURCE-----------------------------------`)
-                console.log(resource)
+                
                 new_res.push(resource)
+                // update to reject
+               
             })
-            console.log(`----------------------------------NEW RESOURCE------------------------`)
-            console.log(new_res)
+            // console.log(`----------------------------------NEW RESOURCE------------------------`)
+            // console.log(new_res)
             //find Item by item_name and update the resources array with new_res
             Item.updateOne(
                 { name: key },
