@@ -13,71 +13,46 @@ import { getCart } from "../redux/actions/bagAction";
 import ItemInBag from "../components/ItemInBag";
 
 const BagScreen = () => {
-  //Lottie File
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: EmptyCart,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
-  const { id } = useParams();
-
-  // dispatch()
-  const dispatch = useDispatch();
-
-  //data--bag
-  const getBagItems = useSelector((state) => state.bag);
-  const { isLoading, bag } = getBagItems;
-  useEffect(() => {
-    dispatch(getCart(id));
-  }, [dispatch]);
-
-  console.log(bag);
-
   return (
-    <div className="">
-      <div className="absolute right-0 w-full lg:w-2/4 bg-white rounded-xl shadow-lg p-6">
-        <h1 className="text-3xl text-green-800 font-bold mb-6">Bag</h1>
-
-        <div className="grid-cols-1 gap-6 grid auto-row-fr ">
-          {/* {isLoading ? <p>Loading</p> : <p>false</p>} */}
-          {bag.length == 0 ? (
-            <div>
-              <Lottie options={defaultOptions} width={300} height={300} />
-              <p className="text-gray-400 text-center">
-                Your bag is currently empty.
-                <Link to="/" className="underline pl-2">
-                  Start adding some items.
-                </Link>
-              </p>
-            </div>
-          ) : (
-            bag.items_in_bag.map((item) => (
-              <ItemInBag
-                key={item.item_ID}
-                name={item.name}
-                quantity={item.quantity}
-              />
-            ))
-          )}
-          {bag.length != 0 && (
-            <button className="block w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-800 mt-6">
-              RESERVE
-            </button>
-          )}
-
-          {/* <p className="text-gray-400 text-center">
-          Your bag is currently empty.
-          <Link to="/" className="underline pl-2">
-            Start adding some items.
-          </Link>
-        </p> */}
-        </div>
-        {/* the button reserve will only show up if the cart is not empty */}
-      </div>
+    <div>
+      <table className="table-auto border-x border-b w-full">
+        <thead>
+          <tr className="bg-green-600 text-white ">
+            <th className="py-2 text-left font-semibold text-lg">Ticket ID</th>
+            <th className="py-2 text-left font-semibold text-lg">
+              Reserver's Name
+            </th>
+            <th className="py-2 text-left font-semibold text-lg">Item Name</th>
+            <th className="py-2 text-left font-semibold text-lg">Quantity</th>
+            <th className="py-2 text-left font-semibold text-lg">
+              Borrow Date
+            </th>
+            <th className="py-2 text-left font-semibold text-lg">
+              Borrow Time
+            </th>
+            <th className="py-2 text-left font-semibold text-lg">
+              Return Date
+            </th>
+            <th className="py-2 text-left font-semibold text-lg">
+              Return Time
+            </th>
+            <th className="py-2 text-left font-semibold text-lg">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="py-2 text-gray-800">123434</td>
+            <td className="py-2 text-gray-800">Alejah Sardiniola</td>
+            <td className="py-2 text-gray-800">Microscope</td>
+            <td className="py-2 text-gray-800">3</td>
+            <td className="py-2 text-gray-800">July 1, 2022</td>
+            <td className="py-2 text-gray-800">8:00 AM</td>
+            <td className="py-2 text-gray-800">Juy 1, 2022</td>
+            <td className="py-2 text-gray-800">5:30 PM</td>
+            <td className="py-2 text-gray-800">Pending</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };

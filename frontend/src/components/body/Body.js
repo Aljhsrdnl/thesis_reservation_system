@@ -17,6 +17,7 @@ import HomeScreen from '../../screens/HomeScreen.jsx'
 import BagScreen from '../../screens/BagScreen'
 import ReserveItemScreen from '../../screens/ReserveItemScreen'
 import PageNotFound from '../PageNotFound'
+import AdminScreen from '../../screens/AdminScreen'
 
 import NotFound from '../utils/NotFound/NotFound'
  
@@ -31,6 +32,8 @@ function Body() {
             <Routes>
                 <Route path="/" element={isLogged ? <HomeScreen /> : <Login/>} />
                 <Route path="/reserveItem/:itemID/:itemName" element={<ReserveItemScreen/>} />
+                <Route path="/admin" element={isAdmin ? <AdminScreen /> : <NotFound/>} />
+                <Route path="/edit" element={<BagScreen/>} />
                 
 
                 <Route path="/login" element={isLogged ? <HomeScreen /> : <Login/>} />

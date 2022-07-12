@@ -16,7 +16,21 @@ const reservationController = {
 
         return res.status(201).send(newReservationRequest)
     },
-    get_user_reservation : async (req, res) => {
+    get_reservation: async (req, res) => {
+        const reservations = await Reservation.find({}).populate('user')
+        
+        res.send(reservations);
+    },
+    delete_reservation:  async (req, res) => {
+        const reservation = await Reservation.findOne({ _id: req.params.id });
+        if (reservation) {
+          const deletedReservationvation = await reservation.remove();
+          res.send(deletedReservationvation);
+        } else {
+          res.status(404).send("Reservationvation Not Found.")
+        }
+      },
+    get_user_reservation_by_id : async (req, res) => {
         const { userid } = req.params;
         Reservation.find({ user: userid})
             .then(reservations => res.json(reservations))

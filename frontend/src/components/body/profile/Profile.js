@@ -191,9 +191,9 @@ function Profile() {
                     <table className="customers">
                         <thead>
                             <tr>
-                                <th>{isAdmin ? "ID" : "ORDER ID"}</th>
+                                <th>{isAdmin ? "ID" : "RESERVATIONVATION ID"}</th>
                                 <th>{isAdmin ? "NAME" : "TOTAL"}</th>
-                                <th>{isAdmin ? "EMAIL" : "ORDER STATUS"}</th>
+                                <th>{isAdmin ? "EMAIL" : "RESERVATIONVATION STATUS"}</th>
                                 <th>{isAdmin ? "ADMIN" : "PRODUCT"}</th>
                                 <th>{isAdmin ? "ACTION" : "PAYMENT"}</th>
                             </tr>

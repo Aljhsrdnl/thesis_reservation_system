@@ -5,6 +5,8 @@ import token from './tokenReducer'
 import users from './userReducer'
 import bag from './bagReducer'
 import oneItem from './oneItemReducer'
+import {reservationListReducer, reservationDeleteReducer} from './reservationReducer'
+
 
 export default combineReducers({
     auth,
@@ -12,5 +14,7 @@ export default combineReducers({
     users, 
     item,
     bag,
-    oneItem
+    oneItem,
+    reservationList: reservationListReducer,
+    reservationDelete: reservationDeleteReducer
 })

@@ -31,7 +31,16 @@ module.exports = {
       'body-background': '#F6F9EF',
       'white': '#ffffff',
       'warning-background': "#f8d7da",
-      'warning-border': "#f5c6cb"
+      'warning-border': "#f5c6cb",
+      'success': {
+        100: "#d4edda",
+        200: "#155724"
+      },
+      'yellow': {
+        100: "#fff3cd",
+        200:"#856404"
+      }
+
     },
     extend: {
       fontFamily: {
