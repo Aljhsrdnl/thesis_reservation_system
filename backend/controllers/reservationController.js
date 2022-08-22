@@ -105,83 +105,85 @@ const reservationController = {
                         // console.log(`----------------pending obj--------------------`)
                         // console.log(pending_obj);
                         
-                        for (let key in pending_obj) {
-                            let key_content = pending_obj[key];
-                            console.log(`${key}: ${key_content.length}`)
-                            if(key_content.length>=10){
-                                 algo(key, requested_items_data, pending_obj);
-                            }
-                            else {
-                                setTimeout(function () {
-                                            algo(key, requested_items_data, pending_obj);
-                                        }, 60000); //1800000
-                            }
-                            // else if(Date.now() - key_content[0].timestamps >= 60000){
-                            //     console.log(`I am working`)
-                            //     //dapat the algo will run only once, ang time nga basehan is iya sang first reservation made
-                            //     // setTimeout(function () {
-                            //     //     algo(key, requested_items_data, pending_obj);
-                            //     // }, 60000); //1800000
-                            //         algo(key, requested_items_data, pending_obj);
-                            // }
-                        }
-
+                        //---------------------------PROPOSED alGO-------------
+                        // for (let key in pending_obj) {
+                        //     let key_content = pending_obj[key];
+                        //     console.log(`${key}: ${key_content.length}`)
+                        //     clearTimeout();
+                        //     if(key_content.length>=4){
+                        //          algo(key, requested_items_data, pending_obj);
+                        //     }
+                        //     else {
+                        //         setTimeout(function () {
+                        //                     algo(key, requested_items_data, pending_obj);
+                        //                 }, 600000); //1800000
+                        //     }
+                        //     // else if(Date.now() - key_content[0].timestamps >= 60000){
+                        //     //     console.log(`I am working`)
+                        //     //     //dapat the algo will run only once, ang time nga basehan is iya sang first reservation made
+                        //     //     // setTimeout(function () {
+                        //     //     //     algo(key, requested_items_data, pending_obj);
+                        //     //     // }, 60000); //1800000
+                        //     //         algo(key, requested_items_data, pending_obj);
+                        //     // }
+                        // }
+                        // ---------------END OF PROPOSED ALGO------------------
                             
                         
-                        // // ------------------------------------>> Algorithm
-                        // for (i = 0; i < requested_items_data.length; i++) {
-                        //     let resources = requested_items_data[i].resources;
-                        //     let item_name = requested_items_data[i].name;
-                        //     let current_pending_requests = pending_obj[item_name];
-                        //     let new_res = [];
+                        // ------------------------------------>> Algorithm
+                        for (i = 0; i < requested_items_data.length; i++) {
+                            let resources = requested_items_data[i].resources;
+                            let item_name = requested_items_data[i].name;
+                            let current_pending_requests = pending_obj[item_name];
+                            let new_res = [];
                             
                             
-                        //     resources.forEach(resource => {
-                        //         // console.log(resource)
-                        //         current_pending_requests.forEach(job => {
-                        //             if(resource.end_time <= job.borrowDate) {
-                        //                 resource.end_time = job.returnDate;
-                        //                 job.status = "Approved"
-                        //                 resource.reserve.push(job);
-                        //                 delete current_pending_requests[current_pending_requests.indexOf(job)];
+                            resources.forEach(resource => {
+                                // console.log(resource)
+                                current_pending_requests.forEach(job => {
+                                    if(resource.end_time <= job.borrowDate) {
+                                        resource.end_time = job.returnDate;
+                                        job.status = "Approved"
+                                        resource.reserve.push(job);
+                                        delete current_pending_requests[current_pending_requests.indexOf(job)];
                                         
-                        //                 // update DB
-                        //                 Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
-                        //                     .then(console.log('success'))
-                        //             }
+                                        // update DB
+                                        Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
+                                            .then(console.log('success'))
+                                    }
                                     
                                     
-                        //             try {
+                                    try {
 
-                        //                 Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
-                        //                     .then(console.log('success'))
-                        //             }
-                        //             catch (e) {
-                        //                 console.log(e)
-                        //             }
+                                        Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
+                                            .then(console.log('success'))
+                                    }
+                                    catch (e) {
+                                        console.log(e)
+                                    }
                                   
                                     
-                        //             console.log(`------------------------------Rejected-----------------------------------`)
-                        //             console.log(current_pending_requests);
-                        //             Reservation.updateOne(
-                        //                 { _id: {$in: current_pending_requests} },
-                        //                 { $set: {status: 'Rejected', remarks: "Insufficient available resources" }}
-                        //             )
-                        //             .then(console.log('REJECTED'))
-                        //         })
+                                    console.log(`------------------------------Rejected-----------------------------------`)
+                                    console.log(current_pending_requests);
+                                })
+                                Reservation.updateOne(
+                                    { _id: {$in: current_pending_requests} },
+                                    { $set: {status: 'Rejected', remarks: "Insufficient available resources" }}
+                                )
+                                .then(console.log('REJECTED'))
 
-                        //         new_res.push(resource)
-                        //     })
+                                new_res.push(resource)
+                            })
 
                             
-                        //     //find Item by item_name and update the resources array with new_res
-                        //     // Item.updateOne(
-                        //     //     { name: item_name },
-                        //     //     { $set: {resources: new_res}}
-                        //     // )
-                        //     // .then(console.log(`Item Updated!!`))
+                            //find Item by item_name and update the resources array with new_res
+                            // Item.updateOne(
+                            //     { name: item_name },
+                            //     { $set: {resources: new_res}}
+                            // )
+                            // .then(console.log(`Item Updated!!`))
                             
-                        // }
+                        }
 
                         
                         
@@ -193,10 +195,6 @@ const reservationController = {
             })
             .catch(err => console.error(err))
     },
-    update_pending  : async () => {
-        await Reservation.updateMany({}, {status: "Pending"});
-        console.log("Updated to Pending")
-    }
 }
 
 const algo = (key, requested_items_data, pending_obj) => {
@@ -259,4 +257,4 @@ const algo = (key, requested_items_data, pending_obj) => {
     }
 }
 
-module.exports = reservationController;
+module.exports = reservationController; 

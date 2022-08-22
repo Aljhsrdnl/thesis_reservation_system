@@ -71,7 +71,6 @@ const ReserveItemScreen = () => {
       axios.post("/request_reservation", newReservation);
       console.log(newReservation);
     }
-    axios.get("/get_pending");
   };
 
   //------------------>> Form data
