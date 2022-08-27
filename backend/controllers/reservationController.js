@@ -3,7 +3,7 @@ const Item = require("../models/Item")
 
 const reservationController = {
     add_request : async(req, res) => {
-        const {user, borrowDate, returnDate, itemID, quantity_to_borrow, name} = req.body;
+        const {user, borrowDate, returnDate, itemID, quantity_to_borrow, name, user_type} = req.body;
        
         const newReservationRequest = Reservation.create({
             user: user,
@@ -11,7 +11,9 @@ const reservationController = {
             returnDate: returnDate,
             itemID: itemID,
             itemName: name,
-            quantity_to_borrow: quantity_to_borrow});
+            quantity_to_borrow: quantity_to_borrow,
+            user_type: user_type,
+        });
             
 
         return res.status(201).send(newReservationRequest)
@@ -53,155 +55,127 @@ const reservationController = {
                 res.json(pending)
                 pending_req = pending
 
-               
-                //---------------------------------->> ALGORITHM
-                //find all unique itemName in the pending_req arr
-                let unique_values = [];
-                let start = false;
-                let count = 0;
-                for(j=0; j< pending_req.length; j++) {
-                    for(i=0; i<unique_values.length; i++) {
-                        if(pending_req[j].itemName == unique_values[i]) {
-                            start = true;
-                        }
-                    }
-                    count++;
+            //    ------------------------------------------
+                // //---------------------------------->> ALGORITHM
+                // //find all unique itemName in the pending_req arr
+                // let unique_values = [];
+                // let start = false;
+                // let count = 0;
+                // for(j=0; j< pending_req.length; j++) {
+                //     for(i=0; i<unique_values.length; i++) {
+                //         if(pending_req[j].itemName == unique_values[i]) {
+                //             start = true;
+                //         }
+                //     }
+                //     count++;
     
-                    if(count == 1 && start == false) {
-                        unique_values.push(pending_req[j].itemName)
-                    }
-                    start = false;
-                    count = 0;
-                }
+                //     if(count == 1 && start == false) {
+                //         unique_values.push(pending_req[j].itemName)
+                //     }
+                //     start = false;
+                //     count = 0;
+                // }
                 
                 
-                // ----------------------->>  Assigning items     
-                let pending_obj = {};
+                // // ----------------------->>  Assigning items     
+                // let pending_obj = {};
                 
                 
-                for (r =0; r < unique_values.length; r++) {
-                    let name = unique_values[r];
-                    pending_obj[name] = [];
-                }
+                // for (r =0; r < unique_values.length; r++) {
+                //     let name = unique_values[r];
+                //     pending_obj[name] = [];
+                // }
 
-                console.log(`pending obj: ${pending_obj['Condenser']}`)
+                // console.log(`pending obj: ${pending_obj['Condenser']}`)
                 
-                // --------------------> Retrieving Item data
-                const pending_arr = Object.keys(pending_obj);
+                // // --------------------> Retrieving Item data
+                // const pending_arr = Object.keys(pending_obj);
                 
-                Item.find({ name: pending_arr})
-                    .then(data => {
-                        let requested_items_data = data;
+                // Item.find({ name: pending_arr})
+                //     .then(data => {
+                //         let requested_items_data = data;
 
-                        // ------------------------------------------->> Inserting items to pending_obj
-                        for (let key in pending_obj) {
-                            for (i=0; i<pending_req.length; i++) {
-                            if (key == pending_req[i].itemName) {
-                                pending_obj[key].push(pending_req[i])
-                            }
-                            }
-                        }
+                //         // ------------------------------------------->> Inserting items to pending_obj
+                //         for (let key in pending_obj) {
+                //             for (i=0; i<pending_req.length; i++) {
+                //             if (key == pending_req[i].itemName) {
+                //                 pending_obj[key].push(pending_req[i])
+                //             }
+                //             }
+                //         }
         
-                        console.log(`-------pendiing object------------------------------------`)
-                        console.log(pending_obj)
-                        // --------------------------------------------->> sort time
+                //         console.log(`-------pendiing object------------------------------------`)
+                //         console.log(pending_obj)
+                //         // --------------------------------------------->> sort time
                         
-                        for(let key in pending_obj) {
-                            let key_value = pending_obj[key];
-                            key_value.sort( (a,b) => {
-                                return a.returnDate - b.returnDate;
-                            })
-                        }
+                //         for(let key in pending_obj) {
+                //             let key_value = pending_obj[key];
+                //             key_value.sort( (a,b) => {
+                //                 return a.returnDate - b.returnDate;
+                //             })
+                //         }
 
                                
-                        //---------------------------------------->> check threshold
-                        // console.log(`----------------pending obj--------------------`)
-                        // console.log(pending_obj);
                         
-                        //---------------------------PROPOSED alGO-------------
-                        // for (let key in pending_obj) {
-                        //     let key_content = pending_obj[key];
-                        //     console.log(`${key}: ${key_content.length}`)
-                        //     clearTimeout();
-                        //     if(key_content.length>=4){
-                        //          algo(key, requested_items_data, pending_obj);
-                        //     }
-                        //     else {
-                        //         setTimeout(function () {
-                        //                     algo(key, requested_items_data, pending_obj);
-                        //                 }, 600000); //1800000
-                        //     }
-                        //     // else if(Date.now() - key_content[0].timestamps >= 60000){
-                        //     //     console.log(`I am working`)
-                        //     //     //dapat the algo will run only once, ang time nga basehan is iya sang first reservation made
-                        //     //     // setTimeout(function () {   
-                        //     //     //     algo(key, requested_items_data, pending_obj);
-                        //     //     // }, 60000); //1800000
-                        //     //         algo(key, requested_items_data, pending_obj);
-                        //     // }
-                        // }
-                        // ---------------END OF PROPOSED ALGO------------------
-                            
-                        
-                        // ------------------------------------>> Algorithm
-                        for (i = 0; i < requested_items_data.length; i++) {
-                            let resources = requested_items_data[i].resources;
-                            let item_name = requested_items_data[i].name;
-                            let current_pending_requests = pending_obj[item_name];
-                            let new_res = [];
+                //         // ------------------------------------>> Algorithm
+                //         for (i = 0; i < requested_items_data.length; i++) {
+                //             let resources = requested_items_data[i].resources;
+                //             let item_name = requested_items_data[i].name;
+                //             let current_pending_requests = pending_obj[item_name];
+                //             let new_res = [];
                             
                             
-                            resources.forEach(resource => {
-                                // console.log(resource)
-                                current_pending_requests.forEach(job => {
-                                    if(resource.end_time <= job.borrowDate) {
-                                        resource.end_time = job.returnDate;
-                                        job.status = "Approved"
-                                        resource.reserve.push(job);
-                                        delete current_pending_requests[current_pending_requests.indexOf(job)];
+                //             resources.forEach(resource => {
+                //                 // console.log(resource)
+                //                 current_pending_requests.forEach(job => {
+                //                     if(resource.end_time <= job.borrowDate) {
+                //                         resource.end_time = job.returnDate;
+                //                         job.status = "Approved"
+                //                         resource.reserve.push(job);
+                //                         delete current_pending_requests[current_pending_requests.indexOf(job)];
                                         
-                                        // update DB
-                                        Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
-                                            .then(console.log('success'))
-                                    }
+                //                         // update DB
+                //                         Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
+                //                             .then(console.log('success'))
+                //                     }
                                     
                                     
-                                    try {
+                //                     try {
 
-                                        Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
-                                            .then(console.log('success'))
-                                    }
-                                    catch (e) {
-                                        console.log(e)
-                                    }
+                //                         Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
+                //                             .then(console.log('success'))
+                //                     }
+                //                     catch (e) {
+                //                         console.log(e)
+                //                     }
                                   
                                     
-                                    console.log(`------------------------------Rejected-----------------------------------`)
-                                    console.log(current_pending_requests);
-                                    console.log(`------------------------------Rejected-----------------------------------`)
-                                })
-                                Reservation.updateOne(
-                                    { _id: {$in: current_pending_requests} },
-                                    { $set: {status: 'Rejected', remarks: "Insufficient available resources" }}
-                                )
-                                // .then(console.log('REJECTED'))
+                //                     console.log(`------------------------------Rejected-----------------------------------`)
+                //                     console.log(current_pending_requests);
+                //                     console.log(`------------------------------Rejected-----------------------------------`)
+                //                 })
+                //                 Reservation.updateOne(
+                //                     { _id: {$in: current_pending_requests} },
+                //                     { $set: {status: 'Rejected', remarks: "Insufficient available resources" }}
+                //                 )
+                //                 // .then(console.log('REJECTED'))
 
-                                // new_res.push(resource)
-                            })
+                //                 // new_res.push(resource)
+                //             })
 
                             
-                            // find Item by item_name and update the resources array with new_res
-                            // Item.updateOne(
-                            //     { name: item_name },
-                            //     { $set: {resources: new_res}}
-                            // )
-                            // .then(console.log(`Item Updated!!`))
+                //             // find Item by item_name and update the resources array with new_res
+                //             // Item.updateOne(
+                //             //     { name: item_name },
+                //             //     { $set: {resources: new_res}}
+                //             // )
+                //             // .then(console.log(`Item Updated!!`))
                             
-                        }
+                //         }
 
                         
                         
-                    })
+                //     })----------------------
 
                 
 

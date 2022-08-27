@@ -66,6 +66,7 @@ const ReserveItemScreen = () => {
         quantity_to_borrow: reserveDetails.quantity_to_borrow,
         borrowDate: BorrowDate,
         returnDate: ReturnDate,
+        user_type: user.user_type,
       };
 
       axios.post("/request_reservation", newReservation);
