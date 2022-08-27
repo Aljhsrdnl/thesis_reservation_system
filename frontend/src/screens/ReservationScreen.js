@@ -13,6 +13,7 @@ import {
   const reservationList = useSelector((state) => state.reservationList);
   
   const { loading, reservations, error } = reservationList;
+  console.log(reservationList)
 
 
   const reservationDelete = useSelector((state) => state.reservationDelete);
@@ -61,7 +62,11 @@ import {
             </tr>
           </thead>
           <tbody>
+           
             {reservations.length === 0 ? <h1>No Reservations</h1> : reservations.map(reservation => (<tr key={reservation._id} className="border-y">
+             
+              {/* <td className="py-2 text-gray-800 text-sm">{reservation._id}</td>
+              <td className="py-2 text-gray-800 text-sm">{reservation.user.name}</td> */}
               <td className="py-2 text-gray-800 text-sm">{reservation._id}</td>
               <td className="py-2 text-gray-800 text-sm">{reservation.user.name}</td>
               <td className="py-2 text-gray-800 text-sm">{reservation.user.identification_num}</td>

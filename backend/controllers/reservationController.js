@@ -36,6 +36,16 @@ const reservationController = {
             .then(reservations => res.json(reservations))
             .catch(err => console.error(err))
     },
+    get_all_approved: async (req, res) => {
+       Reservation.updateMany({ status: 'Approved' },
+       { $set: {status: 'Pending'} })
+        .then(data => res.json(data))
+        
+    },
+    get_latest_reservation: async (req, res) => {
+        Reservation.find().sort({ "createdAt": -1}).limit(1)
+            .then(data => res.json(data))
+    },
     get_all_pending : async (req, res) => {
         
         Reservation.find({status: 'Pending'})
@@ -73,6 +83,8 @@ const reservationController = {
                     let name = unique_values[r];
                     pending_obj[name] = [];
                 }
+
+                console.log(`pending obj: ${pending_obj['Condenser']}`)
                 
                 // --------------------> Retrieving Item data
                 const pending_arr = Object.keys(pending_obj);
@@ -90,7 +102,8 @@ const reservationController = {
                             }
                         }
         
-                        // console.log(requested_items_data)
+                        console.log(`-------pendiing object------------------------------------`)
+                        console.log(pending_obj)
                         // --------------------------------------------->> sort time
                         
                         for(let key in pending_obj) {
@@ -121,7 +134,7 @@ const reservationController = {
                         //     // else if(Date.now() - key_content[0].timestamps >= 60000){
                         //     //     console.log(`I am working`)
                         //     //     //dapat the algo will run only once, ang time nga basehan is iya sang first reservation made
-                        //     //     // setTimeout(function () {
+                        //     //     // setTimeout(function () {   
                         //     //     //     algo(key, requested_items_data, pending_obj);
                         //     //     // }, 60000); //1800000
                         //     //         algo(key, requested_items_data, pending_obj);
@@ -165,18 +178,19 @@ const reservationController = {
                                     
                                     console.log(`------------------------------Rejected-----------------------------------`)
                                     console.log(current_pending_requests);
+                                    console.log(`------------------------------Rejected-----------------------------------`)
                                 })
                                 Reservation.updateOne(
                                     { _id: {$in: current_pending_requests} },
                                     { $set: {status: 'Rejected', remarks: "Insufficient available resources" }}
                                 )
-                                .then(console.log('REJECTED'))
+                                // .then(console.log('REJECTED'))
 
-                                new_res.push(resource)
+                                // new_res.push(resource)
                             })
 
                             
-                            //find Item by item_name and update the resources array with new_res
+                            // find Item by item_name and update the resources array with new_res
                             // Item.updateOne(
                             //     { name: item_name },
                             //     { $set: {resources: new_res}}

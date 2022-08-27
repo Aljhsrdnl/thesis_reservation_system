@@ -26,6 +26,7 @@ import {useSelector} from 'react-redux'
 function Body() {
     const auth = useSelector(state => state.auth)
     const {user, isLogged, isAdmin} = auth
+    console.log(auth)
     
     return (
         <section>
@@ -45,7 +46,7 @@ function Body() {
                 <Route path="/user/activate/:activation_token" element={<ActivationEmail/> }/>
 
                 <Route path="/profile" element={isLogged ? <HomeScreen/> : <NotFound/>} />
-                <Route path="/edit_user/:id" element={isAdmin ? <EditUser/> : <NotFound/>}  />
+                {/* <Route path="/edit_user/:id" element={isAdmin ? <EditUser/> : <NotFound/>}  /> */}
                 <Route path = "*" element={<PageNotFound/>} />
                 
             </Routes>
