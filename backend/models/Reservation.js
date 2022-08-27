@@ -33,6 +33,10 @@ const ReservationSchema = new Schema ({
     quantity_to_borrow: {
         type: Number,
         required: true
+    },
+    user_type: {
+        type: String,
+        required: true,
     }
 
 }, {
