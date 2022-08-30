@@ -55,7 +55,7 @@ const reservationController = {
                 res.json(pending)
                 pending_req = pending
 
-            //    ------------------------------------------
+                //    ------------------------------------------
                 // //---------------------------------->> ALGORITHM
                 //find all unique itemName in the pending_req arr
                 let unique_itemName = [];
@@ -153,63 +153,62 @@ const reservationController = {
                                
                         
                         // // ------------------------------------>> Algorithm
-                        // for (i = 0; i < requested_items_data.length; i++) {
-                        //     let resources = requested_items_data[i].resources;
-                        //     let item_name = requested_items_data[i].name;
-                        //     let current_pending_requests = pending_obj[item_name];
-                        //     let new_res = [];
+                        for (i = 0; i < requested_items_data.length; i++) {
+                            let resources = requested_items_data[i].resources;
+                            let item_name = requested_items_data[i].name;
+                            let current_pending_requests = pending_obj[item_name];
+                            let new_res = [];
                             
                             
-                        //     resources.forEach(resource => {
-                        //         // console.log(resource)
-                        //         current_pending_requests.forEach(job => {
-                        //             if(resource.end_time <= job.borrowDate) {
-                        //                 resource.end_time = job.returnDate;
-                        //                 job.status = "Approved"
-                        //                 resource.reserve.push(job);
-                        //                 delete current_pending_requests[current_pending_requests.indexOf(job)];
+                            resources.forEach(resource => {
+                                // console.log(resource)
+                                current_pending_requests.forEach(job => {
+                                    if(resource.end_time <= job.borrowDate) {
+                                        resource.end_time = job.returnDate;
+                                        job.status = "Approved"
+                                        resource.reserve.push(job);
+                                        delete current_pending_requests[current_pending_requests.indexOf(job)];
                                         
-                        //                 // update DB
-                        //                 Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
-                        //                     .then(console.log('success'))
-                        //             }
+                                        // update DB
+                                        Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
+                                            .then(console.log('success'))
+                                    }
                                     
-                                    
-                        //             try {
+                                    try {
 
-                        //                 Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
-                        //                     .then(console.log('success'))
-                        //             }
-                        //             catch (e) {
-                        //                 console.log(e)
-                        //             }
+                                        Reservation.updateOne({_id: job._id}, {$set: {status:job.status}})
+                                            .then(console.log('success'))
+                                    }
+                                    catch (e) {
+                                        console.log(e)
+                                    }
                                   
+                                })
+                                
+                                Reservation.updateOne(
+                                    { _id: {$in: current_pending_requests} },
+                                    { $set: {status: 'Rejected', remarks: "Insufficient available resources" }}
+                                )
+                                    // .then(console.log('REJECTED'))
                                     
-                        //             console.log(`------------------------------Rejected-----------------------------------`)
-                        //             console.log(current_pending_requests);
-                        //             console.log(`------------------------------Rejected-----------------------------------`)
-                        //         })
-                        //         Reservation.updateOne(
-                        //             { _id: {$in: current_pending_requests} },
-                        //             { $set: {status: 'Rejected', remarks: "Insufficient available resources" }}
-                        //         )
-                        //         // .then(console.log('REJECTED'))
+                                new_res.push(resource)
+                                console.log(resource)
+                                })
+                                
+                                // find Item by item_name and update the resources array with new_res
+                                Item.updateOne(
+                                    { name: item_name },
+                                    { $set: {resources: new_res}}
+                                )
+                                .then(console.log(`Item Updated!!`))
+                                
+                                Reservation.updateOne(
+                                    { _id: {$in: current_pending_requests} },
+                                    { $set: {status: 'Rejected', remarks: "Insufficient available resources" }}
+                                )
+                                .then(console.log('REJECTED'))
+                            }
 
-                        //         // new_res.push(resource)
-                        //     })
-
-                            
-                        //     // find Item by item_name and update the resources array with new_res
-                        //     // Item.updateOne(
-                        //     //     { name: item_name },
-                        //     //     { $set: {resources: new_res}}
-                        //     // )
-                        //     // .then(console.log(`Item Updated!!`))
-                            
-                        // }
-
-                        
-                        
                     })
 
                 
