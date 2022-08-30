@@ -1,6 +1,10 @@
+const Node = require('../controllers/BinarySearchTree');
+const BinarySearchTree = require('../controllers/BinarySearchTree');
+
+const tree = new BinarySearchTree();
 const r = {
     end_time : -1,
-    reserve: []
+    reserve: tree,
 }
 
 let microscope = [];
@@ -529,7 +533,7 @@ const items = [
         imageURL: "",
         resources: [
             {end_time: -1,
-            reserve: []}
+            reserve: tree}
         ]
     },
     {
@@ -556,11 +560,11 @@ const items = [
         imageURL: "",
         resources : [ 
             {end_time: -1,
-            reserve: []}, 
+            reserve: tree}, 
             {end_time: -1,
-                reserve: []}, 
+                reserve: tree}, 
                 {end_time: -1,
-                    reserve: []}]
+                    reserve: tree}]
     },
     {
         name: "PH Meter",
@@ -569,7 +573,7 @@ const items = [
         unit:"Unit",
         imageURL: "",
         resources: [{end_time: -1,
-            reserve: []}]
+            reserve: tree}]
     },
     {
         name: "Polarimeter",
@@ -578,7 +582,7 @@ const items = [
         unit:"Unit",
         imageURL: "",
         resources: [{end_time: -1,
-            reserve: []}]
+            reserve: tree}]
     },
 
 
