@@ -11,7 +11,7 @@ class Node {
     constructor() {
       this.root = null;
     }
-    create(val) {
+    create(val) {           //can only be accessed when the object is an instance of BinarySearchTree
       const newNode = new Node(val);
       if (!this.root) {
         this.root = newNode;
