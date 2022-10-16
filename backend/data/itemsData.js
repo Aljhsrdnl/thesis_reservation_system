@@ -1,10 +1,9 @@
-const Node = require('../controllers/BinarySearchTree');
-const BinarySearchTree = require('../controllers/BinarySearchTree');
+const ReservationNode = require('../controllers/LinkedList');
+const LinkedList = require('../controllers/LinkedList');
 
-const tree = new BinarySearchTree();
+const list = new LinkedList();
 const r = {
-    end_time : -1,
-    reserve: tree,
+    reserve: list,
 }
 
 let microscope = [];
@@ -533,7 +532,7 @@ const items = [
         imageURL: "",
         resources: [
             {end_time: -1,
-            reserve: tree}
+            reserve: list}
         ]
     },
     {
@@ -560,11 +559,11 @@ const items = [
         imageURL: "",
         resources : [ 
             {end_time: -1,
-            reserve: tree}, 
+            reserve: list}, 
             {end_time: -1,
-                reserve: tree}, 
+                reserve: list}, 
                 {end_time: -1,
-                    reserve: tree}]
+                    reserve: list}]
     },
     {
         name: "PH Meter",
@@ -573,7 +572,7 @@ const items = [
         unit:"Unit",
         imageURL: "",
         resources: [{end_time: -1,
-            reserve: tree}]
+            reserve: list}]
     },
     {
         name: "Polarimeter",
@@ -582,7 +581,7 @@ const items = [
         unit:"Unit",
         imageURL: "",
         resources: [{end_time: -1,
-            reserve: tree}]
+            reserve: list}]
     },
 
 
