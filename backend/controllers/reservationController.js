@@ -168,12 +168,14 @@ const reservationController = {
 
             resources.forEach((resource) => {
               //loop through the available resource for each unique item_name
-              console.log(`RESOURCE: ${resource}`);
+              console.log(`RESOURCE: ${JSON.stringify(resource)}`);
               current_pending_requests.forEach((request) => {
                 //loop through all requests to specific item
                 let current_resource = create(resource.reserve, request);
                 // let stringified_current_resource = JSON.stringify(current_resource)
-                console.log(`Current Resource: ${current_resource}`);
+                console.log(
+                  `Current Resource: ${JSON.stringify(current_resource)}`
+                );
                 if (current_resource != null) {
                   //current_resource will only be null if it does not satisfy the conditions on the addside function (see line 171-179)
                   resource.reserve = current_resource;
@@ -305,17 +307,21 @@ const create = (resource, request) => {
             resource.length++;
             return resource;
           } else {
-            console.log("conflict");
+            console.log(
+              "---------------------------------------------conflict-----------------------------------------------"
+            );
             return null;
           }
         }
         currentNode = currentNode.next;
-        console.log(`CURRENTNODE: ${currentNode}`);
+        console.log(`CURRENTNODE: ${JSON.stringify(currentNode)}`);
       }
     }
   };
-  console.log(`FINAL LIST: ${JSON.stringify(insert(reservationToBeInserted))}`);
-  // return insert(reservationToBeInserted);
+  // console.log(`FINAL LIST: ${JSON.stringify(insert(reservationToBeInserted))}`);
+  const return_val = insert(reservationToBeInserted);
+  console.log(`RETURN VALUE: ${JSON.stringify(return_val)}`);
+  return return_val;
 };
 
 const deleteElement = (arr, arrLength, element) => {
