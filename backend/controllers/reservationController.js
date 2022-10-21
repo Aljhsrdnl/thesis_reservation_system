@@ -138,13 +138,15 @@ const reservationController = {
             let requested_item_name = pending_obj[key];
             requested_item_name.sort((a, b) => {
               if (
-                a.user_type == "WVSU Student" &&
-                b.user_type == "WVSU Student"
+                a.user_type == "Admin" && //CHANGE THIS TO ADMIN
+                b.user_type == "Admin"
               ) {
                 return a.returnDate - b.returnDate;
               }
             });
           }
+
+          console.log(pending_obj["Oven"]);
 
           for (let key in pending_obj) {
             console.log(
@@ -166,29 +168,53 @@ const reservationController = {
             // console.log(item_name)
             // console.log(resources)
 
+            var j = 1;
+            var k = 1;
             resources.forEach((resource) => {
+              console.log(`ITEM no: ${k} \n`);
               //loop through the available resource for each unique item_name
-              console.log(`RESOURCE: ${JSON.stringify(resource)}`);
+              // console.log(`NEW RESOURCE`);
+              // console.log(`RESOURCE: ${JSON.stringify(resource)}`);
               current_pending_requests.forEach((request) => {
+                console.log(
+                  `Current Pending Request: \n ${JSON.stringify(
+                    current_pending_requests
+                  )} \n`
+                );
                 //loop through all requests to specific item
                 let current_resource = create(resource.reserve, request);
                 // let stringified_current_resource = JSON.stringify(current_resource)
-                console.log(
-                  `Current Resource: ${JSON.stringify(current_resource)}`
-                );
+                // console.log(`-------------no. ${j} request`);
+                // console.log(
+                //   `Current Resource: \n ${JSON.stringify(current_resource)} \n`
+                // );
                 if (current_resource != null) {
                   //current_resource will only be null if it does not satisfy the conditions on the addside function (see line 171-179)
                   resource.reserve = current_resource;
-                  new_res.push(resource);
-                  //delete the `request` from the current_pending_requests array
-                  const new_arr_length = deleteElement(
-                    current_pending_requests,
-                    current_pending_requests.length,
-                    request
-                  );
+                  j++;
+                  // console.log(
+                  //   `NEW RESOURCE BEFORE INSERTION OF NEW REQUEST: \n ${JSON.stringify(
+                  //     new_res
+                  //   )} \n`
+                  // );
+                  // console.log(
+                  //   `RESOURCE TO BE INSERTED: \n ${JSON.stringify(
+                  //     resource.reserve
+                  //   )} \n`
+                  // );
+                  //  delete the accepted request from the current_pending_request array
+                  del_element(current_pending_requests, request);
+                  // console.log(
+                  //   `Current Pending Request: \n ${JSON.stringify(
+                  //     current_pending_requests
+                  //   )} \n`
+                  // );
                 }
               });
-              console.log(`New Resource: ${JSON.stringify(new_res)}`);
+              new_res.push(resource.reserve);
+              // console.log(`Final New Resource: \n ${JSON.stringify(new_res)}`);
+              k++;
+
               // Item.updateOne(
               //     { name: item_name },
               //     { $set: {resources: new_res}}
@@ -205,17 +231,19 @@ const reservationController = {
 const create = (resource, request) => {
   //request is an object containing all details reagarding the reservation request
   const reservationToBeInserted = new ReservationNode(request);
-  console.log(`working create`);
-
+  console.log(
+    `RESERVATION CURRENTLY PROCESSED: ${JSON.stringify(
+      reservationToBeInserted
+    )}`
+  );
   const insert = (reservationToBeInserted) => {
     // const reservation = new Reservation(reservationToBeInserted);
     const head = this.head;
-    console.log(`working insert`);
+
     if (resource.head == null) {
       resource.head = reservationToBeInserted;
       resource.length++;
-      console.log(`inserted at the head`);
-      console.log(`Resource Head: ${JSON.stringify(resource.head)}`);
+      console.log(`\n HEAD WAS NULL \n`);
       return resource;
     } else if (resource.head != null) {
       var currentNode = resource.head;
@@ -231,17 +259,8 @@ const create = (resource, request) => {
             const temp = currentNode;
             resource.head = reservationToBeInserted;
             resource.head.next = temp;
-            console.log(reservationToBeInserted.data.returnDate);
-            console.log(currentNode.data.borrowDate);
-            console.log(
-              reservationToBeInserted.data.returnDate <=
-                currentNode.data.borrowDate
-            );
-            console.log(`Resource: ${JSON.stringify(resource.head.data)}`);
-            console.log(
-              `---------------------------1123124----------------------`
-            );
             resource.length++;
+            console.log(`\n PUTTING THE NEW RESERVATION AT THE HEAD \n`);
             return resource;
             // case 1.1: linkedList's length is 1 and newReservation is greater than the head
             // put the newReservation to the end of the head
@@ -249,32 +268,48 @@ const create = (resource, request) => {
             reservationToBeInserted.data.borrowDate >=
             currentNode.data.returnDate
           ) {
-            currentNode.next = reservationToBeInserted;
-            console.log(reservationToBeInserted.data.returnDate);
-            console.log(currentNode.data.borrowDate);
-            console.log(`Resource: ${JSON.stringify(resource)}`);
-            resource.length++;
-            console.log(`less than 2`);
             console.log(
-              `-----------------1312--------------------------------`
+              `\n PUTTING THE RESERVATION AT THE END OF THE LIINKED LIST \n`
             );
+            currentNode.next = reservationToBeInserted;
+            resource.length++;
             return resource;
           }
+          // else if (
+          //   reservationToBeInserted.data.borrowDate ==
+          //   currentNode.data.borrowDate
+          // ) {
+          //   console.log(
+          //     `===========================================================conflicccccccccccccccccccct============`
+          //   );
+          // }
         }
         // case 2: linklist's length is more than 1
         else if (resource.length > 1) {
           // case 5: if reservation is less than the head, and the linklist's len is kroe than 1
           if (
             reservationToBeInserted.data.returnDate <=
-            currentNode.data.borrowDate
+              currentNode.data.borrowDate &&
+            reservationToBeInserted.data.borrowDate <=
+              currentNode.data.borrowDate
           ) {
+            console.log(reservationToBeInserted.data.returnDate);
+            console.log(currentNode.data.borrowDate);
             const temp = currentNode;
             resource.head = reservationToBeInserted;
             resource.head.next = temp;
             resource.length++;
-            console.log(`Resource: ${JSON.stringify(resource)}`);
-            console.log(`less than`);
-            console.log(`--------------------123-----------------------------`);
+            console.log(
+              reservationToBeInserted.data.returnDate <=
+                currentNode.data.borrowDate
+            );
+            console.log(
+              reservationToBeInserted.data.borrowDate <=
+                currentNode.data.borrowDate
+            );
+            console.log(
+              `\n LESS THAN THE HEAD AND LIST IS MORE THAN 1, THUS NEW HEAD \n`
+            );
             return resource;
           }
           // if in between kag GREATER THAN currentNode
@@ -288,8 +323,11 @@ const create = (resource, request) => {
               var temp = currentNode.next;
               reservationToBeInserted.next = temp;
               currentNode.next = reservationToBeInserted;
-              console.log(`inbetween`);
+              console.log(
+                `\n IN BETWEEN NODES AND GREATER THAN CURRENT NODE \n`
+              );
               resource.length++;
+              console.log("test");
               return resource;
             }
           }
@@ -301,45 +339,40 @@ const create = (resource, request) => {
           ) {
             currentNode.next = reservationToBeInserted;
             console.log(
-              `reservation should be inserted at the end of the linkedlist`
+              `\n RESERVATION WAS TO BE INSERTED AT THE END OF THE LINKED LIST \n`
             );
-            console.log(`CURRENTNODE: ${JSON.stringify(currentNode)}`);
             resource.length++;
             return resource;
           } else {
-            console.log(
-              "---------------------------------------------conflict-----------------------------------------------"
-            );
+            console.log("\n ====================conflict=================\n ");
             return null;
           }
         }
         currentNode = currentNode.next;
-        console.log(`CURRENTNODE: ${JSON.stringify(currentNode)}`);
       }
     }
   };
   // console.log(`FINAL LIST: ${JSON.stringify(insert(reservationToBeInserted))}`);
   const return_val = insert(reservationToBeInserted);
-  console.log(`RETURN VALUE: ${JSON.stringify(return_val)}`);
+  console.log(
+    `RETURN VALUE: ======================================================\n${JSON.stringify(
+      return_val
+    )}\n`
+  );
   return return_val;
 };
 
-const deleteElement = (arr, arrLength, element) => {
+const del_element = (arr, element) => {
   let i;
-  for (i = 0; i < arrLength; i++) {
-    if (arr[i]._id == element._id) {
+  for (i = 0; i < arr.length; i++) {
+    if (arr[i]._id === element._id) {
       break;
     }
   }
+  console.log(`DELETED ELEMENT \\n ${arr[i]}`);
+  arr.splice(i, 1);
 
-  if (i < arrLength) {
-    arrLength = arrLength - 1;
-    for (let j = i; j < arrLength; j++) {
-      arr[j] = arr[j + 1];
-    }
-  }
-
-  return arrLength;
+  return arr;
 };
 
 module.exports = reservationController;
