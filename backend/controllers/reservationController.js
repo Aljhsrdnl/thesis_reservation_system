@@ -225,7 +225,7 @@ const reservationController = {
                   resource.reserve,
                   current_pending_requests[a]
                 );
-                console.log(`\n Index Value: ${a}`);
+                console.log(`CURRENT RESOURCE: ${current_resource}`);
                 if (current_resource != "conflict") {
                   resource.reserver = current_resource;
                   current_pending_request = del_element(
@@ -234,6 +234,7 @@ const reservationController = {
                   );
                   a = -1;
                 } else {
+                  console.log("CONFLICT");
                   console.log(a);
                   console.log(current_pending_requests.length);
                   console.log(
@@ -276,13 +277,18 @@ const create = (resource, request) => {
     if (resource.head == null) {
       resource.head = reservationToBeInserted;
       resource.length++;
-      console.log(`\n HEAD WAS NULL \n`);
       return resource;
     } else if (resource.head != null) {
       var currentNode = resource.head;
       // console.log(`\n CURRENTNODE \n ${JSON.stringify(currentNode.data)}`);
       // for(i=1; i<=resource.length;i++) { //currentNode is NOT NULL
+      console.log(
+        `--------------------------------START OF ITERATION--------------------------`
+      );
       while (currentNode) {
+        console.log(
+          `\n CURRENT NODE PROCESSED: \n ${JSON.stringify(currentNode)}`
+        );
         if (resource.length == 1) {
           console.log(`\n   LINKED LIST HAS [1] ELEMENT ONLY \n`);
           // case 1: linkedList's length is 1 and newReservation is less than the head
@@ -321,24 +327,24 @@ const create = (resource, request) => {
         // case 2: linklist's length is more than 1
         else if (resource.length > 1) {
           // case 5: if reservation is less than the head, and the linklist's len is kroe than 1
-          console.log(`\n CURRENTNODE \n ${JSON.stringify(currentNode.data)}`);
-          console.log(reservationToBeInserted.data.returnDate);
-          console.log(currentNode.data.borrowDate);
-          console.log(
-            reservationToBeInserted.data.returnDate <=
-              currentNode.data.borrowDate
-          );
-          console.log(
-            reservationToBeInserted.data.borrowDate <=
-              currentNode.data.borrowDate
-          );
+          // console.log(`\n CURRENTNODE \n ${JSON.stringify(currentNode.data)}`);
+          // console.log(reservationToBeInserted.data.returnDate);
+          // console.log(currentNode.data.borrowDate);
+          // console.log(
+          //   reservationToBeInserted.data.returnDate <=
+          //     currentNode.data.borrowDate
+          // );
+          // console.log(
+          //   reservationToBeInserted.data.borrowDate <=
+          //     currentNode.data.borrowDate
+          // );
           if (
             reservationToBeInserted.data.returnDate <=
               currentNode.data.borrowDate &&
             reservationToBeInserted.data.borrowDate <=
               currentNode.data.borrowDate
           ) {
-            currentNode = resource.head;
+            // currentNode = resource.head;
             console.log(
               `\n CURRENTNODE \n ${JSON.stringify(currentNode.data)}`
             );
@@ -346,18 +352,31 @@ const create = (resource, request) => {
             console.log(
               `\n LESS THAN THE HEAD AND LIST IS MORE THAN 1, THUS NEW HEAD \n`
             );
-            const temp = currentNode;
-            resource.head = reservationToBeInserted;
-            resource.head.next = temp;
+            reservationToBeInserted.next = currentNode;
+            currentNode = reservationToBeInserted;
+            // const temp = currentNode;
+            // resource.head = reservationToBeInserted;
+            // resource.head.next = temp;
             resource.length++;
 
+            return resource;
+          } else if (
+            reservationToBeInserted.data.borrowDate >=
+              currentNode.data.returnDate &&
+            currentNode.next != null &&
+            reservationToBeInserted.data.returnDate <=
+              currentNode.next.data.borrowDate
+          ) {
+            reservationToBeInserted.next = currentNode.next;
+            currentNode.next = reservationToBeInserted;
+            resource.length++;
             return resource;
           } else if (
             reservationToBeInserted.data.returnDate >
             currentNode.data.borrowDate
           ) {
             console.log(`conflict`);
-            return "conflict";
+            // return "conflict";
           }
           // if in between kag GREATER THAN currentNode
           else if (currentNode.next != null) {
@@ -390,22 +409,27 @@ const create = (resource, request) => {
             );
             resource.length++;
             return resource;
-          } else {
-            console.log("\n ====================conflict=================\n ");
+          }
+          // else {
+          //   console.log("\n ====================conflict=================\n ");
+          //   return "conflict";
+          // }
+          else if (currentNode.next == null) {
+            console.log(`conflict`);
             return "conflict";
           }
         }
         currentNode = currentNode.next;
+        console.log(`NEXT NODE----------------------`);
       }
+
+      console.log(
+        `--------------------------------END OF ITERATION--------------------------`
+      );
     }
   };
   // console.log(`FINAL LIST: ${JSON.stringify(insert(reservationToBeInserted))}`);
   const return_val = insert(reservationToBeInserted);
-  console.log(
-    `RETURN VALUE: ======================================================\n${JSON.stringify(
-      return_val
-    )}\n`
-  );
   return return_val;
 };
 
