@@ -41,7 +41,7 @@ const ReserveModal = forwardRef(({ defaultOpened = false }, ref) => {
                 loop
                 animationData={PendingRequest}
                 play
-                style={{ width: 300, height: 300 }}
+                style={{ height: 300 }}
               />
             </div>
             <div className="flex justify-center items-center mt-10">
