@@ -154,6 +154,7 @@ const reservationController = {
             );
           }
 
+          let new_res = [];
           // New Algo
           for (i = 0; i < requested_items_data.length; i++) {
             console.log(
@@ -162,72 +163,17 @@ const reservationController = {
             let resources = requested_items_data[i].resources;
             let item_name = requested_items_data[i].name;
             let current_pending_requests = pending_obj[item_name];
-            let new_res = [];
-            // console.log(`-------------RESOURCES--------------------`)
-            // console.log(requested_items_data.length)
-            // console.log(item_name)
-            // console.log(resources)
+            // let new_res = [];
 
-            var j = 1;
-            var k = 1;
             resources.forEach((resource) => {
-              console.log(`ITEM no: ${k} \n`);
-              //loop through the available resource for each unique item_name
-              // console.log(`NEW RESOURCE`);
-              // console.log(`RESOURCE: ${JSON.stringify(resource)}`);
-              // current_pending_requests.forEach((request) => {
-              //   console.log(
-              //     `Current Pending Request: \n ${JSON.stringify(
-              //       current_pending_requests
-              //     )} \n`
-              //   );
-              //   //loop through all requests to specific item
-              //   let current_resource = create(resource.reserve, request);
-              //   // let stringified_current_resource = JSON.stringify(current_resource)
-              //   // console.log(`-------------no. ${j} request`);
-              //   // console.log(
-              //   //   `Current Resource: \n ${JSON.stringify(current_resource)} \n`
-              //   // );
-              //   if (current_resource != null) {
-              //     //current_resource will only be null if it does not satisfy the conditions on the addside function (see line 171-179)
-              //     resource.reserve = current_resource;
-              //     j++;
-              //     // console.log(
-              //     //   `NEW RESOURCE BEFORE INSERTION OF NEW REQUEST: \n ${JSON.stringify(
-              //     //     new_res
-              //     //   )} \n`
-              //     // );
-              //     // console.log(
-              //     //   `RESOURCE TO BE INSERTED: \n ${JSON.stringify(
-              //     //     resource.reserve
-              //     //   )} \n`
-              //     // );
-              //     //  delete the accepted request from the current_pending_request array
-              //     del_element(current_pending_requests, request);
-              //     console.log(
-              //       ` \n LENGTH OF CURRENT PENDING REQUEST:  ${current_pending_requests.length}`
-              //     );
-              //     console.log(`Index: ${j}`);
-              //     // console.log(
-              //     //   `Current Pending Request: \n ${JSON.stringify(
-              //     //     current_pending_requests
-              //     //   )} \n`
-              //     // );
-              //   }
-              // });
               for (a = 0; a < current_pending_requests.length; a++) {
-                console.log(
-                  `Current Pending Request: \n ${JSON.stringify(
-                    current_pending_requests
-                  )} \n`
-                );
+                console.log(`\n RESOURCE: \n ${JSON.stringify(resource)}`);
                 let current_resource = create(
-                  resource.reserve,
+                  resource,
                   current_pending_requests[a]
                 );
-                console.log(`CURRENT RESOURCE: ${current_resource}`);
                 if (current_resource != "conflict") {
-                  resource.reserver = current_resource;
+                  resource = current_resource;
                   current_pending_request = del_element(
                     current_pending_requests,
                     current_pending_requests[a]
@@ -244,16 +190,13 @@ const reservationController = {
                   );
                 }
               }
-              new_res.push(resource.reserve);
+              new_res.push(resource);
               console.log(`Final New Resource: \n ${JSON.stringify(new_res)}`);
-              k++;
-
-              // Item.updateOne(
-              //     { name: item_name },
-              //     { $set: {resources: new_res}}
-              // )
-              // .then(console.log('Successfully updated'))
             });
+            Item.updateOne(
+              { name: item_name },
+              { $set: { resources: new_res } }
+            ).then(console.log("Successfully updated"));
           }
         });
       })
@@ -264,168 +207,69 @@ const reservationController = {
 const create = (resource, request) => {
   //request is an object containing all details reagarding the reservation request
   const reservationToBeInserted = new ReservationNode(request);
-  console.log(
-    `RESERVATION CURRENTLY PROCESSED: ${JSON.stringify(
-      reservationToBeInserted
-    )}`
-  );
+  console.log(`\n RESOURCE: \n ${JSON.stringify(resource)}`);
   const insert = (reservationToBeInserted) => {
     // const reservation = new Reservation(reservationToBeInserted);
-
-    const head = this.head;
-
+    console.log(resource);
     if (resource.head == null) {
       resource.head = reservationToBeInserted;
       resource.length++;
       return resource;
     } else if (resource.head != null) {
       var currentNode = resource.head;
-      // console.log(`\n CURRENTNODE \n ${JSON.stringify(currentNode.data)}`);
-      // for(i=1; i<=resource.length;i++) { //currentNode is NOT NULL
-      console.log(
-        `--------------------------------START OF ITERATION--------------------------`
-      );
+
       while (currentNode) {
-        console.log(
-          `\n CURRENT NODE PROCESSED: \n ${JSON.stringify(currentNode)}`
-        );
-        if (resource.length == 1) {
-          console.log(`\n   LINKED LIST HAS [1] ELEMENT ONLY \n`);
-          // case 1: linkedList's length is 1 and newReservation is less than the head
-          if (
-            reservationToBeInserted.data.returnDate <=
-            currentNode.data.borrowDate
-          ) {
-            const temp = currentNode;
-            resource.head = reservationToBeInserted;
-            resource.head.next = temp;
-            resource.length++;
-            console.log(`\n PUTTING THE NEW RESERVATION AT THE HEAD \n`);
-            return resource;
-            // case 1.1: linkedList's length is 1 and newReservation is greater than the head
-            // put the newReservation to the end of the head
-          } else if (
-            reservationToBeInserted.data.borrowDate >=
-            currentNode.data.returnDate
-          ) {
-            console.log(
-              `\n PUTTING THE RESERVATION AT THE END OF THE LIINKED LIST \n`
-            );
-            currentNode.next = reservationToBeInserted;
-            resource.length++;
-            return resource;
-          } else if (
-            reservationToBeInserted.data.returnDate >
-            currentNode.data.borrowDate
-          ) {
-            console.log(
-              `===========================================================conflicccccccccccccccccccct============`
-            );
-            return "conflict";
-          }
+        if (
+          reservationToBeInserted.data.borrowDate >=
+            currentNode.data.returnDate &&
+          currentNode.next == null
+        ) {
+          // let id = reservationToBeInserted.data._id;
+          // console.log(id);
+          // Reservation.updateOne(
+          //   { _id: id },
+          //   { $set: { status: "Approved" } }
+          // ).then(console.log("Reservation Updated"));
+          currentNode.next = reservationToBeInserted;
+          resource.length++;
+          return resource;
+        } else if (
+          reservationToBeInserted.data.returnDate <=
+          resource.head.data.borrowDate
+        ) {
+          // let id = reservationToBeInserted.data._id;
+          // console.log(id);
+          // Reservation.updateOne(
+          //   { _id: id },
+          //   { $set: { status: "Approved" } }
+          // ).then(console.log("Reservation Updated"));
+          reservationToBeInserted.next = resource.head;
+          resource.head = reservationToBeInserted;
+          resource.length++;
+          return resource;
+        } else if (
+          reservationToBeInserted.data.borrowDate >=
+            currentNode.data.returnDate &&
+          reservationToBeInserted.data.returnDate <=
+            currentNode.next.data.borrowDate &&
+          currentNode.next != null
+        ) {
+          // let id = reservationToBeInserted.data._id;
+          // console.log(id);
+          // Reservation.updateOne(
+          //   { _id: id },
+          //   { $set: { status: "Approved" } }
+          // ).then(console.log("Reservation Updated"));
+          reservationToBeInserted.next = currentNode.next;
+          currentNode.next = reservationToBeInserted;
+          resource.length++;
+          return resource;
+        } else if (currentNode.next == null) {
+          return "conflict";
         }
-        // case 2: linklist's length is more than 1
-        else if (resource.length > 1) {
-          // case 5: if reservation is less than the head, and the linklist's len is kroe than 1
-          // console.log(`\n CURRENTNODE \n ${JSON.stringify(currentNode.data)}`);
-          // console.log(reservationToBeInserted.data.returnDate);
-          // console.log(currentNode.data.borrowDate);
-          // console.log(
-          //   reservationToBeInserted.data.returnDate <=
-          //     currentNode.data.borrowDate
-          // );
-          // console.log(
-          //   reservationToBeInserted.data.borrowDate <=
-          //     currentNode.data.borrowDate
-          // );
-          if (
-            reservationToBeInserted.data.returnDate <=
-              currentNode.data.borrowDate &&
-            reservationToBeInserted.data.borrowDate <=
-              currentNode.data.borrowDate
-          ) {
-            // currentNode = resource.head;
-            console.log(
-              `\n CURRENTNODE \n ${JSON.stringify(currentNode.data)}`
-            );
 
-            console.log(
-              `\n LESS THAN THE HEAD AND LIST IS MORE THAN 1, THUS NEW HEAD \n`
-            );
-            reservationToBeInserted.next = currentNode;
-            currentNode = reservationToBeInserted;
-            // const temp = currentNode;
-            // resource.head = reservationToBeInserted;
-            // resource.head.next = temp;
-            resource.length++;
-
-            return resource;
-          } else if (
-            reservationToBeInserted.data.borrowDate >=
-              currentNode.data.returnDate &&
-            currentNode.next != null &&
-            reservationToBeInserted.data.returnDate <=
-              currentNode.next.data.borrowDate
-          ) {
-            reservationToBeInserted.next = currentNode.next;
-            currentNode.next = reservationToBeInserted;
-            resource.length++;
-            return resource;
-          } else if (
-            reservationToBeInserted.data.returnDate >
-            currentNode.data.borrowDate
-          ) {
-            console.log(`conflict`);
-            // return "conflict";
-          }
-          // if in between kag GREATER THAN currentNode
-          else if (currentNode.next != null) {
-            if (
-              reservationToBeInserted.data.returnDate <=
-                currentNode.next.data.borrowDate &&
-              reservationToBeInserted.data.borrowDate >=
-                currentNode.data.returnDate
-            ) {
-              var temp = currentNode.next;
-              reservationToBeInserted.next = temp;
-              currentNode.next = reservationToBeInserted;
-              console.log(
-                `\n IN BETWEEN NODES AND GREATER THAN CURRENT NODE \n`
-              );
-              resource.length++;
-              console.log("test");
-              return resource;
-            }
-          }
-          // case 4: reservation should be inserted at the end of the linkedlist
-          else if (
-            currentNode.next == null &&
-            currentNode.data.returnDate <=
-              reservationToBeInserted.data.borrowDate
-          ) {
-            currentNode.next = reservationToBeInserted;
-            console.log(
-              `\n RESERVATION WAS TO BE INSERTED AT THE END OF THE LINKED LIST \n`
-            );
-            resource.length++;
-            return resource;
-          }
-          // else {
-          //   console.log("\n ====================conflict=================\n ");
-          //   return "conflict";
-          // }
-          else if (currentNode.next == null) {
-            console.log(`conflict`);
-            return "conflict";
-          }
-        }
         currentNode = currentNode.next;
-        console.log(`NEXT NODE----------------------`);
       }
-
-      console.log(
-        `--------------------------------END OF ITERATION--------------------------`
-      );
     }
   };
   // console.log(`FINAL LIST: ${JSON.stringify(insert(reservationToBeInserted))}`);
