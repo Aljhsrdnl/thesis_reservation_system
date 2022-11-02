@@ -53,6 +53,12 @@ const reservationController = {
       { $set: { status: "Pending" } }
     ).then((data) => res.json(data));
   },
+  get_all_reject: async (req, res) => {
+    Reservation.updateMany(
+      { status: "Rejected" },
+      { $set: { status: "Pending", remarks: " " } }
+    ).then((data) => res.json(data));
+  },
   get_latest_reservation: async (req, res) => {
     Reservation.find()
       .sort({ createdAt: -1 })
@@ -68,6 +74,18 @@ const reservationController = {
         //    ------------------------------------------
         // //---------------------------------->> ALGORITHM
         //find all unique itemName in the pending_req arr
+
+        // Create multiple instances of the Reservation with more than 1 quantity to borrow
+        pending_req.forEach((pending) => {
+          let quantity = pending.quantity_to_borrow;
+          if (quantity > 1) {
+            for (let i = 1; i < quantity; i++) {
+              pending_req.push(pending);
+            }
+          }
+        });
+
+        console.log(pending_req);
         let unique_itemName = [];
         let start = false;
         let count = 0;
@@ -86,7 +104,7 @@ const reservationController = {
           count = 0;
         }
 
-        console.log(`Unique Item Names: ${unique_itemName}`);
+        // console.log(`Unique Item Names: ${unique_itemName}`);
 
         // // ----------------------->>  Making an object of pending requests containing an empty object for each unique item Names
         let pending_obj = {};
@@ -111,10 +129,6 @@ const reservationController = {
               }
             }
           }
-
-          // for (let key in pending_obj) {
-          //     console.log(`--------------------------- \n ${key}: \n ${pending_obj[key]}`);
-          // }
 
           // sort requests based on user_type where higher priority is given to WVSU Teachers
           for (let key in pending_obj) {
@@ -146,20 +160,12 @@ const reservationController = {
             });
           }
 
-          console.log(pending_obj["Oven"]);
-
-          for (let key in pending_obj) {
-            console.log(
-              `--------------------------- \n ${key}: \n ${pending_obj[key]}`
-            );
-          }
-
           let new_res = [];
           // New Algo
           for (i = 0; i < requested_items_data.length; i++) {
-            console.log(
-              `REQUEST ITEMS LENGTH: ${requested_items_data[i].resources.length}`
-            );
+            // console.log(
+            //   `REQUEST ITEMS LENGTH: ${requested_items_data[i].resources.length}`
+            // );
             let resources = requested_items_data[i].resources;
             let item_name = requested_items_data[i].name;
             let current_pending_requests = pending_obj[item_name];
@@ -167,36 +173,72 @@ const reservationController = {
 
             resources.forEach((resource) => {
               for (a = 0; a < current_pending_requests.length; a++) {
-                console.log(`\n RESOURCE: \n ${JSON.stringify(resource)}`);
                 let current_resource = create(
                   resource,
                   current_pending_requests[a]
                 );
                 if (current_resource != "conflict") {
                   resource = current_resource;
-                  current_pending_request = del_element(
+                  current_pending_requests = del_element(
                     current_pending_requests,
                     current_pending_requests[a]
                   );
                   a = -1;
                 } else {
-                  console.log("CONFLICT");
-                  console.log(a);
-                  console.log(current_pending_requests.length);
-                  console.log(
-                    `Current Pending Request: \n ${JSON.stringify(
-                      current_pending_requests
-                    )} \n`
-                  );
                 }
               }
               new_res.push(resource);
-              console.log(`Final New Resource: \n ${JSON.stringify(new_res)}`);
+              // console.log(`Final New Resource: \n ${JSON.stringify(new_res)}`);
             });
+
             Item.updateOne(
               { name: item_name },
               { $set: { resources: new_res } }
             ).then(console.log("Successfully updated"));
+
+            //update accepted resources
+            // new_res.forEach((resource) => {
+            //   currentNode = resource.head;
+            //   while (currentNode) {
+            //     let id = currentNode.data._id;
+            //     Reservation.updateOne(
+            //       { _id: id },
+            //       { $set: { status: "Approved" } }
+            //     ).then(
+            //       console.log(
+            //         `Successfully updated status! of Reservation with ID: ${id}`
+            //       )
+            //     );
+            //     currentNode = currentNode.next;
+            //   }
+            // });
+
+            // console.log(`REJECTED: ${current_pending_requests}`);
+            console.log(`NEW RESERVATION${new_res}`);
+            update(new_res).then((msg) => {
+              console.log(msg);
+              console.log(`REJECTED REQUESTS: ${current_pending_requests}`);
+              reject_element(current_pending_requests);
+            });
+
+            //update rejected
+            // console.log(`REJECTED REQUESTS: \n ${current_pending_requests}`);
+            // current_pending_requests.forEach((pending) => {
+            //   let id = pending._id;
+            //   Reservation.updateOne(
+            //     { _id: id },
+            //     {
+            //       $set: {
+            //         status: "Rejected",
+            //         remarks: "Insufficient available resources.",
+            //       },
+            //     }
+            //   ).then(
+            //     console.log(
+            //       `Successfully updated status to REJECTED AND REMARKSE ${id}`
+            //     )
+            //   );
+            // });
           }
         });
       })
@@ -207,10 +249,10 @@ const reservationController = {
 const create = (resource, request) => {
   //request is an object containing all details reagarding the reservation request
   const reservationToBeInserted = new ReservationNode(request);
-  console.log(`\n RESOURCE: \n ${JSON.stringify(resource)}`);
+  // console.log(`\n RESOURCE: \n ${JSON.stringify(resource)}`);
   const insert = (reservationToBeInserted) => {
     // const reservation = new Reservation(reservationToBeInserted);
-    console.log(resource);
+    // console.log(resource);
     if (resource.head == null) {
       resource.head = reservationToBeInserted;
       resource.length++;
@@ -284,10 +326,49 @@ const del_element = (arr, element) => {
       break;
     }
   }
-  console.log(`DELETED ELEMENT \\n ${arr[i]}`);
+  // console.log(`DELETED ELEMENT \\n ${arr[i]}`);
   arr.splice(i, 1);
 
   return arr;
 };
 
+const update = (new_res) => {
+  return new Promise((resolve, reject) => {
+    // const approve_element = (new_res) => {
+    new_res.forEach((resource) => {
+      currentNode = resource.head;
+      while (currentNode) {
+        let id = currentNode.data._id;
+        Reservation.updateOne(
+          { _id: id },
+          { $set: { status: "Approved" } }
+        ).then(
+          console.log(
+            `Successfully updated status! of Reservation with ID: ${id}`
+          )
+        );
+        currentNode = currentNode.next;
+      }
+    });
+    resolve("DONE ALL APPROVED");
+    // };
+  });
+};
+
+const reject_element = (current_pending_requests) => {
+  current_pending_requests.forEach((pending) => {
+    let id = pending._id;
+    Reservation.updateOne(
+      { _id: id },
+      {
+        $set: {
+          status: "Rejected",
+          remarks: "Insufficient available resources.",
+        },
+      }
+    ).then(
+      console.log(`Successfully updated status to REJECTED AND REMARKSE ${id}`)
+    );
+  });
+};
 module.exports = reservationController;
