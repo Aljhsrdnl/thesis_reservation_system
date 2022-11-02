@@ -10,6 +10,7 @@ router.get(
 );
 router.get("/get_pending", reservation_controller.get_all_pending);
 router.get("/get_all_approved", reservation_controller.get_all_approved);
+router.get("/get_all_reject", reservation_controller.get_all_reject);
 router.get(
   "/get_latest_reservation",
   reservation_controller.get_latest_reservation

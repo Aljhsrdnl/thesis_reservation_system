@@ -8,7 +8,7 @@ const r = {
 
 let microscope = [];
 for (var i = 0; i < 20; i++) {
-  microscope.push(r);
+  microscope.push(new LinkedList());
 }
 let optical_bench = [];
 for (var i = 0; i < 7; i++) {
@@ -562,7 +562,7 @@ const items = [
     avail_quantity: 1,
     unit: "Unit",
     imageURL: "",
-    resources: [{ end_time: -1, reserve: list }],
+    resources: [new LinkedList()],
   },
   {
     name: "Polarimeter",
