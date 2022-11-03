@@ -196,49 +196,12 @@ const reservationController = {
               { $set: { resources: new_res } }
             ).then(console.log("Successfully updated"));
 
-            //update accepted resources
-            // new_res.forEach((resource) => {
-            //   currentNode = resource.head;
-            //   while (currentNode) {
-            //     let id = currentNode.data._id;
-            //     Reservation.updateOne(
-            //       { _id: id },
-            //       { $set: { status: "Approved" } }
-            //     ).then(
-            //       console.log(
-            //         `Successfully updated status! of Reservation with ID: ${id}`
-            //       )
-            //     );
-            //     currentNode = currentNode.next;
-            //   }
-            // });
-
-            // console.log(`REJECTED: ${current_pending_requests}`);
             console.log(`NEW RESERVATION${new_res}`);
             update(new_res).then((msg) => {
               console.log(msg);
               console.log(`REJECTED REQUESTS: ${current_pending_requests}`);
               reject_element(current_pending_requests);
             });
-
-            //update rejected
-            // console.log(`REJECTED REQUESTS: \n ${current_pending_requests}`);
-            // current_pending_requests.forEach((pending) => {
-            //   let id = pending._id;
-            //   Reservation.updateOne(
-            //     { _id: id },
-            //     {
-            //       $set: {
-            //         status: "Rejected",
-            //         remarks: "Insufficient available resources.",
-            //       },
-            //     }
-            //   ).then(
-            //     console.log(
-            //       `Successfully updated status to REJECTED AND REMARKSE ${id}`
-            //     )
-            //   );
-            // });
           }
         });
       })
@@ -326,7 +289,6 @@ const del_element = (arr, element) => {
       break;
     }
   }
-  // console.log(`DELETED ELEMENT \\n ${arr[i]}`);
   arr.splice(i, 1);
 
   return arr;

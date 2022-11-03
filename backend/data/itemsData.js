@@ -1,526 +1,521 @@
 const ReservationNode = require("../controllers/LinkedList");
 const LinkedList = require("../controllers/LinkedList");
 
-const list = new LinkedList();
-const r = {
-  list,
-};
-
 let microscope = [];
 for (var i = 0; i < 20; i++) {
   microscope.push(new LinkedList());
 }
 let optical_bench = [];
 for (var i = 0; i < 7; i++) {
-  optical_bench.push(r);
+  optical_bench.push(new LinkedList());
 }
 let adapter = [];
 for (var i = 0; i < 21; i++) {
-  adapter.push(r);
+  adapter.push(new LinkedList());
 }
 
 let alcohol_lamp = [];
 for (var i = 0; i < 100; i++) {
-  alcohol_lamp.push(r);
+  alcohol_lamp.push(new LinkedList());
 }
 let aspirator = [];
 for (var i = 0; i < 95; i++) {
-  aspirator.push(r);
+  aspirator.push(new LinkedList());
 }
 let bath_water = [];
 for (var i = 0; i < 12; i++) {
-  bath_water.push(r);
+  bath_water.push(new LinkedList());
 }
 let beaker_1000ml = [];
 for (var i = 0; i < 60; i++) {
-  beaker_1000ml.push(r);
+  beaker_1000ml.push(new LinkedList());
 }
 let beaker_600ml = [];
 for (var i = 0; i < 53; i++) {
-  beaker_600ml.push(r);
+  beaker_600ml.push(new LinkedList());
 }
 let beaker_500ml = [];
 for (var i = 0; i < 29; i++) {
-  beaker_500ml.push(r);
+  beaker_500ml.push(new LinkedList());
 }
 let beaker_400ml = [];
 for (var i = 0; i < 58; i++) {
-  beaker_400ml.push(r);
+  beaker_400ml.push(new LinkedList());
 }
 let beaker_300ml = [];
 for (var i = 0; i < 15; i++) {
-  beaker_300ml.push(r);
+  beaker_300ml.push(new LinkedList());
 }
 let beaker_250ml = [];
 for (var i = 0; i < 378; i++) {
-  beaker_250ml.push(r);
+  beaker_250ml.push(new LinkedList());
 }
 let beaker_150ml = [];
 for (var i = 0; i < 225; i++) {
-  beaker_150ml.push(r);
+  beaker_150ml.push(new LinkedList());
 }
 let beaker_100ml = [];
 for (var i = 0; i < 222; i++) {
-  beaker_100ml.push(r);
+  beaker_100ml.push(new LinkedList());
 }
 let beaker_50ml = [];
 for (var i = 0; i < 244; i++) {
-  beaker_50ml.push(r);
+  beaker_50ml.push(new LinkedList());
 }
 let bell_jar = [];
 for (var i = 0; i < 7; i++) {
-  bell_jar.push(r);
+  bell_jar.push(new LinkedList());
 }
 let burette_acid = [];
 for (var i = 0; i < 24; i++) {
-  burette_acid.push(r);
+  burette_acid.push(new LinkedList());
 }
 let burette_base = [];
 for (var i = 0; i < 16; i++) {
-  burette_base.push(r);
+  burette_base.push(new LinkedList());
 }
 let burette_holder = [];
 for (var i = 0; i < 37; i++) {
-  burette_holder.push(r);
+  burette_holder.push(new LinkedList());
 }
 let clamp_extension = [];
 for (var i = 0; i < 24; i++) {
-  clamp_extension.push(r);
+  clamp_extension.push(new LinkedList());
 }
 let clamp_holder = [];
 for (var i = 0; i < 61; i++) {
-  clamp_holder.push(r);
+  clamp_holder.push(new LinkedList());
 }
 let cobalt_glass = [];
 for (var i = 0; i < 15; i++) {
-  cobalt_glass.push(r);
+  cobalt_glass.push(new LinkedList());
 }
 let condenser = [];
 for (var i = 0; i < 36; i++) {
-  condenser.push(r);
+  condenser.push(new LinkedList());
 }
 let coplin_jar = [];
 for (var i = 0; i < 43; i++) {
-  coplin_jar.push(r);
+  coplin_jar.push(new LinkedList());
 }
 let cork_bearer = [];
 for (var i = 0; i < 14; i++) {
-  cork_bearer.push(r);
+  cork_bearer.push(new LinkedList());
 }
 let crucible_thong = [];
 for (var i = 0; i < 65; i++) {
-  crucible_thong.push(r);
+  crucible_thong.push(new LinkedList());
 }
 let crucible_cover = [];
 for (var i = 0; i < 160; i++) {
-  crucible_cover.push(r);
+  crucible_cover.push(new LinkedList());
 }
 let crucible_gooch = [];
 for (var i = 0; i < 33; i++) {
-  crucible_gooch.push(r);
+  crucible_gooch.push(new LinkedList());
 }
 let culture_dish_big = [];
 for (var i = 0; i < 14; i++) {
-  culture_dish_big.push(r);
+  culture_dish_big.push(new LinkedList());
 }
 let culture_dish_small = [];
 for (var i = 0; i < 18; i++) {
-  culture_dish_small.push(r);
+  culture_dish_small.push(new LinkedList());
 }
 let culture_media_bottle_500ml = [];
 for (var i = 0; i < 30; i++) {
-  culture_media_bottle_500ml.push(r);
+  culture_media_bottle_500ml.push(new LinkedList());
 }
 let culture_media_bottle_250ml = [];
 for (var i = 0; i < 24; i++) {
-  culture_media_bottle_250ml.push(r);
+  culture_media_bottle_250ml.push(new LinkedList());
 }
 let cylinder_graduated_1000ml = [];
 for (var i = 0; i < 8; i++) {
-  cylinder_graduated_1000ml.push(r);
+  cylinder_graduated_1000ml.push(new LinkedList());
 }
 let cylinder_graduated_500ml_glass = [];
 for (var i = 0; i < 8; i++) {
-  cylinder_graduated_500ml_glass.push(r);
+  cylinder_graduated_500ml_glass.push(new LinkedList());
 }
 let cylinder_graduated_500ml_pc = [];
 for (var i = 0; i < 14; i++) {
-  cylinder_graduated_500ml_pc.push(r);
+  cylinder_graduated_500ml_pc.push(new LinkedList());
 }
 let cylinder_graduated_250ml = [];
 for (var i = 0; i < 29; i++) {
-  cylinder_graduated_250ml.push(r);
+  cylinder_graduated_250ml.push(new LinkedList());
 }
 let cylinder_graduated_250ml_pc = [];
 for (var i = 0; i < 22; i++) {
-  cylinder_graduated_250ml_pc.push(r);
+  cylinder_graduated_250ml_pc.push(new LinkedList());
 }
 let cylinder_graduated_100ml = [];
 for (var i = 0; i < 72; i++) {
-  cylinder_graduated_100ml.push(r);
+  cylinder_graduated_100ml.push(new LinkedList());
 }
 let cylinder_graduated_100ml_pc = [];
 for (var i = 0; i < 95; i++) {
-  cylinder_graduated_100ml_pc.push(r);
+  cylinder_graduated_100ml_pc.push(new LinkedList());
 }
 let cylinder_graduated_50ml = [];
 for (var i = 0; i < 52; i++) {
-  cylinder_graduated_50ml.push(r);
+  cylinder_graduated_50ml.push(new LinkedList());
 }
 let cylinder_graduated_25ml = [];
 for (var i = 0; i < 111; i++) {
-  cylinder_graduated_25ml.push(r);
+  cylinder_graduated_25ml.push(new LinkedList());
 }
 let cylinder_graduated_10ml = [];
 for (var i = 0; i < 203; i++) {
-  cylinder_graduated_10ml.push(r);
+  cylinder_graduated_10ml.push(new LinkedList());
 }
 let cylinder_graduated_5ml = [];
 for (var i = 0; i < 39; i++) {
-  cylinder_graduated_5ml.push(r);
+  cylinder_graduated_5ml.push(new LinkedList());
 }
 let dessicator_plates = [];
 for (var i = 0; i < 3; i++) {
-  dessicator_plates.push(r);
+  dessicator_plates.push(new LinkedList());
 }
 
 let dewer_flask = [];
 for (var i = 0; i < 11; i++) {
-  dewer_flask.push(r);
+  dewer_flask.push(new LinkedList());
 }
 let dissecting_pan = [];
 for (var i = 0; i < 29; i++) {
-  dissecting_pan.push(r);
+  dissecting_pan.push(new LinkedList());
 }
 let durham_tube = [];
 for (var i = 0; i < 500; i++) {
-  durham_tube.push(r);
+  durham_tube.push(new LinkedList());
 }
 let evaporating_dish_porc = [];
 for (var i = 0; i < 227; i++) {
-  evaporating_dish_porc.push(r);
+  evaporating_dish_porc.push(new LinkedList());
 }
 let file_triangular_w_handle = [];
 for (var i = 0; i < 1; i++) {
-  file_triangular_w_handle.push(r);
+  file_triangular_w_handle.push(new LinkedList());
 }
 let file_triangular_wo_handle = [];
 for (var i = 0; i < 3; i++) {
-  file_triangular_wo_handle.push(r);
+  file_triangular_wo_handle.push(new LinkedList());
 }
 let flask_distilling_1000ml = [];
 for (var i = 0; i < 7; i++) {
-  flask_distilling_1000ml.push(r);
+  flask_distilling_1000ml.push(new LinkedList());
 }
 let flask_distilling_500ml = [];
 for (var i = 0; i < 4; i++) {
-  flask_distilling_500ml.push(r);
+  flask_distilling_500ml.push(new LinkedList());
 }
 let flask_distilling_250ml = [];
 for (var i = 0; i < 44; i++) {
-  flask_distilling_250ml.push(r);
+  flask_distilling_250ml.push(new LinkedList());
 }
 let flask_distilling_60ml = [];
 for (var i = 0; i < 25; i++) {
-  flask_distilling_60ml.push(r);
+  flask_distilling_60ml.push(new LinkedList());
 }
 let flask_erlenmeyer_1000ml = [];
 for (var i = 0; i < 17; i++) {
-  flask_erlenmeyer_1000ml.push(r);
+  flask_erlenmeyer_1000ml.push(new LinkedList());
 }
 let flask_erlenmeyer_500ml = [];
 for (var i = 0; i < 38; i++) {
-  flask_erlenmeyer_500ml.push(r);
+  flask_erlenmeyer_500ml.push(new LinkedList());
 }
 let flask_erlenmeyer_250ml = [];
 for (var i = 0; i < 174; i++) {
-  flask_erlenmeyer_250ml.push(r);
+  flask_erlenmeyer_250ml.push(new LinkedList());
 }
 let flask_erlenmeyer_125ml = [];
 for (var i = 0; i < 140; i++) {
-  flask_erlenmeyer_125ml.push(r);
+  flask_erlenmeyer_125ml.push(new LinkedList());
 }
 
 let flask_erlenmeyer_50ml = [];
 for (var i = 0; i < 118; i++) {
-  flask_erlenmeyer_50ml.push(r);
+  flask_erlenmeyer_50ml.push(new LinkedList());
 }
 let flask_filtering_1000ml = [];
 for (var i = 0; i < 6; i++) {
-  flask_filtering_1000ml.push(r);
+  flask_filtering_1000ml.push(new LinkedList());
 }
 let flask_filtering_500ml = [];
 for (var i = 0; i < 4; i++) {
-  flask_filtering_500ml.push(r);
+  flask_filtering_500ml.push(new LinkedList());
 }
 let flask_filtering_250ml = [];
 for (var i = 0; i < 35; i++) {
-  flask_filtering_250ml.push(r);
+  flask_filtering_250ml.push(new LinkedList());
 }
 let flask_florence_1000ml = [];
 for (var i = 0; i < 1; i++) {
-  flask_florence_1000ml.push(r);
+  flask_florence_1000ml.push(new LinkedList());
 }
 let flask_florence_500ml = [];
 for (var i = 0; i < 31; i++) {
-  flask_florence_500ml.push(r);
+  flask_florence_500ml.push(new LinkedList());
 }
 let flask_florence_300ml = [];
 for (var i = 0; i < 18; i++) {
-  flask_florence_300ml.push(r);
+  flask_florence_300ml.push(new LinkedList());
 }
 let flask_florence_250ml = [];
 for (var i = 0; i < 23; i++) {
-  flask_florence_250ml.push(r);
+  flask_florence_250ml.push(new LinkedList());
 }
 let flask_florence_125ml = [];
 for (var i = 0; i < 23; i++) {
-  flask_florence_125ml.push(r);
+  flask_florence_125ml.push(new LinkedList());
 }
 let flask_volumetric_1000ml = [];
 for (var i = 0; i < 21; i++) {
-  flask_volumetric_1000ml.push(r);
+  flask_volumetric_1000ml.push(new LinkedList());
 }
 let flask_volumetric_500ml = [];
 for (var i = 0; i < 21; i++) {
-  flask_volumetric_500ml.push(r);
+  flask_volumetric_500ml.push(new LinkedList());
 }
 let flask_volumetric_250ml = [];
 for (var i = 0; i < 29; i++) {
-  flask_volumetric_250ml.push(r);
+  flask_volumetric_250ml.push(new LinkedList());
 }
 let flask_volumetric_100ml = [];
 for (var i = 0; i < 34; i++) {
-  flask_volumetric_100ml.push(r);
+  flask_volumetric_100ml.push(new LinkedList());
 }
 let flask_volumetric_50ml = [];
 for (var i = 0; i < 15; i++) {
-  flask_volumetric_50ml.push(r);
+  flask_volumetric_50ml.push(new LinkedList());
 }
 
 let flask_volumetric_25ml = [];
 for (var i = 0; i < 2; i++) {
-  flask_volumetric_25ml.push(r);
+  flask_volumetric_25ml.push(new LinkedList());
 }
 let flask_volumetric_10ml = [];
 for (var i = 0; i < 12; i++) {
-  flask_volumetric_10ml.push(r);
+  flask_volumetric_10ml.push(new LinkedList());
 }
 let flask_volumetric_5ml = [];
 for (var i = 0; i < 7; i++) {
-  flask_volumetric_5ml.push(r);
+  flask_volumetric_5ml.push(new LinkedList());
 }
 let funnel_buchner = [];
 for (var i = 0; i < 36; i++) {
-  funnel_buchner.push(r);
+  funnel_buchner.push(new LinkedList());
 }
 let funnel_glass = [];
 for (var i = 0; i < 186; i++) {
-  funnel_glass.push(r);
+  funnel_glass.push(new LinkedList());
 }
 let funnel_separatory_1000ml = [];
 for (var i = 0; i < 1; i++) {
-  funnel_separatory_1000ml.push(r);
+  funnel_separatory_1000ml.push(new LinkedList());
 }
 let funnel_separatory_500ml = [];
 for (var i = 0; i < 5; i++) {
-  funnel_separatory_500ml.push(r);
+  funnel_separatory_500ml.push(new LinkedList());
 }
 let funnel_separatory_250ml = [];
 for (var i = 0; i < 25; i++) {
-  funnel_separatory_250ml.push(r);
+  funnel_separatory_250ml.push(new LinkedList());
 }
 let gas_generator = [];
 for (var i = 0; i < 3; i++) {
-  gas_generator.push(r);
+  gas_generator.push(new LinkedList());
 }
 let glass_syringe = [];
 for (var i = 0; i < 0; i++) {
-  glass_syringe.push(r);
+  glass_syringe.push(new LinkedList());
 }
 let hand_lens = [];
 for (var i = 0; i < 21; i++) {
-  hand_lens.push(r);
+  hand_lens.push(new LinkedList());
 }
 let iron_ring = [];
 for (var i = 0; i < 35; i++) {
-  iron_ring.push(r);
+  iron_ring.push(new LinkedList());
 }
 let iron_stand = [];
 for (var i = 0; i < 70; i++) {
-  iron_stand.push(r);
+  iron_stand.push(new LinkedList());
 }
 let molecular_model = [];
 for (var i = 0; i < 12; i++) {
-  molecular_model.push(r);
+  molecular_model.push(new LinkedList());
 }
 let molar_and_pestel = [];
 for (var i = 0; i < 71; i++) {
-  molar_and_pestel.push(r);
+  molar_and_pestel.push(new LinkedList());
 }
 let petri_dish = [];
 for (var i = 0; i < 750; i++) {
-  petri_dish.push(r);
+  petri_dish.push(new LinkedList());
 }
 let pinchcock_mohr = [];
 for (var i = 0; i < 20; i++) {
-  pinchcock_mohr.push(r);
+  pinchcock_mohr.push(new LinkedList());
 }
 let pipette_10ml = [];
 for (var i = 0; i < 166; i++) {
-  pipette_10ml.push(r);
+  pipette_10ml.push(new LinkedList());
 }
 let pipette_5ml = [];
 for (var i = 0; i < 43; i++) {
-  pipette_5ml.push(r);
+  pipette_5ml.push(new LinkedList());
 }
 let pipette_2ml = [];
 for (var i = 0; i < 101; i++) {
-  pipette_2ml.push(r);
+  pipette_2ml.push(new LinkedList());
 }
 let pipette_1ml = [];
 for (var i = 0; i < 109; i++) {
-  pipette_1ml.push(r);
+  pipette_1ml.push(new LinkedList());
 }
 let pipette_volumetric_10ml = [];
 for (var i = 0; i < 10; i++) {
-  pipette_volumetric_10ml.push(r);
+  pipette_volumetric_10ml.push(new LinkedList());
 }
 let spatula_metal = [];
 for (var i = 0; i < 54; i++) {
-  spatula_metal.push(r);
+  spatula_metal.push(new LinkedList());
 }
 let spatula_porc = [];
 for (var i = 0; i < 84; i++) {
-  spatula_porc.push(r);
+  spatula_porc.push(new LinkedList());
 }
 let spot_plate = [];
 for (var i = 0; i < 34; i++) {
-  spot_plate.push(r);
+  spot_plate.push(new LinkedList());
 }
 let stirring_rod = [];
 for (var i = 0; i < 137; i++) {
-  stirring_rod.push(r);
+  stirring_rod.push(new LinkedList());
 }
 let strainer = [];
 for (var i = 0; i < 5; i++) {
-  strainer.push(r);
+  strainer.push(new LinkedList());
 }
 let test_tube_50ml = [];
 for (var i = 0; i < 21; i++) {
-  test_tube_50ml.push(r);
+  test_tube_50ml.push(new LinkedList());
 }
 let test_tube_25ml = [];
 for (var i = 0; i < 2337; i++) {
-  test_tube_25ml.push(r);
+  test_tube_25ml.push(new LinkedList());
 }
 let test_tube_20ml = [];
 for (var i = 0; i < 2202; i++) {
-  test_tube_20ml.push(r);
+  test_tube_20ml.push(new LinkedList());
 }
 let test_tube_15ml = [];
 for (var i = 0; i < 1143; i++) {
-  test_tube_15ml.push(r);
+  test_tube_15ml.push(new LinkedList());
 }
 let test_tube_12ml = [];
 for (var i = 0; i < 150; i++) {
-  test_tube_12ml.push(r);
+  test_tube_12ml.push(new LinkedList());
 }
 let test_tube_10ml = [];
 for (var i = 0; i < 1321; i++) {
-  test_tube_10ml.push(r);
+  test_tube_10ml.push(new LinkedList());
 }
 let test_tube_5ml = [];
 for (var i = 0; i < 143; i++) {
-  test_tube_5ml.push(r);
+  test_tube_5ml.push(new LinkedList());
 }
 let test_tube_brush = [];
 for (var i = 0; i < 160; i++) {
-  test_tube_brush.push(r);
+  test_tube_brush.push(new LinkedList());
 }
 let test_tube_holder = [];
 for (var i = 0; i < 110; i++) {
-  test_tube_holder.push(r);
+  test_tube_holder.push(new LinkedList());
 }
 let test_tube_rack_steel = [];
 for (var i = 0; i < 14; i++) {
-  test_tube_rack_steel.push(r);
+  test_tube_rack_steel.push(new LinkedList());
 }
 let test_tube_rack = [];
 for (var i = 0; i < 167; i++) {
-  test_tube_rack.push(r);
+  test_tube_rack.push(new LinkedList());
 }
 let thermometer = [];
 for (var i = 0; i < 47; i++) {
-  thermometer.push(r);
+  thermometer.push(new LinkedList());
 }
 let thistle_tube = [];
 for (var i = 0; i < 59; i++) {
-  thistle_tube.push(r);
+  thistle_tube.push(new LinkedList());
 }
 let tlc_plates = [];
 for (var i = 0; i < 3; i++) {
-  tlc_plates.push(r);
+  tlc_plates.push(new LinkedList());
 }
 let triangular_clay = [];
 for (var i = 0; i < 61; i++) {
-  triangular_clay.push(r);
+  triangular_clay.push(new LinkedList());
 }
 let tripod = [];
 for (var i = 0; i < 75; i++) {
-  tripod.push(r);
+  tripod.push(new LinkedList());
 }
 let tube_centrifuge = [];
 for (var i = 0; i < 15; i++) {
-  tube_centrifuge.push(r);
+  tube_centrifuge.push(new LinkedList());
 }
 let tube_culture_50ml = [];
 for (var i = 0; i < 82; i++) {
-  tube_culture_50ml.push(r);
+  tube_culture_50ml.push(new LinkedList());
 }
 let tube_culture_25ml = [];
 for (var i = 0; i < 53; i++) {
-  tube_culture_25ml.push(r);
+  tube_culture_25ml.push(new LinkedList());
 }
 let tube_culture_20ml = [];
 for (var i = 0; i < 130; i++) {
-  tube_culture_20ml.push(r);
+  tube_culture_20ml.push(new LinkedList());
 }
 let tube_culture_12ml = [];
 for (var i = 0; i < 391; i++) {
-  tube_culture_12ml.push(r);
+  tube_culture_12ml.push(new LinkedList());
 }
 let tube_culture_10ml = [];
 for (var i = 0; i < 191; i++) {
-  tube_culture_10ml.push(r);
+  tube_culture_10ml.push(new LinkedList());
 }
 let tubing_glass = [];
 for (var i = 0; i < 0; i++) {
-  tubing_glass.push(r);
+  tubing_glass.push(new LinkedList());
 }
 let tubing_rubber = [];
 for (var i = 0; i < 0; i++) {
-  tubing_rubber.push(r);
+  tubing_rubber.push(new LinkedList());
 }
 let wall_thermometer = [];
 for (var i = 0; i < 5; i++) {
-  wall_thermometer.push(r);
+  wall_thermometer.push(new LinkedList());
 }
 let watch_glass = [];
 for (var i = 0; i < 220; i++) {
-  watch_glass.push(r);
+  watch_glass.push(new LinkedList());
 }
-let watch_trough = [];
+let water_trough = [];
 for (var i = 0; i < 12; i++) {
-  watch_trough.push(r);
+  water_trough.push(new LinkedList());
 }
 let wire_basket = [];
 for (var i = 0; i < 3; i++) {
-  wire_basket.push(r);
+  wire_basket.push(new LinkedList());
 }
 let pasteur_pipette = [];
 for (var i = 0; i < 500; i++) {
-  pasteur_pipette.push(r);
+  pasteur_pipette.push(new LinkedList());
 }
 
 const items = [
@@ -530,7 +525,7 @@ const items = [
     avail_quantity: 1,
     unit: "Unit",
     imageURL: "",
-    resources: [{ end_time: -1, reserve: list }],
+    resources: [new LinkedList()],
   },
   {
     name: "Microscope",
@@ -570,7 +565,7 @@ const items = [
     avail_quantity: 1,
     unit: "Unit",
     imageURL: "",
-    resources: [{ end_time: -1, reserve: list }],
+    resources: [new LinkedList()],
   },
 
   {
@@ -1563,7 +1558,7 @@ const items = [
     avail_quantity: 12,
     unit: "pcs.",
     imageURL: "",
-    resources: watch_trough,
+    resources: water_trough,
   },
   {
     name: "Wire Basket",
