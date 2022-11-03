@@ -28,26 +28,17 @@ const ItemCard = ({ name, category, itemID, a_quantity }) => {
   };
   return (
     <div className=" bg-white rounded-lg shadow-lg transition-shadow  hover:scale-105 transition-scale">
-      {/* <div
-        className="w-full bg-gray-400 h-36 bg-center bg-cover rounded-tl-xl rounded-tr-xl"
-        style={{ backgroundImage: `url(${imgURL})` }}
-      ></div> */}
       <div className="flex item-center justify-center details p-3">
         <div className="flex-1">
           {/* <p className="text-gray-400">{category}</p> */}
-          <h1 className="text-green-600 font-bold text-xl">{name}</h1>
+          <h1 className="text-gray-900 font-bold text-xl">{name}</h1>
           <p className="text-gray-600 text-sm">
             Available quantity: {a_quantity}
           </p>
         </div>
-        {/* <button
-          className=" rounded bg-green-600 text-white p-2 px-4 hover:bg-green-800 my-2"
-          onClick={handleAddToCart}
-        >
-          RESERVE
-        </button> */}
+
         <Link to={{ pathname: `reserveItem/${itemID}/${name}` }}>
-          <button className=" rounded bg-green-600 text-white p-2 px-4 hover:bg-green-800 my-2">
+          <button className=" rounded bg-primary-500 text-white p-2 px-4 hover:bg-primary-600 my-2">
             RESERVE
           </button>
         </Link>

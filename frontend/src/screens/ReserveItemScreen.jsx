@@ -106,7 +106,7 @@ const ReserveItemScreen = () => {
             type="text"
             id="item-name"
             name="itemName"
-            className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-green-600 transition"
+            className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-primary-500 transition"
             disabled
           />
         </div>
@@ -117,7 +117,7 @@ const ReserveItemScreen = () => {
           <select
             name="quantity_to_borrow"
             id=""
-            className="w-full text-gray-600 cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-green-600 transition"
+            className="w-full text-gray-600 cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-primary-500 transition"
             value={reserveDetails.quantity_to_borrow}
             onChange={handleChangeInput}
           >
@@ -144,7 +144,7 @@ const ReserveItemScreen = () => {
             type="date"
             name="reserveDate"
             id="borrow-date"
-            className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-green-600 transition"
+            className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-primary-500 transition"
             onChange={handleChangeInput}
           />
           {error && reserveDetails.reserveDate === "" ? (
@@ -166,7 +166,7 @@ const ReserveItemScreen = () => {
             type="time"
             name="reserveTime"
             id="reservation-time"
-            className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-green-600 transition"
+            className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-primary-500 transition"
             onChange={handleChangeInput}
           />
           {error && reserveDetails.reserveTime === "" ? (
@@ -188,7 +188,7 @@ const ReserveItemScreen = () => {
             type="date"
             name="return_Date"
             id="reservation-date"
-            className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-green-600 transition"
+            className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-primary-500 transition"
             onChange={handleChangeInput}
           />
           {error && reserveDetails.return_Date === "" ? (
@@ -210,7 +210,7 @@ const ReserveItemScreen = () => {
             type="time"
             name="returnTime"
             id="reservation-time"
-            className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-green-600 transition"
+            className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-primary-500 transition"
             onChange={handleChangeInput}
           />
           {error && reserveDetails.returnTime === "" ? (
@@ -222,7 +222,7 @@ const ReserveItemScreen = () => {
           )}
         </div>
         <button
-          className="block w-full  py-2 rounded-lg  mt-6 bg-green-600 text-white hover:text-white    hover:bg-green-800  transition"
+          className="block w-full  py-2 rounded-lg  mt-6 bg-primary-500 text-white hover:text-white    hover:bg-primary-600  transition"
           onClick={handleSubmission}
         >
           REQUEST FOR RESERVATION

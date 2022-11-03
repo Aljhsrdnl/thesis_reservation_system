@@ -45,13 +45,13 @@ const ReserveModal = forwardRef(({ defaultOpened = false }, ref) => {
               />
             </div>
             <div className="flex justify-center items-center mt-10">
-              <FaExclamationCircle className="text-2xl text-green-600 mr-2" />
+              <FaExclamationCircle className="text-2xl text-primary-500 mr-2" />
               <p className="text-center  text-gray-800">
                 Your reservation is pending.
               </p>
             </div>
             <Link to="/">
-              <p className="text-center underline text-green-800">
+              <p className="text-center underline text-primary-500">
                 Go back to home.
               </p>
             </Link>

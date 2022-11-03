@@ -70,21 +70,6 @@ function NavBar() {
     return (
       <div>
         <div className="flex items-center">
-          {/* <Link to={{ pathname: `/bag/${user._id}` }}>
-          <FaShoppingBag className="text-2xl text-green-600 hover:text-green-800 mr-2 transition-colors" />
-        </Link> */}
-          {/* -----------------reservation portal */}
-          {/* <h1
-          className="mr-6 text-green-600 border-b-2 border-transparent hover:border-green-600 cursor-pointer"
-          onClick={toggle}
-        >
-          Reservations
-        </h1>
-        <Portal>
-          <div>Hello</div>
-        </Portal> */}
-          {/* <FaBell className="text-2xl text-green-600 hover:text -green-800 mr-2 transition-colors" /> */}
-          {/* <p className=" text-gray-300 pr-2 hidden lg:block">Searchbar</p> */}
           <p className="text-2xl text-gray-300 pr-2 hidden lg:block">|</p>
 
           {/* -------------------------->> Account */}
@@ -93,20 +78,20 @@ function NavBar() {
               className="relative flex items-center cursor-pointer "
               onClick={handleToggle}
             >
-              <p className="text-green-800 mr-2">{user.name}</p>
+              <p className="text-gray-800 mr-2">{user.name}</p>
               <FiChevronDown className={rotate} />
             </button>
             <div className={divClass.primaryClass + divClass.display}>
               <div className="block">
-                <p className="text-green-600 font-semibold text-lg px-2">
+                <p className="text-primary-500 font-semibold text-lg px-2">
                   {user.name}
                 </p>
                 <p className="text-gray-300 text-sm px-2">{user.email}</p>
-                <hr className="border border-green-400 my-3 px-2" />
+                <hr className="border border-primary-500 my-3 px-2" />
                 <Link
                   to="/"
                   onClick={handleLogout}
-                  className="text-gray-700 w-full block hover:bg-green-400 hover:text-green-600 px-2 py-1 rounded"
+                  className="text-gray-700 w-full block hover:bg-primary-500 hover:text-white px-2 py-1 rounded ease-linear"
                 >
                   Logout
                 </Link>
@@ -117,7 +102,7 @@ function NavBar() {
           <div className="sidebar lg:hidden">
             <button onClick={show}>
               {/* MENU */}
-              <MdMenu className="text-3xl text-green-600 hover:text-green-800 mr-2 transition-colors cursor-pointer" />
+              <MdMenu className="text-3xl text-gray-400 hover:text-primary-500 mr-2 transition-colors cursor-pointer" />
             </button>
           </div>
         </div>
@@ -127,33 +112,33 @@ function NavBar() {
 
   return (
     <div className="relative">
-      <div className="flex justify-start items-center py-4 mb-6 border-b border-green-400">
+      <div className="flex justify-start items-center py-4 mb-6 border-b border-gray-300">
         <Link to="/">
           <img src={school_logo} className="w-12 h-12 mr-2" />
         </Link>
-        <Link to="/" className="flex-1 font-semibold text-2xl text-green-800">
+        <Link to="/" className="flex-1 font-semibold text-2xl text-primary-500">
           WVSU Central Laboratory
         </Link>
         {isLogged ? userLink() : null}
       </div>
       {/* ------------------------start of reservation tab--------------------------- */}
       <Portal>
-        <div className="bar lg:hidden w-full md:w-3/4 absolute -right-0 top-0 bg-green-800 h-fit z-10 shadow p-6 md:px-16 transition-all ease-in-out">
+        <div className="bar lg:hidden w-full md:w-3/4 absolute -right-0 top-0 bg-gray-50 h-fit z-10 shadow p-6 md:px-16 transition-all ease-in-out">
           <div className="flex mb-4 ">
             <div className="flex-grow"></div>
             <button onClick={hide}>
               {/* HIDE */}
-              <BiX className="text-white text-3xl rounded hover:bg-green-400 hover:text-green-800" />
+              <BiX className="text-gray-400 text-3xl rounded hover:bg-primary-500 hover:text-white" />
             </button>
           </div>
-          <p className="text-2xl font-bold text-green-400">{user.name}</p>
-          <p className=" text-gray-100 border-b border-green-400 pb-2">
+          <p className="text-2xl font-bold text-primary-500">{user.name}</p>
+          <p className=" text-gray-400 border-b border-primary-500 pb-2">
             {user.email}
           </p>
           <Link
             to="/"
             onClick={handleLogout}
-            className="text-gray-200 w-full block hover:bg-daekGreen-200 hover:text-green-600 px-2 py-2 rounded mt-2 mb-6"
+            className="text-gray-400 w-full block hover:bg-primary-500 hover:text-white px-2 py-2 rounded mt-2 mb-6 ease-in-out"
           >
             Logout
           </Link>
@@ -169,8 +154,8 @@ function NavBar() {
                   returnDate={r.returnDate}
                   status={r.status}
                   remarks={r.remarks}
-                  circle_style_up="w-6 h-6 rounded-full bottom-11 -right-3 absolute bg-green-800"
-                  circle_style_down="circle w-6 h-6 rounded-full bottom-11 -left-3 absolute bg-green-800"
+                  circle_style_up="w-6 h-6 rounded-full bottom-11 -right-3 absolute bg-gray-50"
+                  circle_style_down="circle w-6 h-6 rounded-full bottom-11 -left-3 absolute bg-gray-50"
                 />
               ))
             ) : (

@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import background_img from "../../../icons/bg-01.png";
+import background_img from "../../../icons/bg-01.jpg";
 import google_icon from "../../../icons/google_icon.png";
 import { Link } from "react-router-dom";
 import { input_style, primaryBtn, secondaryBtnIcon } from "../../styles";
@@ -109,7 +109,7 @@ const Register = () => {
           onSubmit={handleSubmit}
           className="bg-white p-8 rounded-2xl shadow-lg "
         >
-          <h1 className="text-green-800 text-4xl font-bold mb-12">Sign Up</h1>
+          <h1 className="text-primary-500 text-4xl font-bold mb-12">Sign Up</h1>
 
           {success && notify(success)}
           {user.err && (
@@ -121,7 +121,7 @@ const Register = () => {
             <input
               type="text"
               id="name"
-              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-green-600 focus:outline-none placeholder-transparent w-full text-gray-800"
+              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-primary-500 focus:outline-none placeholder-transparent w-full text-gray-800"
               autoComplete="off"
               placeholder="al"
               name="name"
@@ -129,7 +129,7 @@ const Register = () => {
             />
             <label
               htmlFor="name"
-              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-green-600 peer-placeholder-shown:text-gray-400 text-green-600"
+              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-primary-500 peer-placeholder-shown:text-gray-400 text-primary-500"
             >
               Name
             </label>
@@ -143,7 +143,7 @@ const Register = () => {
             <input
               type="text"
               id="email"
-              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-green-600 focus:outline-none placeholder-transparent w-full text-gray-800"
+              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-primary-500 focus:outline-none placeholder-transparent w-full text-gray-800"
               autoComplete="off"
               placeholder="al"
               name="email"
@@ -151,7 +151,7 @@ const Register = () => {
             />
             <label
               htmlFor="email"
-              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-green-600 peer-placeholder-shown:text-gray-400 text-green-600"
+              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-primary-500 peer-placeholder-shown:text-gray-400 text-primary-500"
             >
               Email
             </label>
@@ -167,7 +167,7 @@ const Register = () => {
             <input
               type="text"
               id="idNum"
-              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-green-600 focus:outline-none placeholder-transparent w-full text-gray-800"
+              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-primary-500 focus:outline-none placeholder-transparent w-full text-gray-800"
               autoComplete="off"
               placeholder="al"
               name="identification_num"
@@ -175,7 +175,7 @@ const Register = () => {
             />
             <label
               htmlFor="idNum"
-              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-green-600 peer-placeholder-shown:text-gray-400 text-green-600"
+              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-primary-500 peer-placeholder-shown:text-gray-400 text-primary-500"
             >
               ID Number
             </label>
@@ -192,7 +192,7 @@ const Register = () => {
               name="user_type"
               value={user.user_type}
               onChange={handleChangeInput}
-              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-green-600 focus:outline-none placeholder-transparent w-full text-gray-800"
+              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-primary-500 focus:outline-none placeholder-transparent w-full text-gray-800"
             >
               <option value="WVSU Student">WVSU Student</option>
               <option value="WVSU Teacher">WVSU Teacher</option>
@@ -200,7 +200,7 @@ const Register = () => {
             </select>
             <label
               htmlFor="user_type"
-              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-green-600 peer-placeholder-shown:text-gray-400 text-green-600"
+              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-primary-500 peer-placeholder-shown:text-gray-400 text-primary-500"
             >
               User Type
             </label>
@@ -209,7 +209,7 @@ const Register = () => {
             <input
               type="password"
               id="password"
-              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-green-600 focus:outline-none placeholder-transparent w-full text-gray-800"
+              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-primary-500 focus:outline-none placeholder-transparent w-full text-gray-800"
               autoComplete="off"
               placeholder="al"
               name="password"
@@ -217,7 +217,7 @@ const Register = () => {
             />
             <label
               htmlFor="password"
-              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-green-600 peer-placeholder-shown:text-gray-400 text-green-600"
+              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-primary-500 peer-placeholder-shown:text-gray-400 text-primary-500"
             >
               Password
             </label>
@@ -235,7 +235,7 @@ const Register = () => {
             <input
               type="password"
               id="cf_password"
-              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-green-600 focus:outline-none placeholder-transparent w-full text-gray-800"
+              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-primary-500 focus:outline-none placeholder-transparent w-full text-gray-800"
               autoComplete="off"
               placeholder="al"
               name="cf_password"
@@ -243,7 +243,7 @@ const Register = () => {
             />
             <label
               htmlFor="cf_password"
-              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-green-600 peer-placeholder-shown:text-gray-400 text-green-600"
+              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-primary-500 peer-placeholder-shown:text-gray-400 text-primary-500"
             >
               Confirm Password
             </label>
@@ -264,7 +264,10 @@ const Register = () => {
           <Link to="/login">
             <small className="block w-full text-center mt-2 text-gray-800">
               Already have an account?
-              <span className="text-green-600 font-semibold"> Login here.</span>
+              <span className="text-primary-500 font-semibold">
+                {" "}
+                Login here.
+              </span>
             </small>
           </Link>
         </form>
