@@ -1,17 +1,8 @@
 import React from "react";
 import Lottie from "react-lottie-player";
 import { Link } from "react-router-dom";
-import NotFoundLottie from "../../src/icons/NotFound.json";
+import NotFoundLottie from "../../src/icons/404.json";
 const PageNotFound = () => {
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: NotFoundLottie,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
   return (
     <div className="w-full">
       <div className="flex items-center justify-center">
@@ -23,7 +14,7 @@ const PageNotFound = () => {
       </div>
       <p className="text-center">
         Page not Found.
-        <span className="underline text-green-600 ml-2">
+        <span className="underline text-primary-500 ml-2">
           <Link to="/">Go back home.</Link>
         </span>
       </p>
