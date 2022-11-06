@@ -1,26 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;800&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: #F6F9EF;
-    margin-left: 2rem;
-    margin-right: 2rem;
-    font-family: 'Inter';
+  background-color: #fff;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  font-family: "Inter";
 }
 
-
-
-@media (min-width:1024px) {
-    body {
-        margin-left: 7rem;
-        margin-right: 7rem;
-    }
+@media (min-width: 1024px) {
+  body {
+    margin-left: 7rem;
+    margin-right: 7rem;
+  }
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import background_img from "../icons/bg-01.png";
+import background_img from "../icons/bg-01.jpg";
 import google_icon from "../icons/google_icon.png";
 import { Link, useNavigate } from "react-router-dom";
 // import { createBrowserHistory } from "history";
@@ -66,7 +66,7 @@ function Login() {
           onSubmit={handleSubmit}
           className="bg-white p-8 rounded-2xl shadow-lg"
         >
-          <h1 className="text-green-800 text-4xl font-bold mb-12">Login</h1>
+          <h1 className="text-primary-500 text-4xl font-bold mb-12">Login</h1>
 
           {user.err && (
             <div className="text-warning bg-warning-background border border-warning-border w-full px-4 py-2 rounded-sm mb-8">
@@ -77,7 +77,7 @@ function Login() {
             <input
               type="text"
               id="email"
-              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-green-600 focus:outline-none placeholder-transparent w-full text-gray-800"
+              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-primary-500 focus:outline-none placeholder-transparent w-full text-gray-800"
               // autoComplete="off"
               placeholder="al"
               name="email"
@@ -85,7 +85,7 @@ function Login() {
             />
             <label
               htmlFor="email"
-              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-green-600 peer-placeholder-shown:text-gray-400 text-green-600"
+              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-primary-600 peer-placeholder-shown:text-gray-400 text-primary-500"
             >
               Email
             </label>
@@ -101,7 +101,7 @@ function Login() {
             <input
               type="password"
               id="password"
-              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-green-600 focus:outline-none placeholder-transparent w-full text-gray-800"
+              className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-primary-500 focus:outline-none placeholder-transparent w-full text-gray-800"
               autoComplete="off"
               placeholder="al"
               name="password"
@@ -110,7 +110,7 @@ function Login() {
             />
             <label
               htmlFor="password"
-              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-green-600 peer-placeholder-shown:text-gray-400 text-green-600"
+              className="text-xs absolute left-0 -top-4 cursor-text transition-all peer-placeholder-shown:top-1 peer-placeholder-shown:text-base peer-focus:-top-4 peer-focus:text-xs peer-focus:text-primary-600 peer-placeholder-shown:text-gray-400 text-primary-500"
             >
               Password
             </label>
@@ -128,7 +128,7 @@ function Login() {
           <Link to="/register">
             <small className="block w-full text-center mt-2 text-gray-800">
               Don't have an account?{" "}
-              <span className="text-green-600 font-semibold">
+              <span className="text-primary-500 font-semibold">
                 Register here.
               </span>
             </small>

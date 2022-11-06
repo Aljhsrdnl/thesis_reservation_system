@@ -5,20 +5,12 @@ import { createPortal } from "react-dom";
 //-------------------------->> Lottie
 
 import Lottie from "react-lottie-player";
-import PendingRequest from "../icons/Pending Request.json";
+import calendar from "../icons/calendar.json";
 import { FaExclamationCircle } from "react-icons/fa";
 
 const ReserveModal = forwardRef(({ defaultOpened = false }, ref) => {
   // ------------------------->> Modal
   const modalElement = document.getElementById("modal-root");
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: PendingRequest,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
 
   const [isOpen, setIsOpen] = useState(defaultOpened);
 
@@ -31,27 +23,25 @@ const ReserveModal = forwardRef(({ defaultOpened = false }, ref) => {
 
   return createPortal(
     isOpen ? (
-      <div className="bg-green-400 opacity-90 fixed inset-0 z-50">
-        <div className="flex h-screen justify-center items-center">
+      <div className="bg-primary-500 opacity-90 fixed inset-0 z-50">
+        <div className="flex h-screen justify-center items-center opacity-100">
           <div className="flex-col justify-center bg-white shadow-lg rounded-lg w-4/6 md:3/6 lg:w-2/6 h-fit px-4 py-6">
-            {/* <Lottie options={defaultOptions} width={200} height={200} /> */}
-
             <div className="block mx-auto">
               <Lottie
                 loop
-                animationData={PendingRequest}
+                animationData={calendar}
                 play
                 style={{ height: 300 }}
               />
             </div>
             <div className="flex justify-center items-center mt-10">
-              <FaExclamationCircle className="text-2xl text-green-600 mr-2" />
+              <FaExclamationCircle className="text-2xl text-primary-500 mr-2" />
               <p className="text-center  text-gray-800">
                 Your reservation is pending.
               </p>
             </div>
             <Link to="/">
-              <p className="text-center underline text-green-800">
+              <p className="text-center underline text-primary-500">
                 Go back to home.
               </p>
             </Link>
