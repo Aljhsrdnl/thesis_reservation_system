@@ -194,8 +194,8 @@ const Register = () => {
               onChange={handleChangeInput}
               className="peer border-b py-1 transition-colors focus:border-b-2 focus:border-primary-500 focus:outline-none placeholder-transparent w-full text-gray-800"
             >
-              <option value="WVSU Student">WVSU Student</option>
-              <option value="WVSU Teacher">WVSU Teacher</option>
+              <option value="Student">Student</option>
+              <option value="Faculty">Faculty</option>
               <option value="Researcher">Researcher</option>
             </select>
             <label

@@ -5,7 +5,9 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
+import loadingJSON from "../icons/loading.json";
 import "./search.css";
+import Lottie from "react-lottie-player";
 //components
 import ItemCard from "../components/ItemCard";
 import Ticket from "../components/Ticket";
@@ -114,7 +116,14 @@ const HomeScreen = () => {
           {wordEntered.length === 0 && (
             <div className="itemDiv grid grid-cols-1 md:grid-cols-2 gap-6 auto-row-fr mb-8 border-b-2 border-gray-300 pb-8">
               {isLoading ? (
-                <h2>Loading...</h2>
+                // <h2>Loading...</h2>
+
+                <Lottie
+                  loop
+                  animationData={loadingJSON}
+                  play
+                  style={{ height: 150 }}
+                />
               ) : (
                 // <div className="">
                 //   <Lottie options={defaultOptions} width={100} height={100} />
@@ -139,7 +148,13 @@ const HomeScreen = () => {
           {wordEntered.length === 0 && (
             <div className="itemDiv grid grid-cols-1 md:grid-cols-2 gap-6 auto-row-fr ">
               {isLoading ? (
-                <h2>Loading...</h2>
+                // <h2>Loading...</h2>
+                <Lottie
+                  loop
+                  animationData={loadingJSON}
+                  play
+                  style={{ height: 150 }}
+                />
               ) : (
                 apparatus.map((e) => (
                   <ItemCard

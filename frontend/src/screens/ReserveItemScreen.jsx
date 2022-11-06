@@ -30,13 +30,15 @@ const ReserveItemScreen = () => {
 
   // ------------------>> Modal
   const modalRef = useRef();
-
+  const today = new Date().toISOString().split("T", 8)[0];
   const openModal = () => {
     modalRef.current.openModal();
   };
 
   // -------------------->> Validation
   const [error, setError] = useState(false);
+
+  const [clicked, setClicked] = useState(false);
 
   const handleSubmission = (e) => {
     e.preventDefault();
@@ -70,6 +72,7 @@ const ReserveItemScreen = () => {
       };
 
       axios.post("/request_reservation", newReservation);
+      setClicked(true);
       console.log(newReservation);
     }
   };
@@ -144,6 +147,7 @@ const ReserveItemScreen = () => {
             type="date"
             name="reserveDate"
             id="borrow-date"
+            min={today}
             className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-primary-500 transition"
             onChange={handleChangeInput}
           />
@@ -187,6 +191,7 @@ const ReserveItemScreen = () => {
           <input
             type="date"
             name="return_Date"
+            min={today}
             id="reservation-date"
             className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-primary-500 transition"
             onChange={handleChangeInput}
@@ -209,7 +214,7 @@ const ReserveItemScreen = () => {
           <input
             type="time"
             name="returnTime"
-            id="reservation-time"
+            id="reservation_time"
             className="text-gray-600 w-full cursor-pointer outline-none mt-1 border-2 p-2 rounded border-gray-100 focus:border-primary-500 transition"
             onChange={handleChangeInput}
           />
@@ -222,8 +227,9 @@ const ReserveItemScreen = () => {
           )}
         </div>
         <button
-          className="block w-full  py-2 rounded-lg  mt-6 bg-primary-500 text-white hover:text-white    hover:bg-primary-600  transition"
+          className="request_btn block w-full  py-2 rounded-lg  mt-6 bg-primary-500 text-white hover:text-white    hover:bg-primary-600  transition"
           onClick={handleSubmission}
+          disabled={clicked}
         >
           REQUEST FOR RESERVATION
         </button>

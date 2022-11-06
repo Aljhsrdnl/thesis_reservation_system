@@ -1,20 +1,17 @@
-import React, { useEffect } from 'react';
-import moment from 'moment';
-import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from "react";
+import moment from "moment";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import {
-    listReservations,
-    deleteReservations,
-  } from '../redux/actions/reserveAction';
-  
-  
-  
-  function ReservationScreen(props) {
-  const reservationList = useSelector((state) => state.reservationList);
-  
-  const { loading, reservations, error } = reservationList;
-  console.log(reservationList)
+  listReservations,
+  deleteReservations,
+} from "../redux/actions/reserveAction";
 
+function ReservationScreen(props) {
+  const reservationList = useSelector((state) => state.reservationList);
+
+  const { loading, reservations, error } = reservationList;
+  console.log(reservationList);
 
   const reservationDelete = useSelector((state) => state.reservationDelete);
   const {
@@ -22,7 +19,6 @@ import {
     success: successDelete,
     error: errorDelete,
   } = reservationDelete;
-
 
   const dispatch = useDispatch();
 
@@ -36,18 +32,19 @@ import {
     dispatch(deleteReservations(reservation._id));
   };
 
-  
-  return loading ? <div>Loading...</div> :
+  return loading ? (
+    <div>Loading...</div>
+  ) : (
     <div className="content content-margined">
-
       <div className="reservation-header">
-        <h3 className='text-2xl font-bold text-green-800 mb-2'>Reservations</h3>
+        <h3 className="text-2xl font-bold text-primary-500 mb-2">
+          Reservations
+        </h3>
       </div>
       <div className="reservation-list">
-
         <table className="table-auto border-x border-b w-full">
-          <thead  >
-            <tr className='bg-green-600 text-white'>
+          <thead>
+            <tr className="bg-primary-500 text-white">
               <th className="py-2 text-left font-semibold">Ticket ID</th>
               <th className="py-2 text-left font-semibold">Reserver's Name</th>
               <th className="py-2 text-left font-semibold">Reserver's ID</th>
@@ -62,43 +59,72 @@ import {
             </tr>
           </thead>
           <tbody>
-           
-            {reservations.length === 0 ? <h1>No Reservations</h1> : reservations.map(reservation => (<tr key={reservation._id} className="border-y">
-             
-              {/* <td className="py-2 text-gray-800 text-sm">{reservation._id}</td>
-              <td className="py-2 text-gray-800 text-sm">{reservation.user.name}</td> */}
-              <td className="py-2 text-gray-800 text-sm">{reservation._id}</td>
-              <td className="py-2 text-gray-800 text-sm">{reservation.user.name}</td>
-              <td className="py-2 text-gray-800 text-sm">{reservation.user.identification_num}</td>
-              <td className="py-2 text-gray-800 text-sm">{reservation.itemName}</td>
-              <td className="py-2 text-gray-800 text-sm text-center">{reservation.quantity_to_borrow} pcs.</td>
-             
-              
-              <td className="py-2 text-gray-800 text-sm">{moment(`${reservation.borrowDate}`).format("MMM D[,] YYYY")}</td>
-              <td className="py-2 text-gray-800 text-sm">{moment(`${reservation.borrowDate}`).format("hh[:]mm A")}</td>
-              <td className="py-2 text-gray-800 text-sm">{moment(`${reservation.returnDate}`).format("MMM D[,] YYYY")}</td>
-              <td className="py-2 text-gray-800 text-sm">{moment(`${reservation.returnDate}`).format("hh[:]mm A")}</td>
-              {reservation.status === 'Pending' ? <td className="py-2 text-yellow-200 bg-yellow-100 text-center text-sm">{reservation.status}</td> : reservation.status === 'Approved' ?<td className="py-2 text-success-200 bg-success-100 text-center text-sm">{reservation.status}</td> : <td className="py-2 text-warning bg-warning-background text-center text-sm">{reservation.status}</td>}
-              <td className="py-2 text-white text-center">
-               
-                <button type="button" onClick={() => deleteHandler(reservation)} className="text-sm  bg-warning px-2 py-2 rounded hover:opacity-80 transition-all ease-linear">Delete</button>
-               
-              </td>
-            </tr>))}
+            {reservations.length === 0 ? (
+              <h1>No Reservations</h1>
+            ) : (
+              reservations.map((reservation) => (
+                <tr key={reservation._id} className="border-y">
+                  <td className="py-2 text-gray-800 text-sm">
+                    {reservation._id}
+                  </td>
+                  <td className="py-2 text-gray-800 text-sm">
+                    {reservation.user.name}
+                  </td>
+                  <td className="py-2 text-gray-800 text-sm">
+                    {reservation.user.identification_num}
+                  </td>
+                  <td className="py-2 text-gray-800 text-sm">
+                    {reservation.itemName}
+                  </td>
+                  <td className="py-2 text-gray-800 text-sm text-center">
+                    {reservation.quantity_to_borrow} pcs.
+                  </td>
 
+                  <td className="py-2 text-gray-800 text-sm">
+                    {moment(`${reservation.borrowDate}`).format(
+                      "MMM D[,] YYYY"
+                    )}
+                  </td>
+                  <td className="py-2 text-gray-800 text-sm">
+                    {moment(`${reservation.borrowDate}`).format("hh[:]mm A")}
+                  </td>
+                  <td className="py-2 text-gray-800 text-sm">
+                    {moment(`${reservation.returnDate}`).format(
+                      "MMM D[,] YYYY"
+                    )}
+                  </td>
+                  <td className="py-2 text-gray-800 text-sm">
+                    {moment(`${reservation.returnDate}`).format("hh[:]mm A")}
+                  </td>
+                  {reservation.status === "Pending" ? (
+                    <td className="py-2 text-yellow-200 bg-yellow-100 text-center text-sm">
+                      {reservation.status}
+                    </td>
+                  ) : reservation.status === "Approved" ? (
+                    <td className="py-2 text-success-200 bg-success-100 text-center text-sm">
+                      {reservation.status}
+                    </td>
+                  ) : (
+                    <td className="py-2 text-warning bg-warning-background text-center text-sm">
+                      {reservation.status}
+                    </td>
+                  )}
+                  <td className="py-2 text-white text-center">
+                    <button
+                      type="button"
+                      onClick={() => deleteHandler(reservation)}
+                      className="text-sm  bg-warning px-2 py-2 rounded hover:opacity-80 transition-all ease-linear"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
-
       </div>
     </div>
-
-
-
-
-
-
-
-
-
-  }
-  export default ReservationScreen;
+  );
+}
+export default ReservationScreen;

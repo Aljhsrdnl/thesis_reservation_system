@@ -142,7 +142,7 @@ const reservationController = {
           for (let key in pending_obj) {
             let requested_item_name = pending_obj[key];
             requested_item_name.sort((a, b) => {
-              if (a.user_type == "Teacher" && b.user_type == "Teacher") {
+              if (a.user_type == "Faculty" && b.user_type == "Faculty") {
                 return a.returnDate - b.returnDate;
               }
             });
@@ -152,8 +152,8 @@ const reservationController = {
             let requested_item_name = pending_obj[key];
             requested_item_name.sort((a, b) => {
               if (
-                a.user_type == "Admin" && //CHANGE THIS TO WVSU_Student
-                b.user_type == "Admin"
+                a.user_type == "Student" && //CHANGE THIS TO WVSU_Student
+                b.user_type == "Student"
               ) {
                 return a.returnDate - b.returnDate;
               }
