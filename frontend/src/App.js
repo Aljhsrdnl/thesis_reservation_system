@@ -16,7 +16,7 @@ import Header from "./components/Header";
 import Body from "./components/body/Body";
 import Backdrop from "./components/Backdrop";
 
-import NavBar from "./components/NavBar.jsx"
+import Navbar from "./components/Navbar.jsx"
 import NotFound from './components/utils/NotFound/NotFound'
 //SCREENS
 
@@ -62,7 +62,7 @@ function App() {
       <div className="App relative">
         
         <ToastContainer />
-        <NavBar/>
+        <Navbar/>
         
         <Body/>
        

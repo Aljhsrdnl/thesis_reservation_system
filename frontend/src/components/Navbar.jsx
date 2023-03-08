@@ -13,7 +13,7 @@ import usePortal from "react-cool-portal";
 // --------------------->> components
 import Ticket from "./Ticket";
 
-function NavBar() {
+function Navbar() {
   //----------->> Reservation Tooltip
   const { Portal, isShow, show, hide, toggle } = usePortal({
     defaultShow: false,
@@ -169,4 +169,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default Navbar;
